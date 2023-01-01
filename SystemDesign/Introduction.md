@@ -9,3 +9,9 @@
 
 ### KISS vs YAGNI
 * KISS is about keeping reducing unnecessary complexity whereas YAGNI is about cuting off unrequired features.
+
+## Functional Requirements
+
+It is the description of the different functionality or services offered by the application.
+
+eg. List all the items in the cart  is one of the functional requirements of the e-commerce website.

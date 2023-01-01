@@ -8,4 +8,4 @@
 * YAGNI - You Ain't Gonna Need It. This design principle says to features should be added only when required . This principle asks to take things step by step.
 
 ### KISS vs YAGNI
-* KISS is about keeping reducing unnecessary complexity wheread YAGNI is about cutoff unrequired features.
+* KISS is about keeping reducing unnecessary complexity whereas YAGNI is about cuting off unrequired features.

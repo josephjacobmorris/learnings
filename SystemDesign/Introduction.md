@@ -37,3 +37,9 @@ Determines how long the system can be maximum unavailable for customers.
 
 * ### Maintainability
 "A maintainable system must be capable of being maintained cost-effectively over its expected lifetime"
+
+## Different Types of architecture 
+
+* ### Monolithic Architecture
+
+* ### Micro-services Architecture

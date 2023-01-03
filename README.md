@@ -5,3 +5,4 @@ Topics
 * Git
 * System Design
 * Coding
+* Linux Commands & Shell scripting

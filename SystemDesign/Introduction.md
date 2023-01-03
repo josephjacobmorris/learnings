@@ -42,4 +42,6 @@ Determines how long the system can be maximum unavailable for customers.
 
 * ### Monolithic Architecture
 
+* ### N-Layered Architecture
+
 * ### Micro-services Architecture

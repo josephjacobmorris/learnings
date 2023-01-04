@@ -44,4 +44,6 @@ Determines how long the system can be maximum unavailable for customers.
 
 * ### N-Layered Architecture
 
+* ### Service Oriented Architecture (SOA)
+
 * ### Micro-services Architecture

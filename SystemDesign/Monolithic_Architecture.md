@@ -5,7 +5,7 @@
 ## Pros
 
 * Simple to develop Initally.
-* Easy to debug 
+* Easy to debug
 * Easy to deploy since  there will be only one package (war, jar,... etc)
 * Communication between modules is easy
 
@@ -22,4 +22,5 @@ Since in monolithic architecture all components are in the same server , it is v
 It is done by inter-process communication, which is provided by the OS , using method calls.
 
 ## Transaction Management
+
 It is easy to do transaction management since only one database (mostly RDBMS) is used. we can use the transaction feature from the database itself in most of the scenarios.

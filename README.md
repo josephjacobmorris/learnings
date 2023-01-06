@@ -1,8 +1,8 @@
 # Learnings
 
-Knowledge base for future references 
+Knowledge base for future references
 
-Topics 
+## Topics
 
 * Git
 * System Design

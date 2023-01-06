@@ -14,3 +14,9 @@ go get -u github.com/golang/protobuf/protoc-gen-go
 
 export PATH=$GOPATH/bin:$PATH
 ```
+
+## Generate Code from .proto file
+
+```bash
+protoc -I <input-folder> --micro_out=<output-folder> --go_out=output-folder>  <proto file name>
+```

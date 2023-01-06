@@ -43,9 +43,7 @@ Micro-services architecture is a sytle of architecture in which in single applic
 * Decompose Strategies 
 * Identify Micro-service Boundaries
 
-### Decomposition strategies
-
-#### Decomposition by Buisness Capablilities:
+### **Decomposition by Buisness Capablilities:**
 
 **Characteristics of m8s :**
 

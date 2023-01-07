@@ -53,4 +53,5 @@ Micro-services architecture is a sytle of architecture in which in single applic
 
 ## Communication
 
-* Uses http or gRPC
+* Sync or Async communication ?  
+* Uses http or gRPC or message brokers. 

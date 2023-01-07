@@ -9,3 +9,4 @@ Knowledge base for future references
 * Coding
 * Linux Commands & Shell scripting
 * Golang
+* Java

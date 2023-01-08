@@ -89,3 +89,9 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 * It doesnt break some communication
 * backward compatible and it will not break any communication
 * Best Pratice. 
+
+#### gRPC (gRPC Remote Procedure Call)
+
+* Uses HTTP/2 protocol
+* Open source
+* Binary serialization

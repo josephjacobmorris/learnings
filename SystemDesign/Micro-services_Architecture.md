@@ -112,8 +112,16 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 * Helps in Load Balancing
 * Helps in Logging, Tracing
 
+#### Cons
+
+* Singele point of failure
+
 #### Patterns
 
 * Gateway Routing Pattern
 * Gateway Aggregation Pattern
 * Gateway Offloading Pattern
+
+### BFF ( Backend for Frontends) 
+
+* Seperate API Gateways usually based on clients

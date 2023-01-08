@@ -54,4 +54,12 @@ Micro-services architecture is a sytle of architecture in which in single applic
 ## Communication
 
 * Sync or Async communication ?  
-* Uses http or gRPC or message brokers. 
+* Uses http (client - m8s) or gRPC (inter -m8s) or message brokers.
+
+|Rest API | gRPC|
+|:-------:|:----|
+|Slower | Faster|
+|uses Json|uses protobuf|
+|payloads are human readable | payloads are not human readable|
+
+### Synchronous communication

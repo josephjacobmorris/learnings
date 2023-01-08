@@ -21,3 +21,7 @@ Basically
 * it evaluates and executes command/code and allows shortcuts
 * it prints the result of evaluation/execution
 * it again waits for command/code snippet
+
+## Keywords
+ 
+ List of keywords : <https://docs.oracle.com/javase/specs/jls/se17/html/jls-3.html#jls-3.9>

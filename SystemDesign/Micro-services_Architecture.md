@@ -26,7 +26,6 @@ Micro-services architecture is a sytle of architecture in which in single applic
 * Infrastructure Automation
 * Design for Failure.
 
-
 ## Challenges
 
 * Complexity - Simple services but entire system is complex
@@ -63,3 +62,30 @@ Micro-services architecture is a sytle of architecture in which in single applic
 |payloads are human readable | payloads are not human readable|
 
 ### Synchronous communication
+
+#### REST
+
+REST (Representational Stateless Transfer)
+
+Features
+
+* Stateless
+* Cacheable
+* Code on Demand
+* Uniform Interface
+* Layered System
+
+Richardson Maturity Model
+
+* Level 0 : One URI
+* Level 1 : Create seperate URIs
+* Level 2 : Use HTTP methods
+* Level 3 : Use hypermedia
+
+#### API Versioning
+
+use v1,v2,v3 etc for REST URI so that in future when API gets changed 
+
+* It doesnt break some communication
+* backward compatible and it will not break any communication
+* Best Pratice. 

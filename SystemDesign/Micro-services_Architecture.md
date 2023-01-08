@@ -95,3 +95,25 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 * Uses HTTP/2 protocol
 * Open source
 * Binary serialization
+
+### API Handler
+
+#### Drawbacks of direct client to m8s communication
+
+* Causes problems as number of m8s increases
+* When adding new m8s all the client applications would have to be modified accordingly.
+* Increases latency and complexity on the UI side.
+
+#### Feature
+
+* Can Aggregate several m8s in one response
+* Handles routing to internal m8s
+* Helps in IAM
+* Helps in Load Balancing
+* Helps in Logging, Tracing
+
+#### Patterns
+
+* Gateway Routing Pattern
+* Gateway Aggregation Pattern
+* Gateway Offloading Pattern

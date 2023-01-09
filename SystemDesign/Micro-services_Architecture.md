@@ -150,3 +150,12 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 * Messaging btwn m8s
 * Metrics - Operational data
 * Stream Processing  
+
+
+### Scaling m8s
+
+#### The scale cube
+
+* x axis - horizontal duplication of services and data
+* y axis - scaling by functional decomposition
+* z axis - scaling by splitting similar things (only data will be different)

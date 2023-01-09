@@ -125,3 +125,8 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 ### BFF ( Backend for Frontends) 
 
 * Seperate API Gateways usually based on clients
+
+### Service Registry Pattern
+
+* Used to know the IPs and ports of internal m8s
+* k8s handles this internally.

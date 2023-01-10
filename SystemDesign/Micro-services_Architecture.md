@@ -159,3 +159,17 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 * x axis - horizontal duplication of services and data
 * y axis - scaling by functional decomposition
 * z axis - scaling by splitting similar things (only data will be different)
+
+## Data Management
+
+* Isolating each services databases
+* Avoid single point of failure for databases
+
+### Patterns
+
+* Datbase Per Service Pattern
+* API Composition Pattern (Aggregator pattern)
+* The CQRS Pattern
+* The Event Sourcing Pattern
+* The Saga Pattern
+* The shared database anti pattern

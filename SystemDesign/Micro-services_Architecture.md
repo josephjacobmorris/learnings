@@ -165,7 +165,7 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 * Isolating each services databases
 * Avoid single point of failure for databases
 
-### Patterns
+### Database Patterns
 
 * Datbase Per Service Pattern
 * API Composition Pattern (Aggregator pattern)
@@ -173,3 +173,14 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 * The Event Sourcing Pattern
 * The Saga Pattern
 * The shared database anti pattern
+
+#### Datbase Per Service Pattern
+
+* Scale idenpendantly for each database
+* Allows us for use different databases , thus allowing us to chose optimal database  for use-case.
+* No impact in case of schema changes
+
+#### The shared database anti pattern
+
+* Shared database for m8s
+* Reduces the advantages of m8s such as reducing coupling 

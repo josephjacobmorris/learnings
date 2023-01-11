@@ -184,3 +184,16 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 
 * Shared database for m8s
 * Reduces the advantages of m8s such as reducing coupling 
+
+
+### How to choose database for micro-services
+
+* Consistency level - strict consistency or eventual consistency.for strict consistency choose RDMS.
+
+* Consider CAP theorem
+
+#### Data Partioning
+
+* Horizontal Partitioning (Sharding) : Same schema
+* Vertical Partitioning (Row partitioning) : Rows are split
+* Functional Partitioning

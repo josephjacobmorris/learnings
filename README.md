@@ -10,3 +10,4 @@ Knowledge base for future references
 * Linux Commands & Shell scripting
 * Golang
 * Java
+* MongoDB

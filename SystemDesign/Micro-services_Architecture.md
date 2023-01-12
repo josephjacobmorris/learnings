@@ -197,3 +197,16 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 * Horizontal Partitioning (Sharding) : Same schema
 * Vertical Partitioning (Row partitioning) : Rows are split
 * Functional Partitioning
+
+## Queries Data Management
+
+### Materialized View Pattern
+
+* Stores local copy of Data
+* Increases resilency since it wont be impacted by the failure of other m8s
+* Increases latency by avoiding synchronous calls to other m8s
+
+#### Drawbacks
+
+* How & when denormalized data will be updated
+* Source of data is other m8s

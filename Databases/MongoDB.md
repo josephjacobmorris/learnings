@@ -97,6 +97,12 @@ db.mycol.find({
 
 Note:You cannot use both 0 and 1 in the same object. The only exception is the _id field. You should either specify the fields you would like to include or the fields you would like to exclude.
 
+#### Limit,Skip and Sort
+|Command |Usage|
+:--------------:|:--------------------------|
+|```db.COLLECTION_NAME.find().limit(NUMBER)```| Limits the number of documents displayed |
+|```db.COLLECTION_NAME.find().limit(NUMBER).skip(NUMBER)```| Skips n number of documents |
+|```db.COLLECTION_NAME.find().sort({KEY:1})```|Sorts o/p based on key and the order is 1: asc , -1 :desc|
 
 ### Update
 

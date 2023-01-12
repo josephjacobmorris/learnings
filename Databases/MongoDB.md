@@ -121,3 +121,30 @@ Note:You cannot use both 0 and 1 in the same object. The only exception is the _
 |```db.COLLECTION_NAME.remove(DELETION_CRITTERIA)```| removes documents based on criteria|
 |```db.mycol.remove({})```| Truncate equivalent|
 
+## Indexing
+
+Indexes support the efficient execution of queries in MongoDB. Without indexes, MongoDB must perform a collection scan, i.e. scan every document in a collection, to select those documents that match the query statement.
+
+### Single Field Indexes
+
+Indexes for whom the key is a single field. For a single-field index and sort operations, the sort order (i.e. ascending or descending) of the index key does not matter because MongoDB can traverse the index in either direction.
+
+### Compound Index
+
+MongoDb allows us to create indexes with mutliple fields. The order of index keys and sort order matters since in the index it will create the index in nested format.
+
+When creating a compund index consider the following:
+
+* #### ESR Rule (Equality, Sort & Range)
+
+The index keys should in the format where fields which require Equality comparisons come first, followed by sort and then range so as to improve preformance.
+
+* #### Covered Queries
+
+A covered query is a query in which all the fields returned in the query are in the same index.Since all the fields present in the query are part of an index, MongoDB matches the query conditions and returns the result using the same index without actually looking inside the documents. Since indexes are present in RAM, fetching data from indexes is much faster as compared to fetching data by scanning documents.
+
+* #### Ensure Indexes Fit in RAM
+
+```db.collection.totalIndexSize()```
+
+* #### Create Indexes to support your Queries

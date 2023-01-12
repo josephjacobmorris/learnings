@@ -4,11 +4,16 @@
 
 Mongodb is a document store database. It follows BSON format ( a type of JSON format). It supports replicasets and shardings.
 
+### BSON
+"BSON stands for “Binary JSON,” and that’s exactly what it was invented to be. BSON’s binary structure encodes type and length information, which allows it to be traversed much more quickly compared to JSON."
+
 ## Features
 
 * Schema-less
 * No complex joins required for querying
 * Conversion/mapping of application objects to database objects not needed.
+* High availability
+* AP Database according to CAP theorm
 
 ## Equivalent Terms in MongoDB by comparison with SQL
 
@@ -28,6 +33,8 @@ Mongodb is a document store database. It follows BSON format ( a type of JSON fo
 :--------------:|:-------|
 |```use <database-name>```|To switch to particular database. It creates the database if it already doesnt exist|
 |```db.dropDatabase()```|To drop the current database|
+|```show dbs```|To show all databases|
+| ```db.getName()```|To get the name of the current database|
 
 ### Collection
 
@@ -35,6 +42,8 @@ Mongodb is a document store database. It follows BSON format ( a type of JSON fo
 :--------------:|:-------|
 |```db.createCollection(“<name>”, options)```|create a collection|
 |```db.COLLECTION_NAME.drop()```| drop a collection|
+| ```show collections```| show alls collections in the current db|
+| ```db.getCollectionInfos()```| get the info about collection names and options in current db|
 
 ### Inserting data
 
@@ -78,3 +87,20 @@ db.mycol.find({
       $and: [{key1: value1}, {key2:value2}]
    }).pretty() 
 ``` 
+
+### Update
+
+|Command |Usage|
+:--------------:|:--------------------------|
+|```db.COLLECTION_NAME.update(SELECTION_CRITERIA, UPDATED_DATA)```| |
+|```db.COLLECTION_NAME.findOneAndUpdate(SELECTIOIN_CRITERIA, UPDATED_DATA)```| update + fetch one|
+|```db.COLLECTION_NAME.updateOne(<filter>, <update>)```| update one|
+|```db.COLLECTION_NAME.updateMany(<filter>, <update>)```| |
+
+
+### Delete
+
+|Command |Usage|
+:--------------:|:--------------------------|
+|```db.COLLECTION_NAME.remove(DELETION_CRITTERIA)```| removes documents based on criteria|
+|```db.mycol.remove({})```| Truncate equivalent|

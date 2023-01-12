@@ -5,6 +5,7 @@
 Mongodb is a document store database. It follows BSON format ( a type of JSON format). It supports replicasets and shardings.
 
 ### BSON
+
 "BSON stands for “Binary JSON,” and that’s exactly what it was invented to be. BSON’s binary structure encodes type and length information, which allows it to be traversed much more quickly compared to JSON."
 
 ## Features
@@ -149,8 +150,26 @@ A covered query is a query in which all the fields returned in the query are in 
 
 * #### Create Indexes to support your Queries
 
+
+### Index Intersection
+
+"MongoDB can use the intersection of multiple indexes to fulfill queries. In general, each index intersection involves two indexes; however, MongoDB can employ multiple/nested index intersections to resolve a query.
+Index intersection does not eliminate the need for creating compound indexes. However, because both the list order (i.e. the order in which the keys are listed in the index) and the sort order (i.e. ascending or descending), matter in compound indexes, a compound index may not support a query condition that does not include the index prefix keys or that specifies a different sort order." 
+
+Note: Index intersection does not apply when the sort() operation requires an index completely separate from the query predicate.
+
+
+
 ## Miscellaneous 
 
 * mongoimport
 * mongoexport
 * mongodump
+
+
+## References
+
+* <https://www.mongodb.com/docs/manual/core/index-intersection/>
+* <https://www.mongodb.com/docs/manual/tutorial/equality-sort-range-rule/#std-label-esr-indexing-rule>
+* <https://www.mongodb.com/docs/manual/core/index-compound/>
+* <https://www.mongodb.com/json-and-bson>

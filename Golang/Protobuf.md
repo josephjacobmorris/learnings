@@ -20,3 +20,7 @@ export PATH=$GOPATH/bin:$PATH
 ```bash
 protoc -I <input-folder> --micro_out=<output-folder> --go_out=output-folder>  <proto file name>
 ```
+
+## References
+
+* <https://grpc.io/docs/languages/go/quickstart/>

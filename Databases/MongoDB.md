@@ -88,6 +88,16 @@ db.mycol.find({
    }).pretty() 
 ``` 
 
+#### Projections
+
+|Command |Usage|
+:--------------:|:--------------------------|
+|```db.COLLECTION_NAME.find({},{KEY:1})```| Eq : select key from collection.Note 1: what all to include |
+|```db.COLLECTION_NAME.find({},{KEY:0})```| 0 denotes what fields to exclude|
+
+Note:You cannot use both 0 and 1 in the same object. The only exception is the _id field. You should either specify the fields you would like to include or the fields you would like to exclude.
+
+
 ### Update
 
 |Command |Usage|
@@ -104,3 +114,4 @@ db.mycol.find({
 :--------------:|:--------------------------|
 |```db.COLLECTION_NAME.remove(DELETION_CRITTERIA)```| removes documents based on criteria|
 |```db.mycol.remove({})```| Truncate equivalent|
+

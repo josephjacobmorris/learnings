@@ -176,6 +176,47 @@ Note: Index intersection does not apply when the sort() operation requires an in
 The $explain operator provides information on the query, indexes used in a query and other statistics. It is very useful when analyzing how well your indexes are optimized.
 The $hint operator forces the query optimizer to use the specified index to run a query. This is particularly useful when you want to test performance of a query with different indexes.
 
+Note : ``` db.people.getIndexes() ```  and  ``` db.orders.aggregate( [ { $indexStats: { } } ] ) ```
+
+
+### Schema Validation
+
+```
+db.createCollection("posts", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [ "title", "body" ],
+      properties: {
+        title: {
+          bsonType: "string",
+          description: "Title of post - Required."
+        },
+        body: {
+          bsonType: "string",
+          description: "Body of post - Required."
+        },
+        category: {
+          bsonType: "string",
+          description: "Category of post - Optional."
+        },
+        likes: {
+          bsonType: "int",
+          description: "Post like count. Must be an integer - Optional."
+        },
+        tags: {
+          bsonType: ["string"],
+          description: "Must be an array of strings - Optional."
+        },
+        date: {
+          bsonType: "date",
+          description: "Must be a date - Optional."
+        }
+      }
+    }
+  }
+})
+```
 
 ## Miscellaneous 
 
@@ -190,3 +231,4 @@ The $hint operator forces the query optimizer to use the specified index to run 
 * <https://www.mongodb.com/docs/manual/tutorial/equality-sort-range-rule/#std-label-esr-indexing-rule>
 * <https://www.mongodb.com/docs/manual/core/index-compound/>
 * <https://www.mongodb.com/json-and-bson>
+* <https://www.w3schools.com/mongodb/mongodb_schema_validation.php>

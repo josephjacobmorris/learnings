@@ -161,6 +161,20 @@ Index intersection does not eliminate the need for creating compound indexes. Ho
 
 Note: Index intersection does not apply when the sort() operation requires an index completely separate from the query predicate.
 
+### Indexing Limitations
+
+* Extra overhead for insert/update/delete
+* RAM usage
+* Maximum Ranges
+	i) A collection cannot have more than 64 indexes.
+	ii) The length of the index name cannot be longer than 125 characters.
+	iii) A compound index can have maximum 31 fields indexed.
+
+
+### $explain & $hint
+
+The $explain operator provides information on the query, indexes used in a query and other statistics. It is very useful when analyzing how well your indexes are optimized.
+The $hint operator forces the query optimizer to use the specified index to run a query. This is particularly useful when you want to test performance of a query with different indexes.
 
 
 ## Miscellaneous 

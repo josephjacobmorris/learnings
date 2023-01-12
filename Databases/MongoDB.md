@@ -148,3 +148,9 @@ A covered query is a query in which all the fields returned in the query are in 
 ```db.collection.totalIndexSize()```
 
 * #### Create Indexes to support your Queries
+
+## Miscellaneous 
+
+* mongoimport
+* mongoexport
+* mongodump

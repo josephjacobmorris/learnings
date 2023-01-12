@@ -146,10 +146,13 @@ A covered query is a query in which all the fields returned in the query are in 
 
 * #### Ensure Indexes Fit in RAM
 
-```db.collection.totalIndexSize()```
+```db.COLLECTION_NAME.totalIndexSize()```
 
 * #### Create Indexes to support your Queries
 
+### Multi-key Indexes
+
+Index on array fields.
 
 ### Index Intersection
 

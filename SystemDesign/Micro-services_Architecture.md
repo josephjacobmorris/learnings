@@ -235,3 +235,7 @@ In the write database , the data stored is the events . The adavantage is that e
 
 * All m8s  and clients communicate via events, these make the architecture easy to understand.
 * Decoupling
+
+## Distributed Caching
+
+* Caching usuallly done at api handler

@@ -210,3 +210,12 @@ use v1,v2,v3 etc for REST URI so that in future when API gets changed
 
 * How & when denormalized data will be updated
 * Source of data is other m8s
+
+### CQRS Design Pattern
+
+Stands for Command and Query Seggregation. Suitable for applications with complex queries as well as CRUD operations.
+Sync database can be handled by eventbus
+
+### Event Sourcing Pattern
+
+In the write database , the data stored is the events . The adavantage is that events can be replayed

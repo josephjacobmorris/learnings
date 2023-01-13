@@ -218,4 +218,14 @@ Sync database can be handled by eventbus
 
 ### Event Sourcing Pattern
 
-In the write database , the data stored is the events . The adavantage is that events can be replayed
+In the write database , the data stored is the events . The adavantage is that events can be replayed.
+
+## m8s Transcation Pattern
+
+### Saga Pattern
+
+* Choreograhy Saga Pattern
+
+* Orchestration Sage Pattern
+
+### Outbox Pattern

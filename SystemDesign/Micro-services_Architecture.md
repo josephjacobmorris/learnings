@@ -226,6 +226,12 @@ In the write database , the data stored is the events . The adavantage is that e
 
 * Choreograhy Saga Pattern
 
-* Orchestration Sage Pattern
+* Orchestration Sage Pattern - Single Point of failure .
 
 ### Outbox Pattern
+
+
+## Event Driven m8s Architecture
+
+* All m8s  and clients communicate via events, these make the architecture easy to understand.
+* Decoupling

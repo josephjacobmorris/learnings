@@ -220,7 +220,22 @@ db.createCollection("posts", {
 
 ## Miscellaneous 
 
-* mongoimport
+### mongoimport
+
+Usage: ```bash mongoimport -d databasename -c collectionname backend2.json```
+
+Note: 
+* For timestamp fields value must be written in below format:
+
+```json
+"lastModifiedDate": {
+            "$date": "2014-07-27T07:37:51Z"
+          }
+```
+
+* To check the type of the field in mongodb, use the command 
+```typeof db.collectopnName.findOne().fieldName```
+
 * mongoexport
 * mongodump
 

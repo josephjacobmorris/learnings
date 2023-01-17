@@ -23,12 +23,28 @@ Each version of spring will its supported versions of libraries. It will be hard
 
 * Again , in the dependecies section of ```pom.xml``` we will have
 
-```xml 
+```xml
 <dependency>
    <groupId>org.springframework.boot</groupId>
    <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 ```
+
 This dependency is used to build RESTful applications.
 
 Note: How the version is not specified as discussed in the previous point.
+
+* In ```src/main/java/``` we will have class with the name projectnameAppilication which is annotated with 
+
+```java
+@SpringBootApplication
+```
+
+This is the starting point for our application
+Also the above annotation is equal to the combination of 
+
+```java
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan
+```

@@ -19,7 +19,7 @@
  </parent>
 ```
 
-Each version of spring will its supported versions of libraries. It will be hard to manually find which is compatible so when we use this <em> spring-boot-starter-parent</em> as parent it will inherit the dependency management and hence we dont need to mention the version when using spring dependencies.
+Each version of spring will its supported versions of libraries. It will be hard to manually find which is compatible so when we use this <em>spring-boot-starter-parent</em> as parent it will inherit the dependency management and hence we dont need to mention the version when using spring dependencies.
 
 * Again , in the dependecies section of ```pom.xml``` we will have
 
@@ -48,3 +48,34 @@ Also the above annotation is equal to the combination of
 @EnableAutoConfiguration
 @ComponentScan
 ```
+
+## Writing a controller for mvc
+
+```java
+import com.example.spring5webapp.repositories.BookRepository;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class BookController
+{
+    private final BookRepository bookRepository;
+
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    @RequestMapping("/books")
+    public String books(Model model){
+        model.addAttribute("books", bookRepository.findAll());
+        return "books/list";
+    }
+}
+```
+
+```@Controller``` annotation will mark the class as ```@Component``` and tells the spring it is function as a controller.
+
+```@RequestMapping("/books")``` will map web request to methods
+
+In the above code ```books/list``` is the path of the html file , by default it checks in the ```resources\templates``` folder

@@ -79,3 +79,41 @@ public class BookController
 ```@RequestMapping("/books")``` will map web request to methods
 
 In the above code ```books/list``` is the path of the html file , by default it checks in the ```resources\templates``` folder
+
+## Thymeleaf
+
+For view we use Thymeleaf
+
+### Dependency
+
+```xml
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>TITLE</th>
+        <th>ISBN</th>
+    </tr>
+
+    <tr th:each="book :${books}">
+        <td th:text="${book.id}">BookId</td>
+        <td th:text="${book.title}">BookName</td>
+        <td th:text="${book.isbn}">BookISBN</td>
+    </tr>
+</table>
+</body>
+</html>
+```

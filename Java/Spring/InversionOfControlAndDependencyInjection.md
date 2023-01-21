@@ -94,6 +94,78 @@ public class ConstructorInjectedController {
 
 ```
 
+## Inversion of Control in Spring
+
+### Property based Dependency Injection using Spring
+
+```java
+@Controller
+public class PropertyInjectedController {
+    @Autowired
+    public GreetingService greetingService;
+
+    public String getGreeting() {
+        return greetingService.sayGreeting();
+    }
+}
+```
+
+```java
+@Component
+public class GreetingServiceImpl implements GreetingService {
+    @Override
+    public String sayGreeting() {
+        return "Hi Folks!";
+    }
+}
+```
+
+```@Autowired``` annonation on property tells spring to inject the qualifying bean for the property. Property based Dependency injection is not recommened especially if its a private property since spring would have to use java reflection to inject the dependency for the property which will introduce a performance overhead.
+
+### Setter based Dependency Injection using Spring
+
+```java
+@Controller
+public class PropertyInjectedController {
+
+    private GreetingService greetingService;
+
+    @Autowired
+    public void setGreetingService(GreetingService greetingService) {
+        this.greetingService = greetingService;
+    }
+
+    public String getGreeting() {
+        return greetingService.sayGreeting();
+    }
+}
+```
+
+The difference with property based injection is that ```@Autowired``` annotation is given to the setter method.
+
+### Constructor based Dependency Injection using Spring
+
+```java
+@Controller
+public class PropertyInjectedController {
+
+    private final GreetingService greetingService;
+    
+    public PropertyInjectedController(GreetingService greetingService) {
+        this.greetingService = greetingService;
+    }
+
+    public String getGreeting() {
+        return greetingService.sayGreeting();
+    }
+}
+```
+Note: How the ```@Autowired``` annonation is missing for constructed based injection.
+
+<em> But what if multiple components qualify for the same injection?</em>
+
+Then based on the 
+
 ## Reference
 
 * <https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring>

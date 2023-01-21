@@ -160,12 +160,38 @@ public class PropertyInjectedController {
     }
 }
 ```
+
 Note: How the ```@Autowired``` annonation is missing for constructed based injection.
 
 <em> But what if multiple components qualify for the same injection?</em>
+This can be handled  ```@Qualifier``` , ```@Primary``` and ```@Profile```
 
-Then based on the 
+```@Profile``` Indicates that a component is eligible for registration when one or more specified profiles are active.
+A profile is a named logical grouping that may be activated programmatically via ConfigurableEnvironment.setActiveProfiles or declaratively by setting the spring.profiles.active property as a JVM system property, as an environment variable, or as a Servlet context parameter in web.xml for web applications. Profiles may also be activated declaratively in integration tests via the @ActiveProfiles annotation.
+
+```@Primary``` - Indicates that a bean should be given preference when multiple candidates are qualified to autowire a single-valued dependency. If exactly one 'primary' bean exists among the candidates, it will be the autowired value.
+
+```@Qualifier``` - This annotation may be used on a field or parameter as a qualifier for candidate beans when autowiring. It may also be used to annotate other custom annotations that can then in turn be used as qualifiers.
+
+```java
+@Controller
+public class PropertyInjectedController {
+
+    private final GreetingService greetingService;
+
+    public PropertyInjectedController(@Qualifier("greetingServiceImpl")GreetingService greetingService) {
+        this.greetingService = greetingService;
+    }
+
+    public String getGreeting() {
+        return greetingService.sayGreeting();
+    }
+}
+```
+
+The order of precendence is ```@Profile``` > ```@Qualifier``` > ```@Primary```.
 
 ## Reference
 
 * <https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring>
+* Spring Java Docs

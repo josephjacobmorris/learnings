@@ -126,3 +126,6 @@ Configuration in Spring is done using the sterotypes ```@Component``` , ```@Cont
 
 The argument against using too many spring components is that spring uses reflection to do the component scan and java reflection is very slow. So instead we could use ```@Configuration``` classes to define the  beans using methods annonated with ```@Bean``` annotation. The method name is considered as the bean name by default.
 If the bean depends on another bean , then we need to add the dependant property as a paramter to the method. 
+
+```@Primary``` and ```@Profile```
+annotations can be applied to the method in the configuration class.

@@ -120,12 +120,30 @@ For view we use Thymeleaf
 
 ## Spring Configuration
 
+### Spring Stereotype Configuration
+
 Configuration in Spring is done using the sterotypes ```@Component``` , ```@Controller``` , ```@Respository```, ```@Service```  and ```@RestController```.
 
 ```@RestController``` is a convenience annotation for ```@Controller``` and  ```@ResponseBody```.
+
+### Using Configuration classes
 
 The argument against using too many spring components is that spring uses reflection to do the component scan and java reflection is very slow. So instead we could use ```@Configuration``` classes to define the  beans using methods annonated with ```@Bean``` annotation. The method name is considered as the bean name by default.
 If the bean depends on another bean , then we need to add the dependant property as a paramter to the method. 
 
 ```@Primary``` and ```@Profile```
 annotations can be applied to the method in the configuration class.
+
+### XML Configuration
+
+Adding configuration as xml file can be done via 
+
+```java
+@ImportResource("classpath:<xml filename>")
+@Configuration
+public class GreetingServiceConfig {
+    ...    
+}
+```
+
+and defining the xml file in the resources folder.

@@ -171,3 +171,7 @@ Only valid in the context of a web-aware Spring ApplicationContext.
 * Custom - Spring Scopes are extensible, and you can define your own scope by implementing Spring’s “Scope” interface.You cannot override the built in Singleton and Prototype Scopes.
 
 The ```@Scope``` annotation denotes the scope of the bean.
+
+## References
+
+* Spring Framework 5: Beginner to Guru

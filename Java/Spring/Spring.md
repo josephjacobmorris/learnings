@@ -147,3 +147,27 @@ public class GreetingServiceConfig {
 ```
 
 and defining the xml file in the resources folder.
+
+
+## Scope of Spring Beans
+
+* Singleton - (default) Only one instance of the bean is created in the IoC container
+
+* Prototype - A new instance is created each time the bean is requested
+
+* Request - A single instance per http request. Only valid in the context of a web-aware Spring
+ApplicationContext
+
+* Session - A single instance per http session. Only valid in the context of a web-aware Spring
+ApplicationContext.
+
+* Global Session - A single instance per global session. Typically only used in a Portlet context.
+Only valid in the context of a web-aware Spring ApplicationContext. 
+
+* Application - bean is scoped to the lifecycle of a ServletContext. Only valid in the context of a web aware application
+
+* Web Socket - Scopes a single bean definition to the lifecycle of a WebSocket. Only valid in the context of a web-aware Spring ApplicationContext
+
+* Custom - Spring Scopes are extensible, and you can define your own scope by implementing Spring’s “Scope” interface.You cannot override the built in Singleton and Prototype Scopes.
+
+The ```@Scope``` annotation denotes the scope of the bean.

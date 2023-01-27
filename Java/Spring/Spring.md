@@ -209,9 +209,9 @@ public class DataSourceConfiguration {
 }
 ```
 
-```@PropertySource``` can only be used in conjunction with  ```@Configuration```.
+```@PropertySource``` can only be used in conjunction with  ```@Configuration```. If we add the required properties to the application properties file then we dont have to use ```@PropertySource``` annotation anymore
 
-Property values can be overridden by using program arguments or using Environment variables.
+Property values can be overridden by using program arguments or using Environment variables.We can also set profile specific application properties properties by naming the file as application-\<profile> properties
 
 ## References
 

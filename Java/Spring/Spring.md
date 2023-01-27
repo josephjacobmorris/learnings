@@ -172,6 +172,45 @@ Only valid in the context of a web-aware Spring ApplicationContext.
 
 The ```@Scope``` annotation denotes the scope of the bean.
 
+## External Properties in Spring F/W
+
+### Using ```@PropertySource```
+
+```java
+public class FakeDataSource {
+    private final String username;
+
+    private final String password;
+
+    private final String jdbcUrl;
+
+    public FakeDataSource(String username, String password, String jdbcUrl) {
+        this.username = username;
+        this.password = password;
+        this.jdbcUrl = jdbcUrl;
+    }
+}
+```
+
+```java
+import com.example.datasources.FakeDataSource;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+@PropertySource("classpath:datasource.properties")
+@Configuration
+public class DataSourceConfiguration {
+    @Bean
+    FakeDataSource fakeDataSource(@Value("${ds.username}") String username, @Value("${ds.password}") String password, @Value("${ds.jdbcUrl}") String jdbcUrl) {
+        return new FakeDataSource(username, password, jdbcUrl);
+    }
+}
+```
+
+```@PropertySource``` can only be used in conjunction with  ```@Configuration```.
+
 ## References
 
 * Spring Framework 5: Beginner to Guru

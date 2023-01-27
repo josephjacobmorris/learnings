@@ -211,6 +211,8 @@ public class DataSourceConfiguration {
 
 ```@PropertySource``` can only be used in conjunction with  ```@Configuration```.
 
+Property values can be overridden by using program arguments or using Environment variables.
+
 ## References
 
 * Spring Framework 5: Beginner to Guru

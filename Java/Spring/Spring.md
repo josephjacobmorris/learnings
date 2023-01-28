@@ -211,7 +211,12 @@ public class DataSourceConfiguration {
 
 ```@PropertySource``` can only be used in conjunction with  ```@Configuration```. If we add the required properties to the application properties file then we dont have to use ```@PropertySource``` annotation anymore
 
-Property values can be overridden by using program arguments or using Environment variables.We can also set profile specific application properties properties by naming the file as application-\<profile> properties
+Property values can be overridden by using program arguments or using Environment variables.We can also set profile specific application properties properties by naming the file as application-\<profile> properties. 
+
+
+```@ConfigurationProperties``` annotation will search for the properties in the properties file and when the name matches the variable name then it will be automatically bound.
+
+We also have a option to do constructor binding using the ```@ConstructorBinding``` annotation in the constructor of the bean class and in the Configuration class use ```@EnableConfigurationProperties``` annotation
 
 ## References
 

@@ -136,7 +136,67 @@ The mapped column for the primary key of the entity is assumed to be the primary
 Provides for the specification of generation strategies for the values of primary keys.
 The GeneratedValue annotation may be applied to a primary key property or field of an entity or mapped superclass in conjunction with the Id annotation. The use of the GeneratedValue annotation is only required to be supported for simple primary keys.
 
+## Types of Relationship
+
+* ### One-to-one relationship
+
+* ### One-to-Many relationship
+
+* ### Many-to-one relationship
+
+The inverse relationship of one-to-many relationship and makes the relationship bi-directional.
+
+* ### Many-to-many relationship
+
+
+## Birectional Relationship vs Unidirectional Relationship
+
+### Birectional Relationship
+
+both sides of the relationship know each other.
+
+### Unidirectional Relationship
+
+only one side of the relationship knows the other side.
+
+## Owning Side
+The side of the relationship which holds the foreign key in the database.
+
+* One to one is the side where foreign key is specified
+
+* One to many and many to one is the many side.
+
+## Fetch Type
+
+* Lazy 
+
+* Eager
+
+## JPA Cascade Type
+
+### Persist
+
+### Merge
+
+### Refresh
+
+### Remove
+
+### DETACH
+
+### ALL
+
+All of the above gets applied.
+
+### By default none is applied
+
+
+## Scratch Pad
+
+Can use <https://start.jhipster.tech/jdl-studio/> for data modeling
+
 ## References
+
 * <https://stackoverflow.com/questions/63414381/what-is-entity-in-spring-jpa>
 * <https://www.tutorialspoint.com/hibernate/hibernate_overview.htm>
 * Java Documentation

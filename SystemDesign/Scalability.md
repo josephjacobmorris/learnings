@@ -16,3 +16,12 @@ It gives scalability as well as resiliency. It is the preferred way for micro-se
 ### Load Balancer
 
 Load Balancer is the software which handles distributing the traffic (incoming requests) across the sever cluster. It usually balances the traffic using consistent hashing algorithms. Nginx is one the most popular load balancer in the industry. Load Bqlancers should be fault tolerant and improves the availability. Consistent Hashing Algorithms accounts for machine failures and is easy to reduce/increase the instances , making it the most preferred load balancing algorithm.
+
+#### Consistent Hashing Algorithm
+
+Normal Hashing Algorithms distribute data evenly but when the number of server changes (as in when server goes down or a new server is added) almost all data needs to be redistributed. In consistent Hashing Algorithm we consider a circular queue and the server are hashed and stored randomly. Then the keys (data) is also hashed and it is stored in
+server whih comes next to the key in the clock-wise direction and hence in case the number of servers change only a fraction of data needs to be redistributed. Since the servers are randomly distributed across the circular queue data might not be evenly distributed across them. So to make the distribution more even we add in virtual nodes.
+
+## References
+
+* <https://www.youtube.com/watch?v=UF9Iqmg94tk&ab_channel=ByteByteGo>

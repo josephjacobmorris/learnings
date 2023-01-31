@@ -191,6 +191,11 @@ All of the above gets applied.
 ### By default none is applied
 
 
+## Storing enums
+
+To store use the  ```@Enumerated(EnumType.STRING)``` annotation. There are two types ORDINAL - persisted as an interger but if order of existings enum values changes then the data is corrupted. STRING - the value is stored as a string.
+
+
 ## Scratch Pad
 
 Can use <https://start.jhipster.tech/jdl-studio/> for data modeling

@@ -87,6 +87,53 @@ The various methods in the Builder class return the builder instance itself so t
 * Function chaining might be hard for begineers
 * Partially initialized objects could be created if not used properly.
 
+### Simple Factory Pattern
+
+Used when based on a parameter return implementations , child classes. It will usually a static method to do so. It can also accept additional parameters which can be used to instantiate the object.
+
+#### Implementation & Design Considerations
+
+* Can be implemented by seperate class to avoid importing the implementation classes.
+
+* Can use other patterns like builder pattern inside to build the necessary object.
+
+#### Example
+
+NumberFormat.getInstance
+
+#### Code
+
+```java
+package com.example.pricipleexample.simplefactory;
+
+public class SimpleFactory {
+    public static Post createInstance(String type) {
+        return switch (type) {
+            case "travel" -> new TravelPost();
+            case "blog" -> new BlogPost();
+            default -> throw new IllegalArgumentException("Unknown type: " + type);
+        };
+    }
+}
+
+class Post {
+
+}
+
+
+class BlogPost extends Post {
+
+}
+
+class TravelPost extends Post {
+
+}
+```
+
+#### Pitfall
+
+The criteria used to determine the concrete implementation may become more complicated over time and it is a indication to use the Factory method instead.
+
 ## Structural Design Patterns
 
 ## Behavioural Design Patterns

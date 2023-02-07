@@ -218,6 +218,33 @@ Property values can be overridden by using program arguments or using Environmen
 
 We also have a option to do constructor binding using the ```@ConstructorBinding``` annotation in the constructor of the bean class and in the Configuration class use ```@EnableConfigurationProperties``` annotation
 
+## Testing in Spring
+
+There are three types of tests Unit tests, Integration tests and Functional tests (e2e tests)
+
+Code Under Test - This is the code (or application) you are
+testing
+
+Test Fixture - "A test fixture is a fixed state of a set of objects
+used as a baseline for running tests. The purpose of a test
+fixture is to ensure that there is a well known and fixed
+environment in which tests are run so that results are
+repeatable." - JUnit Doc
+
+TDD - When test cases are written first and code is written to fix them
+
+### Test Scope Dependencies
+
+spring-boot-starter-test dependencies provides
+
+* JUnit
+* Spring Boot Test
+* AssertJ
+* Hamcrest
+* Mockito
+* JSONassert
+* JSONPath
+
 ## References
 
 * Spring Framework 5: Beginner to Guru

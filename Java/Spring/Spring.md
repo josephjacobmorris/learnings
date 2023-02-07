@@ -245,6 +245,45 @@ spring-boot-starter-test dependencies provides
 * JSONassert
 * JSONPath
 
+### Spring Boot Test Annotations
+
+|Annotations| Usage|
+|:----------:|:----------:|
+|```@RunWith(SpringRunner.class)``` | When need to use spring features like autowiring , mockbean etc|
+|```@SpringBootTest``` |useful when we need to bootstrap the entire container.|
+|```@TestConfiguraiton```| used to mark test configuration class|
+| ```@MockBean``` | gives a mockito mock value for variable|
+|```@SpyBean``` ||
+|```@JsonTest```| Annotation for a JSON test that focuses only on JSON serialization.|
+|```@WebMvcTest```| Annotation that can be used for a Spring MVC test that focuses only on Spring MVC components.|
+| ```@DataJpaTest``` | provides some standard setup needed for testing the persistence layer such as configuring H2, an in-memory database,setting Hibernate, Spring Data, and the DataSource, performing an @EntityScan, and turning on SQL logging |
+|```@JdbcTest```| Similar to ```@DataJpaTest``` but does not configure the entity manager|
+|```@DataMongoTest```|Configures an embedded MongoDB for testing|
+|```@RestClientTest```||
+|```@AutoConfigureRestDocks```||
+|```@BootStrapWith```||
+|```@ContextConfiguration```||
+|```@ContextHierarchy```||
+|```@ActiveProfiles```| Sets the active profiles for testing|
+|```@TestPropertySource```| Used to configure property sources for test|
+|```@DirtiesContext```|tells the testing framework to close and recreate the context for later tests|
+|```@WebAppConfiguration```||
+|```@TestExecutionListeners```| Allows to specify listeners for test events|
+|```@Transactional``` | Used to mark a method as transactional|
+|```@BeforeTranasaction```| code to execute b4 transactional|
+|```@AfterTranasaction```| code to execute after transactional|
+|```@Commit```| a test annotation that is used to indicate that a test-managed transaction should be committed after the test method has completed|
+|```@Rollback```| |
+|```@Sql```| declarative way to initialize and populate our test schema|
+|```@SqlConfig```||
+|```@SqlGroup```||
+|```@Repeat```||
+|```@Timed```||
+|```@IfProfileValue```||
+|```@ProfileValueSourceConfiguration```||
+
 ## References
 
-* Spring Framework 5: Beginner to Guru
+* Spring Framework 5: Beginner to Guru Udemy course
+* <https://www.baeldung.com/spring-boot-testing>
+* <https://www.baeldung.com/spring-dirtiescontext>

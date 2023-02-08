@@ -26,3 +26,12 @@
 |```git log```||Shows the commit logs|
 |```git reset```||Resets the commit to the specified state|
 |```git rm```|| Remove files from the index, or from the working tree and the index|
+|```git remote```||used to manage the remote repositories |
+|```git fsck```||used to identify corrupted objects in the repository|
+|```git checkout```|| used to change branch or restore files|
+|```git stash```||used to create/manage stash |
+
+
+## References
+
+* <https://dev.to/devland/20-git-commands-that-will-make-you-a-version-control-pro-149p>

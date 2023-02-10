@@ -220,6 +220,11 @@ db.createCollection("posts", {
 
 ## Miscellaneous 
 
+### Storing document with size > 16mb
+
+We can use gridfs to store documents whose size is more than 16mb . MongoDb internally splits the documents into chunks of small size and store its. So to store it use two collections one to store chunks and and another to store information regarding the chunks.
+https://www.mongodb.com/docs/manual/core/gridfs/#gridfs
+
 ### mongoimport
 
 Usage: ```bash mongoimport -d databasename -c collectionname backend2.json```

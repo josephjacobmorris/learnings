@@ -322,6 +322,29 @@ public class ControllerExceptionHandler {
 }
 ```
 
+### Validations
+
+|Annotation | Description |
+|:----------:|:-----------|
+|```@Null```|Checks if value of variable is null|
+|```@NotNull```|Checks if value of variable is not null|
+|```@AssertTrue```|Checks if value of variable is true|
+|```@AssertFalse```|Checks if the value of the variable is false|
+|```@Min```|Variable Value(Number) is equal to or higher than the value specified|
+|```@Max```|Variable Value(Number) is equal to or less than the value specified|
+|```@Negative```| Value is negative|
+|```@Positive```| Value is positive|
+|```@NegativeOrZero```| Value is negative or zero|
+|```@PostiveOrZero```| Value is Positive or zero|
+|```@Size```| checks if the size of string or collection|
+|```@Past```| Checks if the date is in the past|
+|```@PastOrPresent```| Checks if the date is in the past or present|
+|```@FutureOrPresent```| Checks if the date is in the future or present|
+|```@Pattern```| checks against regex pattern|
+|```@NotEmpty```| Value is not null or empty|
+|```@NotBlank```| Value is not null or whitespace characters|
+|```@Email```| Value is valid email address|
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course

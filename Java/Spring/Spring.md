@@ -282,6 +282,24 @@ spring-boot-starter-test dependencies provides
 |```@IfProfileValue```||
 |```@ProfileValueSourceConfiguration```||
 
+
+## Validation
+
+### ```@ResponseStatus```,  ```@ExceptionHandler``` and   ```@ControllerAdvice```
+
+* ```@ResponseStatus```
+
+>Marks a method or exception class with the status code and reason >that should be returned.
+>The status code is applied to the HTTP response when the handler >method is invoked and overrides status information set by other >means, like ResponseEntity or "redirect:".
+
+* ```@ExceptionHandler```
+
+> Annotation for handling exceptions in specific handler classes and/or handler methods
+
+* ```@ControllerAdvice```
+
+Used to handle exceptions  in a global place for controllers so that it need not be repeated for each controller.
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course

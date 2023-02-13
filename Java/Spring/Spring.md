@@ -345,8 +345,11 @@ public class ControllerExceptionHandler {
 |```@NotBlank```| Value is not null or whitespace characters|
 |```@Email```| Value is valid email address|
 
+```@Valid``` annonation is used to validate variables and the result is stored in BindingResult which will should be the very next variable and followed by the Model if present.
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course
 * <https://www.baeldung.com/spring-boot-testing>
 * <https://www.baeldung.com/spring-dirtiescontext>
+* <https://stackoverflow.com/questions/10413886/what-is-the-use-of-bindingresult-interface-in-spring-mvc>

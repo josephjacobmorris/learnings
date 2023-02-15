@@ -347,6 +347,19 @@ public class ControllerExceptionHandler {
 
 ```@Valid``` annonation is used to validate variables and the result is stored in BindingResult which will should be the very next variable and followed by the Model if present.
 
+## Building Docker image for spring-boot application
+
+```Dockerfile
+FROM eclipse-temurin:17-jdk-focal
+
+COPY pet-clinic-webapp/target/pet-clinic-webapp-*-SNAPSHOT.jar app.jar
+#/tmp is used for tomacat
+VOLUME /tmp
+EXPOSE 8080
+RUN bash -c 'touch /app.jar'
+CMD ["java", "-jar","app.jar"]
+```
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course

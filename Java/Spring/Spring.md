@@ -360,6 +360,34 @@ RUN bash -c 'touch /app.jar'
 CMD ["java", "-jar","app.jar"]
 ```
 
+## Configuring Database with Spring Boot
+
+### Mysql Database
+
+add the following configuration to your application.prooerties file
+
+```properties
+spring.datasource.username=sfg_dev_user
+spring.datasource.password=guru
+spring.datasource.url=jdbc:mysql://localhost:3306/sfg_dev
+
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+spring.jpa.database=mysql
+spring.jpa.show-sql= true
+```
+
+and add the dependency for mysql-connector
+
+```xml
+<dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+</dependency>
+```
+
+Note: The version of the connector is fetched from the spring-boot-starter parent
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course

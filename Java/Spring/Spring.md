@@ -388,6 +388,13 @@ and add the dependency for mysql-connector
 
 Note: The version of the connector is fetched from the spring-boot-starter parent
 
+## Spring Reactive
+
+* Mono
+* Flux
+
+use block() to do the actual action
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course

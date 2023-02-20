@@ -395,9 +395,41 @@ Note: The version of the connector is fetched from the spring-boot-starter paren
 
 use block() to do the actual action
 
+### Exception Handling
+
+
+## Router Functions
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
+
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
+import static org.springframework.web.reactive.function.server.ServerResponse.ok;
+
+@Configuration
+public class MyRoutes {
+
+    @Bean
+    RouterFunction<ServerResponse> home() {
+        return route(GET("/"), request -> ok().body(fromValue("Home page")));
+    }
+
+    @Bean
+    RouterFunction<ServerResponse> about() {
+        return route(GET("/about"), request -> ok().body(fromValue("About page")));
+    }
+}
+```
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course
 * <https://www.baeldung.com/spring-boot-testing>
 * <https://www.baeldung.com/spring-dirtiescontext>
 * <https://stackoverflow.com/questions/10413886/what-is-the-use-of-bindingresult-interface-in-spring-mvc>
+* <https://zetcode.com/springboot/routerfunction/>

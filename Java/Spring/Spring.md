@@ -426,6 +426,14 @@ public class MyRoutes {
 }
 ```
 
+## Configuring H2 database
+
+```properties
+spring.h2.console.enabled=true
+
+spring.datasource.url=jdbc:h2:mem:yourDB
+```
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course

@@ -434,6 +434,10 @@ spring.h2.console.enabled=true
 spring.datasource.url=jdbc:h2:mem:yourDB
 ```
 
+## DTOs (Data Transfer Objects)
+
+POJO used to trnasfer data from server to user. The conversion between enitity and DTOs can be done manually or even using annotation processor like MapStruct.
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course

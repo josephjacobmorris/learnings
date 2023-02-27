@@ -236,6 +236,21 @@ In the write database , the data stored is the events . The adavantage is that e
 * All m8s  and clients communicate via events, these make the architecture easy to understand.
 * Decoupling
 
+### Why is Kafka so fast?
+
+The throughput of Kafka is very high meaning it can handle a large number of files at a time.
+The reason for this is due to two major design decisions. 
+
+Kafka uses
+* Sequential I/O instead of random access . In modern hardware using sequential over random access provides
+a speed of 100MB/s instead of 100KB/s.
+* Zero Copy Principle 
+
+![zero_copy_principle.webp](zero_copy_principle.webp)
 ## Distributed Caching
 
 * Caching usuallly done at api handler
+
+## References
+
+* <https://blog.bytebytego.com/p/why-is-kafka-fast>

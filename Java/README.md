@@ -12,6 +12,10 @@ sudo apt install -y openjdk-17-jdk
 java -version #confirm installation
 ```
 
+## To see compiler instructions corresponding to code
+
+* <https://godbolt.org/>
+
 ## JShell
 
 It became part of JDK as of java 9. It is what is known as REPL (Read Evalaute Print Loop) interactive program.

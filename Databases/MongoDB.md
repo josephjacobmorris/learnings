@@ -244,6 +244,67 @@ Note:
 * mongoexport
 * mongodump
 
+## MongoDB Database Visualization
+
+### MongoCharts
+
+### Grafana
+
+### Chartbrew
+
+1. create a user with only read access in mongodb to a particular database
+
+```mongodb
+db.createUser(
+  {
+    user: "chartbrewUser",
+    pwd: "brew123",
+    roles: [{ role: "read", db: "metadatastore" }]
+  }
+)
+
+```
+2. The chartbrew can be configured as below using docker-compose
+
+```yaml
+  datastore:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb_data:/data/db
+    restart: always
+  mysql:
+      image: mysql
+      # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+      # (this is just an example, not intended to be a production configuration)
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      ports:
+        - "3009:3006"
+      environment:
+        MYSQL_ROOT_PASSWORD: Opensds#123
+        MYSQL_DATABASE: charts
+
+  charts:
+    image: razvanilin/chartbrew:v2
+    restart: always
+    environment:
+      #this string will be used to encrypt passwords and tokens
+      CB_SECRET: dummy
+      CB_DB_NAME: charts
+      CB_DB_USERNAME: root
+      CB_DB_PASSWORD: Opensds#123
+      CB_DB_HOST: mysql
+      CB_DB_PORT: 3306
+      CB_API_HOST : 0.0.0.0
+
+    ports:
+      - "4018:4018"
+      - "4019:4019"
+```
+
+
 
 ## References
 

@@ -21,6 +21,10 @@ Swagger specification can be written in YAML or JSON.
     content = @Content) })
 ```
 
+## Miscellaneous
+
+* <https://editor.swagger.io/> - helps in the case when api spec is being build as code is not written yet and it also gives an option to download a project template based on the apis
+
 ## References
 
 * <https://www.baeldung.com/spring-rest-openapi-documentation>

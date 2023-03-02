@@ -264,6 +264,7 @@ db.createUser(
 )
 
 ```
+
 2. The chartbrew can be configured as below using docker-compose
 
 ```yaml

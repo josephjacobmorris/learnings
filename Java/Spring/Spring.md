@@ -500,6 +500,20 @@ import java.util.List;
 
 ```
 
+## Content Negotiation in Spring
+
+Spring provides content negotiation support via the header ```Accept:application/json``` in the REST request or the parameter ```?format=json```.
+
+
+To support xml format add the dependency
+
+```xml	
+<dependency>
+    <groupId>com.fasterxml.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-xml</artifactId>
+</dependency>
+```
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course
@@ -507,3 +521,5 @@ import java.util.List;
 * <https://www.baeldung.com/spring-dirtiescontext>
 * <https://stackoverflow.com/questions/10413886/what-is-the-use-of-bindingresult-interface-in-spring-mvc>
 * <https://zetcode.com/springboot/routerfunction/>
+* <https://www.springcloud.io/post/2022-01/content-negotiation-manager/#gsc.tab=0>
+* <https://www.baeldung.com/spring-mvc-content-negotiation-json-xml>

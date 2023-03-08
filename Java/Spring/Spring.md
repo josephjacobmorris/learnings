@@ -514,6 +514,20 @@ To support xml format add the dependency
 </dependency>
 ```
 
+## Spring MVC Rest docs
+
+Spring provides a way to generate rest documentation from tests of controllers via spring-rest-docs.
+
+```xml
+<dependency>
+    <groupId>org.springframework.restdocs</groupId>
+    <artifactId>spring-restdocs-mockmvc</artifactId>
+    <version>2.0.4.RELEASE</version>
+</dependency>
+```
+
+In the JUnit 5 test class annotate it with ```@ExtendWith({RestDocumentationExtension.class})``` ...
+
 ## References
 
 * Spring Framework 5: Beginner to Guru Udemy course
@@ -523,3 +537,4 @@ To support xml format add the dependency
 * <https://zetcode.com/springboot/routerfunction/>
 * <https://www.springcloud.io/post/2022-01/content-negotiation-manager/#gsc.tab=0>
 * <https://www.baeldung.com/spring-mvc-content-negotiation-json-xml>
+* <https://www.baeldung.com/spring-rest-docs>

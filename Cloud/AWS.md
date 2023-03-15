@@ -30,3 +30,5 @@ each region will have 3 to 6 availability zones connected by high speed n/w.
 * Rekognition (SaaS)
 
 ## References
+
+* <https://aws.amazon.com/about-aws/global-infrastructure/>

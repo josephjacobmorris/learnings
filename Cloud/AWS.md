@@ -13,7 +13,7 @@ Region is chosen based on different factors such as
 
 each region will have 3 to 6 availability zones connected by high speed n/w.
 
-## Services
+## Types of Services
 
 ### Global Services
 
@@ -28,6 +28,12 @@ each region will have 3 to 6 availability zones connected by high speed n/w.
 * Lambda (FaaS)
 * Elastic Beanstalk (PaaS)
 * Rekognition (SaaS)
+
+## Services
+
+### IAM
+
+This aws service is used for authentication. Users and Groups can be created. Groups are similar to roles in `SQL`. Users w/o group also can be created. Users can also belong to multiple groups.
 
 ## References
 

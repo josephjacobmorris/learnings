@@ -6,6 +6,9 @@ In an array of integers find the indices of two elements such that their sum is 
 
 ## Constraints
 
+* Assume only one solution
+* Can't use the same number twice
+
 Solution
 
 ```java

@@ -1,7 +1,7 @@
 # API Standards
 
 ## Rules to follow when creating API for effective and safety
-![](/home/joseph/Pictures/Screenshot from 2023-03-31 10-35-27.png)
+![API Standards](/home/joseph/Projects/learnings/SystemDesign/API_Standards.png)
 ### Notes
 * Use resource names (avoid verbs use nouns)
 * Use plurals for resource names

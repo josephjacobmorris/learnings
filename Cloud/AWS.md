@@ -34,6 +34,10 @@ each region will have 3 to 6 availability zones connected by high speed n/w.
 ### IAM
 
 This aws service is used for authentication. Users and Groups can be created. Groups are similar to roles in `SQL`. Users w/o group also can be created. Users can also belong to multiple groups.
+IAM Security Tools
+* IAM Credentials Report (account-level)
+* IAM Access Advisor (user-level)
+
 
 ## References
 

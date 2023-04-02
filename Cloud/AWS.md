@@ -60,10 +60,23 @@ won't change
 >5 denotes generation (Hardware updates etc) <br>
 >2xlarge all resources are 2x the normal<br>
 
-| Name                        | Uses                                                                                     | Examples  |
-|-----------------------------|------------------------------------------------------------------------------------------|-----------|
-| General Purpose    Instances| Balance between compute,memory ,Networking . Ideal for web servers and code repositories | t3,t2 etc |
-| Compute Optimized Instances |  |  |
+| Name                         | Uses                                                                                                                                                                                                                | Examples        |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| General Purpose    Instances | Balance between compute,memory ,Networking . Ideal for web servers and code repositories                                                                                                                            | t3,t2 etc       |
+| Compute Optimized Instances  | High performance processors suitable for batch processing workloads, Media transcoding, High performance web servers, High performance computing, Scientific modelling & Machine learning, Dedicated gaming servers | c6g,c6gn,C5 etc |
+| Memory Optimized Instances   | High performance relation/non-relational databases, Distributed cache stores, In-memory databases optimized for business intelligence  , Apps for processing big unstructured data                                  | R6g,R5 etc      |
+| Storage Optimized Instances  | OLTP, Relational /  non-relational databases, DFS, cache for in-memory databases, Data warehousing applications                                                                                                     | I3,I3en etc     |
+
+
+#### EC2 Purchasing Options
+| Type                      | Description                                                                                                                                                                                              |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| On-Demand                 | Pay as we use, predictable pricing                                                                                                                                                                       |
+| Reserved                  | with 1 or 3 years reserved (Instance type, region, tenancy, os ), very cheap compared to on-demand(based on payment upfrontness and longer reservation period)                                           |
+| Savings Plan              | with 1 or 3 years committed amount of usage beyond that will be charged based on on-demand price. Instance family and region cannot be changed                                                           |
+| Spot Instances            | short workloads, cheap can lose instances and hence not reliable , most cost effective in aws                                                                                                            |
+| Dedicated Host Instances  | book a physical server ... etc. No-one else will use the same machine . used for compliance purposes or to use license which are based on per-socket, per-core , pe-VM software licenses. Most expensive |
+| EC2 Capacity Reservations | On Demand Price                                                                                                                                                                                          |                                                                                                                                                                                                       |
 
 #### Security Groups
 These govern inbound and outbound traffic, if your request gets timed out then 100% it is due to
@@ -72,3 +85,5 @@ misconfiguration of the security groups.
 ## References
 
 * <https://aws.amazon.com/about-aws/global-infrastructure/>
+* <https://aws.amazon.com/ec2/instance-types/>
+* <https://instances.vantage.sh/>

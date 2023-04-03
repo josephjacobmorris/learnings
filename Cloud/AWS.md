@@ -35,8 +35,10 @@ All aws service are governed by shared responsibility model. AWS ensures the sec
 It is the user's responsibility to configure things correctly.
 
 ### IAM (Identity Access Management)
+
 This aws service is used for authentication. Users and Groups can be created. Groups are similar to roles in `SQL`. Users w/o group also can be created. Users can also belong to multiple groups.
 IAM Security Tools
+
 * IAM Credentials Report (account-level)
 * IAM Access Advisor (user-level)
 
@@ -54,6 +56,7 @@ Only instances in the running state incur costs.
 won't change
 
 #### EC2 Instance Types
+
 > INFO: <br>
 >Naming Convention : m5.2xlarge<br>
 >m denotes instance class <br>
@@ -79,6 +82,7 @@ won't change
 | EC2 Capacity Reservations | On Demand Price                                                                                                                                                                                          |                                                                                                                                                                                                       |
 
 #### Security Groups
+
 These govern inbound and outbound traffic, if your request gets timed out then 100% it is due to
 misconfiguration of the security groups.
 

@@ -83,8 +83,23 @@ won't change
 
 #### Security Groups
 
-These govern inbound and outbound traffic, if your request gets timed out then 100% it is due to
+These govern inbound and outbound traffic, if your request gets timed out then 100% it is due toSimilar to Amaz
 misconfiguration of the security groups.
+
+#### EC2 Instance storage
+
+|Type| Description|Remarks|
+|-----|-----------|-------| 
+|EBS (Elastic Block Storage) | n/w storage attached per EC2 instance | AZ dependant, can use EBS snapshot to transfer/copy between AZs|
+|EFS (Elastic File System) | can be shared between mutliple EC2 instances|costlier|
+|EBS instance store | Where drive and machine is connected | data is lost once instance is deleted|
+|EFS-IA| Price is 92% less compared to EFS | optimized for Infrequent access and hence cost is reduced|
+|FSx for Windows |Network f/s for windows servers ||
+|FSx for Lusture (Linux + Cluster) |High performance Linux Ec2 instances||
+
+AMI - Amazon Machine Image (eg Amazon Linux), can be customized, bought from Amazon Marketplace.
+
+EC2 Image Builder is a aws service which automatically test, build, and distribute AMIs.
 
 ## References
 

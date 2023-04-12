@@ -89,17 +89,43 @@ misconfiguration of the security groups.
 #### EC2 Instance storage
 
 |Type| Description|Remarks|
-|-----|-----------|-------| 
+|-----|-----------|-----| 
 |EBS (Elastic Block Storage) | n/w storage attached per EC2 instance | AZ dependant, can use EBS snapshot to transfer/copy between AZs|
 |EFS (Elastic File System) | can be shared between mutliple EC2 instances|costlier|
 |EBS instance store | Where drive and machine is connected | data is lost once instance is deleted|
 |EFS-IA| Price is 92% less compared to EFS | optimized for Infrequent access and hence cost is reduced|
-|FSx for Windows |Network f/s for windows servers ||
-|FSx for Lusture (Linux + Cluster) |High performance Linux Ec2 instances||
+|FSx for Windows |Network f/s for windows servers |    |     
+|FSx for Lusture (Linux + Cluster) |High performance Linux Ec2 instances|    |
 
 AMI - Amazon Machine Image (eg Amazon Linux), can be customized, bought from Amazon Marketplace.
 
 EC2 Image Builder is a aws service which automatically test, build, and distribute AMIs.
+
+### Elastic Load Balancing (ELB)
+
+ELB is a managed load balancer meaning aws takes of upgrades, maintenance etc.
+There are kinds of ELBs provided by AWS EC2 namely Application Load Balancer (ALB - Layer 7), Network Load Balancer (NLB  - Layer 4), 
+and Gateway load balancer (GLB - Layer 3).
+
+#### Auto Scaling Groups
+A instance group which changes the instances number to match the load.
+Different strategies
+* Manual Scaling 
+* Dynamic Scaling 
+    * Simple /Step Scaling
+    * Target Tracking Scaling
+    * Scheduled Scaling
+* Predictive Scaling
+
+
+### AWS S3 Service
+AWS S3 Service can be used for object versioning.
+
+#### S3 Security
+
+* User Based
+    * IAM Policy based
+* Resource Based
 
 ## References
 

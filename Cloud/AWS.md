@@ -183,6 +183,9 @@ Transfer data physically rather than over the network.
        * 1EB = 1000PB
 * Edge Computing
 
+### AWS Storage Gateway
+Integrate on-premises storage with Amazon AWS Storage
+
 ## References
 
 * <https://aws.amazon.com/about-aws/global-infrastructure/>

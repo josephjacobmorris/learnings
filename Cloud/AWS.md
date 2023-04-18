@@ -164,7 +164,24 @@ Will only replicate objects after the replication rule is created. Can create ob
 * Amazon S3 Intelligent Tiering
   * Small monthly monitoring and auto-tiering fee
   * There are no retrieval charges in S3 intelligent tiering
-  * Retrieval - 
+
+### AWS Snow Family
+Transfer data physically rather than over the network.
+
+* Data Migration
+    * Snowball edge
+        * Pay per data transfer job
+        * Both block and s3-compatible object storage
+    * Snowcone
+       * Lightweight
+       * Device used for edge computing,storage and data transfer
+       * For space constrained environments
+       * We have to provide the power and cables
+       * Data transfer can be offline or online using AWS DataSync
+    * Snowmobile
+       * Truck
+       * 1EB = 1000PB
+* Edge Computing
 
 ## References
 

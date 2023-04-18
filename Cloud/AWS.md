@@ -127,6 +127,45 @@ AWS S3 Service can be used for object versioning.
     * IAM Policy based
 * Resource Based
 
+#### S3 Replication
+Will only replicate objects after the replication rule is created. Can create objects between same region as well as different region.
+
+#### S3 Storage Class
+
+* Amazon S3 Standard - General Purpose
+    * Big Data Analytics,mobile & gaming Applications ,content distribution etc.
+    * 99.99% availability
+    * can support 2 concurrent facility failures
+    * Used for frequently accessed objects/data
+* Amazon S3 Standard-Infrequent Access
+  * Low cost than S3 Standard
+  * 99.9% availability
+  * Used for Disaster Recovery,backups
+* Amazon S3 One Zone-Infrequent Access
+    * 99.999999999% durability in a Availability Zone and is lost in-case the AZ is destroyed
+    * 99.95% availability
+    * Used to store secondary copies of backups and as well as data which can be easily re-created
+* Amazon S3 One Glacier-Instant Retrieval
+    * Low cost backup/archive solution
+    * Pricing : price for storage + price for retrieval
+    * Milli-seconds retrieval
+    * Minimum storage duration is 90 days
+* Amazon S3 Glacier-Flexible Retrieval
+  * Low cost backup/archive solution
+  * Pricing : price for storage + price for retrieval
+  * Used to be called Amazon S3 Glacier
+  * Retrieval - Expedited (1to 5 minutes), Standard (3-5 hours), Bulk (5-12 hours) - free
+  * Minimum storage duration is 90 days
+* Amazon S3 Glacier-Deep Archive
+  * Low cost backup/archive solution
+  * Pricing : price for storage + price for retrieval
+  * Retrieval - Standard (12 hours), Bulk (48 hours) 
+  * Minimum storage duration is 180 days
+* Amazon S3 Intelligent Tiering
+  * Small monthly monitoring and auto-tiering fee
+  * There are no retrieval charges in S3 intelligent tiering
+  * Retrieval - 
+
 ## References
 
 * <https://aws.amazon.com/about-aws/global-infrastructure/>

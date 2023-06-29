@@ -52,7 +52,10 @@ The Contract of the above apis is part of flow api in jdk as of jdk 9.
 
 ## Reactor
 
-
+## Non blocking api in spring
+In spring webflux there are two ways to create non blocking apis,
+* with annontated controllers
+* with router functions (functional endpoints)
 
 ## Reference
 * https://www.baeldung.com/reactor-core

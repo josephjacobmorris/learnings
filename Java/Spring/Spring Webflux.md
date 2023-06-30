@@ -57,5 +57,61 @@ In spring webflux there are two ways to create non blocking apis,
 * with annontated controllers
 * with router functions (functional endpoints)
 
+## Testing in Spring webflux
+
+### Approach 1
+```java
+    @Test
+    void approach1() {
+
+        webTestClient.
+                get()
+                .uri("/endpoint")
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBodyList(String.class)
+                .hasSize(3);
+    }
+```
+
+### Approach 2
+```java
+    @Test
+    void approach2() {
+
+        var fluxOp = webTestClient.
+                get()
+                .uri("/endpoint")
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .returnResult(String.class)
+                .getResponseBody();
+
+        StepVerifier.create(fluxOp)
+                .expectNext("1","2","3")
+                .verifyComplete();
+    }
+
+```
+### Approach 3
+```java
+    @Test
+    void approach3() {
+        webTestClient.
+                get()
+                .uri("/endpoint")
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBodyList(String.class)
+                .consumeWith(list -> {
+                    var responseBody = list.getResponseBody();
+                    assert (Objects.requireNonNull(responseBody).size() == 3);
+                });
+    }
+```
+
 ## Reference
 * https://www.baeldung.com/reactor-core

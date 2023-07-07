@@ -120,6 +120,28 @@ In spring webflux there are two ways to create non blocking apis,
 
 ### EventLoopGroups
 
+## Functionsl Web (Router-Handler) Approach
+In this style of writing rest endpoints there will be two components :
+
+* Router - which will ahve the equivalent to the `@xxxMapping` annotations
+* Handler - which will have the equivalent of the method body for `@xxxMapping` annotations
+
+### Nest Function
+
+```java
+ublic RouterFunction<ServerResponse> bookRoutes(BookHandler handler) {
+        return nest(path("/books"),
+                route(GET("/"), handler::getAllBooks)
+                        .andRoute(POST("/"), handler::createBook)
+                        .nest(path("/{id}"),
+                                route(GET("/"), handler::getBookById)
+                                        .andRoute(PUT("/"), handler::updateBook)
+                                        .andRoute(DELETE("/"), handler::deleteBook)
+                        )
+        );
+    }
+```
+
 ## Reference
 * https://www.baeldung.com/reactor-core
 * https://www.baeldung.com/netty

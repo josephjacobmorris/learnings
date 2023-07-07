@@ -112,6 +112,14 @@ In spring webflux there are two ways to create non blocking apis,
                 });
     }
 ```
+## How Netty works in a non-blocking fashion ?
+
+### Channels
+
+### EventLoops
+
+### EventLoopGroups
 
 ## Reference
 * https://www.baeldung.com/reactor-core
+* https://www.baeldung.com/netty

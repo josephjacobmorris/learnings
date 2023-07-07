@@ -346,7 +346,7 @@ public class ControllerExceptionHandler {
 |```@Email```| Value is valid email address|
 
 ```@Valid``` annonation is used to validate variables and the result is stored in BindingResult which will should be the very next variable and followed by the Model if present.
-
+> Note : In case of collection use validation like List<@NotNull String> to validate elements inside 
 ## Building Docker image for spring-boot application
 
 ```Dockerfile

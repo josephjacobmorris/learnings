@@ -120,7 +120,7 @@ In spring webflux there are two ways to create non blocking apis,
 
 ### EventLoopGroups
 
-## Functionsl Web (Router-Handler) Approach
+## Functions Web (Router-Handler) Approach
 In this style of writing rest endpoints there will be two components :
 
 * Router - which will ahve the equivalent to the `@xxxMapping` annotations
@@ -140,6 +140,25 @@ ublic RouterFunction<ServerResponse> bookRoutes(BookHandler handler) {
                         )
         );
     }
+```
+
+### Validatation
+* Add the necessary validation annontations in the DTO
+* autowire the validator bean 
+```java
+@Autowired
+// add the validation 
+private Validator validator;
+```
+* validate using the `validator` like below (object is the object to be validate)
+```java
+var errors = validator.validate(object);
+        if (errors.isEmpty()) {
+            return object;
+        } else {
+            String errorDetails = errors.stream().map(er -> er.getMessage()).collect(Collectors.joining(", "));
+            throw new ObjectValidationException(errorDetails);
+        }
 ```
 
 ## Reference

@@ -186,6 +186,98 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
 }
 ```
 
+### Retry in Webclient
+Spring WebFlux's WebClient provides several retry mechanisms to handle transient failures when making HTTP requests. Let's explore three common retry mechanisms: fixed delay, exponential backoff, and retry with custom retry conditions.
+
+#### Fixed Delay Retry:
+This mechanism retries the request after a fixed delay if the previous attempt fails. Here's an example:
+```java
+import org.springframework.http.HttpStatus;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.retry.Retry;
+import reactor.retry.RetryBackoffSpec;
+
+WebClient webClient = WebClient.builder().baseUrl("https://api.example.com").build();
+
+WebClient.RequestHeadersUriSpec<?> request = webClient.get().uri("/endpoint");
+
+Retry retry = Retry.fixedDelay(3, Duration.ofSeconds(2))
+                .filter(throwable -> throwable instanceof IOException);
+
+String response = request.retrieve()
+                         .retryWhen(retry)
+                         .bodyToMono(String.class)
+                         .block();
+```
+
+#### Exponential Backoff Retry:
+This mechanism increases the delay between retries exponentially. Here's an example:
+```java
+import org.springframework.http.HttpStatus;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.retry.Retry;
+import reactor.retry.RetryBackoffSpec;
+
+WebClient webClient = WebClient.builder().baseUrl("https://api.example.com").build();
+
+WebClient.RequestHeadersUriSpec<?> request = webClient.get().uri("/endpoint");
+
+RetryBackoffSpec backoffSpec = Retry.backoff(3, Duration.ofSeconds(2))
+                                   .maxBackoff(Duration.ofSeconds(10));
+
+String response = request.retrieve()
+                         .retryWhen(backoffSpec)
+                         .bodyToMono(String.class)
+                         .block();
+```
+#### Retry with Custom Retry Conditions:
+This mechanism allows you to define custom retry conditions based on the response or throwable. Here's an example:
+```java
+import org.springframework.http.HttpStatus;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.retry.Retry;
+import reactor.retry.RetryPredicate;
+
+WebClient webClient = WebClient.builder().baseUrl("https://api.example.com").build();
+
+WebClient.RequestHeadersUriSpec<?> request = webClient.get().uri("/endpoint");
+
+Retry retry = Retry.anyOf(IOException.class, TimeoutException.class)
+                .retryMax(3)
+                .doOnRetry(context -> System.out.println("Retrying..."));
+
+String response = request.retrieve()
+                         .retryWhen(retry)
+                         .bodyToMono(String.class)
+                         .block();
+
+
+```
+#### Retry with Circuit Breaker:
+This mechanism combines retries with circuit-breaking functionality. It stops retrying if a certain number of consecutive failures occur. Here's an example:
+```java
+import org.springframework.http.HttpStatus;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.retry.Retry;
+import reactor.retry.RetryContext;
+import reactor.retry.RetryPredicate;
+
+WebClient webClient = WebClient.builder().baseUrl("https://api.example.com").build();
+
+WebClient.RequestHeadersUriSpec<?> request = webClient.get().uri("/endpoint");
+
+Retry retry = Retry.anyOf(CustomRetryException.class)
+                .retryMax(3)
+                .withCircuitBreaker(2, Duration.ofSeconds(10))
+                .doOnRetry(context -> System.out.println("Retrying..."));
+
+String response = request.retrieve()
+                         .retryWhen(retry)
+                         .bodyToMono(String.class)
+                         .block();
+
+```
+
 ## WireMock
 Wiremock is used to mock interaction between mutliple m8s via HTTP request in testcases
 

@@ -321,6 +321,58 @@ public class WireMockAnnotationExample {
 
 ```
 
+## Server Side Events (SSE)
+Server-Sent Events (SSE) is a standard for streaming real-time updates from the server to the client over HTTP. It is a unidirectional communication protocol where the server sends a continuous stream of events to the client. SSE is particularly useful for applications that require server-initiated updates, such as real-time data feeds, live notifications, chat applications, and progress updates.
+
+In Spring WebFlux, SSE is supported out of the box using the `MediaType.TEXT_EVENT_STREAM_VALUE` media type and the `Flux` data type. The server continuously pushes events as a stream of text, and the client receives these events as they are emitted.
+
+Here are some sample use cases where SSE can be beneficial:
+
+1. Real-Time Data Feeds: SSE is well-suited for streaming real-time data feeds, such as stock prices, sports scores, weather updates, or social media activity. The server can publish updates as events, and clients can subscribe to receive the updates in real time.
+
+2. Live Notifications: SSE can be used to push live notifications to clients, such as new email notifications, social media updates, or system alerts. Clients can stay connected to the SSE endpoint, and the server can send notifications as events whenever new information becomes available.
+
+3. Chat Applications: SSE can facilitate real-time messaging in chat applications. As users send messages, the server can push those messages to the intended recipients using SSE, enabling instant message delivery without the need for frequent client polling.
+
+4. Progress Updates: SSE can be used to provide progress updates for long-running tasks, such as file uploads, data processing, or system backups. The server can send periodic progress updates to the client, allowing users to track the progress in real time.
+
+5. Event Broadcasting: SSE can be utilized for broadcasting events to multiple clients. For example, a live event streaming platform can use SSE to distribute live video streams or event announcements to a large number of connected clients.
+
+The simplicity and ease of use of SSE make it a powerful tool for building real-time applications. With Spring WebFlux, you can easily implement SSE endpoints and leverage its reactive capabilities to handle high concurrency and scalability requirements.
+
+Note: SSE is a unidirectional communication protocol where the server sends updates to the client. If bidirectional communication is required, other technologies such as WebSockets may be more appropriate.
+
+```java
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Sinks;
+
+@RestController
+@RequestMapping("/sse")
+public class SSEController {
+
+    private final Sinks.Many<String> sink;
+
+    public SSEController() {
+        this.sink = Sinks.many().unicast().onBackpressureBuffer();
+    }
+
+    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> streamEvents() {
+        return sink.asFlux();
+    }
+
+    public void sendEvent(String event) {
+        sink.tryEmitNext(event);
+    }
+}
+
+```
+
 ## Reference
 * https://www.baeldung.com/reactor-core
 * https://www.baeldung.com/netty
+* Chatgpt

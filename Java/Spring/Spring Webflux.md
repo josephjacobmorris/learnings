@@ -186,6 +186,49 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
 }
 ```
 
+## WireMock
+Wiremock is used to mock interaction between mutliple m8s via HTTP request in testcases
+
+```java
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+
+@ExtendWith(SpringExtension.class)
+@WireMockTest(httpPort = 8080)
+public class WireMockAnnotationExample {
+
+    @Test
+    public void exampleTest() {
+        // Configure WireMock to stub a GET request
+        stubFor(get(urlEqualTo("/api/example"))
+                .willReturn(aResponse()
+                        .withStatus(HttpStatus.OK.value())
+                        .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                        .withBody("{\"message\": \"Hello, WireMock!\"}")));
+
+        // Make an HTTP request to the stubbed endpoint
+        String response = WebClient.create("http://localhost:8080")
+                .get()
+                .uri("/api/example")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        // Print the response
+        System.out.println("Response: " + response);
+    }
+}
+
+```
+
 ## Reference
 * https://www.baeldung.com/reactor-core
 * https://www.baeldung.com/netty

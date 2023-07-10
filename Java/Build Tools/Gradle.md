@@ -300,6 +300,18 @@ Here's a detailed explanation of repositories in the `build.gradle` file with ex
    In this example, an Ivy repository and two Maven repositories with custom configurations are defined.
 
 By configuring repositories in your `build.gradle` file, you ensure that Gradle knows where to look for the dependencies your project requires. This allows the build system to automatically fetch and resolve dependencies from the specified repositories, making them available for use in your project.
+
+## Gradle build Phases
+
+1. Initialization: In this phase, Gradle evaluates the build script and sets up the project's configuration. It applies plugins, defines tasks, and establishes the build environment.
+
+2. Configuration: During this phase, Gradle configures the project and its tasks based on the defined settings, plugins, and dependencies. It determines task properties and relationships without executing the tasks.
+
+3. Execution: The execution phase is where the actual tasks are executed. Gradle determines the task order based on dependencies and executes them accordingly. Tasks perform specific actions such as compiling code or running tests.
+
+4. Finalization: In the finalization phase, Gradle performs cleanup activities, releases resources, and carries out post-processing tasks before completing the build.
+
+Understanding these phases helps you grasp the sequence of events in a Gradle build, from initialization and configuration to task execution and finalization.
 These are some of the main components in a `build.gradle` file. They allow you to define and configure the build process, manage dependencies, and customize the build according to your project's requirements.
 ## References
 * Chatgpt

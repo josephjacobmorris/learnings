@@ -433,6 +433,56 @@ In this concise example, we define a `Person` class with properties `name` and `
 
 Using classes and objects in Groovy provides a way to structure and work with data in an object-oriented manner, while automatic generation of setters and getters simplifies property access and modification.
 
+## Understand Build.gradle
+The `build.gradle` is used to create a `Project` object in gradle with methods `repositories`, `dependencies` , `application` etc which accept closures.
+The `plugins` is a block of code.
+
+### project properties
+Project properties are variables that can be defined and used within your build script. They allow you to configure and customize your build based on specific values.
+
+| Property Name | Default Value | Description                                               |
+|---------------|---------------|-----------------------------------------------------------|
+| `project.name`| Project name  | The name of the project. It can be customized as needed.   |
+| `project.version` | Unspecified | The version of the project. Typically follows semantic versioning. |
+| `project.group` | Unspecified  | The group or organization to which the project belongs.   |
+| `project.description` | Unspecified | A brief description of the project.                     |
+| `project.buildDir` | `${rootProject.buildDir}` | The directory where build outputs, such as compiled classes and generated artifacts, are stored. |
+| `project.sourceCompatibility` | Java version of Gradle | The source compatibility version for the project's source code. By default, it uses the Java version configured in Gradle. |
+| `project.targetCompatibility` | Java version of Gradle | The target compatibility version for the project's compiled code. By default, it uses the Java version configured in Gradle. |
+| `project.repositories` | Unspecified | The repositories used for dependency resolution in the project. By default, it uses the repositories configured in Gradle. |
+| `project.dependencies` | Unspecified | The dependencies required by the project. By default, it uses the dependencies configured in Gradle. |
+| `project.tasks` | Unspecified | The tasks defined for the project. By default, it uses the tasks defined in Gradle. |
+
+These are just a few examples of project properties commonly used in Gradle build scripts. You can define and customize additional properties based on your project's specific requirements. Project properties provide flexibility and configurability, allowing you to tailor your build process and dependencies to suit your needs.
+
+### Custom Project Properties
+In Gradle, you can create and retrieve custom project properties by defining them in your build script or in a separate properties file. Here's a short example to demonstrate how to create and retrieve custom project properties:
+
+1. Defining Custom Project Properties:
+   In your build.gradle file, you can define custom properties using the `ext` (extension) block. Here's an example:
+
+```groovy
+ext {
+    customProperty = "Custom Value"
+    customVersion = "1.0.0"
+}
+```
+
+In this example, we define two custom project properties: `customProperty` and `customVersion`. You can assign any value to these properties as per your requirements.
+
+2. Retrieving Custom Project Properties:
+   To retrieve the custom project properties, you can simply refer to them by name within your build script. Here's an example:
+
+```groovy
+task printCustomProperties {
+    doLast {
+        println "Custom Property: ${customProperty}"
+        println "Custom Version: ${customVersion}"
+    }
+}
+```
+
+In this example, we define a custom task `printCustomProperties` that prints the values of the custom project properties. When you execute this task, it will retrieve and display the values assigned to `customProperty` and `customVersion`.
 
 ## References
 * Chatgpt

@@ -313,5 +313,126 @@ By configuring repositories in your `build.gradle` file, you ensure that Gradle 
 
 Understanding these phases helps you grasp the sequence of events in a Gradle build, from initialization and configuration to task execution and finalization.
 These are some of the main components in a `build.gradle` file. They allow you to define and configure the build process, manage dependencies, and customize the build according to your project's requirements.
+
+## Groovy QuickStart
+
+### DataTypes
+Groovy uses java wrapper classes as datatypes
+```groovy
+a='string'
+groovyString="some value ${a}"
+multiLineString = """
+m
+u
+l
+"""
+def c = 3.14F
+println a
+println a.class
+println groovyString
+```
+
+### Closures
+Closures are similar to java lambdas 
+```groovy
+def closure = { name ->
+    println "Hello, ${name}!"
+}
+
+closure("John") // Output: Hello, John!
+
+```
+
+closures with it 
+```groovy
+//in groovy it can be used as shorthand for a single parameter
+def names = ["Alice", "Bob", "Charlie", "Dave"]
+
+def result = names.findAll {
+    it.length() > 4
+}
+
+println result
+
+```
+
+### Collection Types
+
+* #### List
+```groovy
+list = [1,3,4]
+```
+
+* #### Set
+```groovy
+set = [1,2,2,3] as set
+```
+
+* #### Map
+```groovy
+def map = [name: "John", age: 30]
+println map // Output: [name:John, age:30]
+
+println map.size() // Output: 2
+println map.get("name") // Output: John
+println map.name // Output: John
+println map["name"] // Output: John
+
+map.put("country", "USA")
+println map // Output: [name:John, age:30, country:USA]
+
+map.remove("age")
+println map // Output: [name:John, country:USA]
+```
+
+### Methods
+In groovy last line in a method is treated as return statement by default.
+
+Method calls does'nt require enclosing parameters in ()
+
+Datatypes for input parameters and return type is optional
+
+```groovy
+def greet(name) {
+    return "Hello, ${name}!"
+}
+
+println greet("John") // Output: Hello, John!
+```
+#### Times
+the times method is a convenient way to execute a block of code a specified number of times. It is available on any numeric value (e.g., integers) and takes a closure as an argument. Here's an example:
+```groovy
+3.times {
+    println "Hello, World!"
+}
+
+```
+### Classes and Objects
+In Groovy a default constructor and a constructor which accepts a map is created by default on creating the class.
+`object.property=1` is actually calling the setter in groovy
+
+In Groovy, classes define the structure of objects using the `class` keyword. Objects are instances of those classes, created with the `new` keyword. Groovy automatically generates setters and getters for class properties, allowing easy access and modification of property values. Here's an example:
+
+```groovy
+class Person {
+    String name
+    int age
+
+    void sayHello() {
+        println "Hello, my name is ${name} and I am ${age} years old."
+    }
+}
+
+def person = new Person(name: "John", age: 30)
+println person.name // Output: John
+println person.age // Output: 30
+person.sayHello()
+```
+
+In this concise example, we define a `Person` class with properties `name` and `age`. We create an object `person` with the property values set directly. We access the property values using direct property access. The `sayHello()` method is invoked on the object to print a greeting.
+
+Using classes and objects in Groovy provides a way to structure and work with data in an object-oriented manner, while automatic generation of setters and getters simplifies property access and modification.
+
+
 ## References
 * Chatgpt

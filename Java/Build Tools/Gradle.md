@@ -591,6 +591,75 @@ In this example, we define a custom task `printCustomProperties` that prints the
 properties. When you execute this task, it will retrieve and display the values assigned to `customProperty`
 and `customVersion`.
 
+### Tasks
+In Gradle, tasks are a fundamental building block of the build process. They represent units of work that need to be performed during the build and can include activities such as compiling code, running tests, packaging artifacts, deploying, and more. Tasks are organized within the Project Object Model (POM) of Gradle.
+
+The Project Object Model (POM) is a hierarchical structure that represents the project and its dependencies. It consists of projects, configurations, tasks, and other elements. Tasks are associated with specific projects and can have dependencies on other tasks or be dependent on them. Tasks are defined and configured using the Groovy or Kotlin DSL (Domain-Specific Language) in the build script.
+
+Here are some common task methods in Gradle along with short code examples:
+
+1. `doFirst` and `doLast`: These methods allow you to specify actions to be executed before or after the task's main action.
+```groovy
+task myTask {
+    doFirst {
+        println "Executing first action"
+    }
+  
+    doLast {
+        println "Executing last action"
+    }
+}
+```
+
+2. `dependsOn`: This method allows you to define dependencies between tasks. It ensures that the specified tasks are executed before the current task.
+```groovy
+task taskA {
+    doLast {
+        println "Executing Task A"
+    }
+}
+
+task taskB {
+    doLast {
+        println "Executing Task B"
+    }
+}
+
+task taskC {
+    dependsOn taskA, taskB
+    doLast {
+        println "Executing Task C"
+    }
+}
+```
+
+3. `onlyIf`: This method allows you to conditionally execute a task based on a given condition.
+```groovy
+task myTask {
+    def shouldExecute = true
+
+    onlyIf {
+        shouldExecute
+    }
+  
+    doLast {
+        println "Executing My Task"
+    }
+}
+```
+
+4. `inputs` and `outputs`: These methods define the inputs and outputs of a task. Gradle uses these to determine if a task is up-to-date and needs to be executed.
+```groovy
+task myTask {
+    inputs.file 'input.txt'
+    outputs.file 'output.txt'
+  
+    doLast {
+        println "Executing My Task"
+    }
+}
+```
+
 ## References
 
 * Chatgpt

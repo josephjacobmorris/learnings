@@ -39,10 +39,11 @@ consistent and reproducible build environment across different machines.
 
 ## Gradle Commands
 
-| Command        | Description                     |
-|:---------------|---------------------------------|
-| `gradle init`  | Create new gradle project       |
-| `gradle tasks` | List all available gradle tasks |
+| Command                 | Description                                  |
+|:------------------------|----------------------------------------------|
+| `gradle init`           | Create new gradle project                    |
+| `gradle tasks`          | List all available gradle tasks              |
+| `gradle :module1:build` | Execute build task for only specified module |
 
 ## Different Components of build.grdle
 
@@ -592,26 +593,36 @@ properties. When you execute this task, it will retrieve and display the values 
 and `customVersion`.
 
 ### Tasks
-In Gradle, tasks are a fundamental building block of the build process. They represent units of work that need to be performed during the build and can include activities such as compiling code, running tests, packaging artifacts, deploying, and more. Tasks are organized within the Project Object Model (POM) of Gradle.
 
-The Project Object Model (POM) is a hierarchical structure that represents the project and its dependencies. It consists of projects, configurations, tasks, and other elements. Tasks are associated with specific projects and can have dependencies on other tasks or be dependent on them. Tasks are defined and configured using the Groovy or Kotlin DSL (Domain-Specific Language) in the build script.
+In Gradle, tasks are a fundamental building block of the build process. They represent units of work that need to be
+performed during the build and can include activities such as compiling code, running tests, packaging artifacts,
+deploying, and more. Tasks are organized within the Project Object Model (POM) of Gradle.
+
+The Project Object Model (POM) is a hierarchical structure that represents the project and its dependencies. It consists
+of projects, configurations, tasks, and other elements. Tasks are associated with specific projects and can have
+dependencies on other tasks or be dependent on them. Tasks are defined and configured using the Groovy or Kotlin DSL (
+Domain-Specific Language) in the build script.
 
 Here are some common task methods in Gradle along with short code examples:
 
-1. `doFirst` and `doLast`: These methods allow you to specify actions to be executed before or after the task's main action.
+1. `doFirst` and `doLast`: These methods allow you to specify actions to be executed before or after the task's main
+   action.
+
 ```groovy
 task myTask {
     doFirst {
         println "Executing first action"
     }
-  
+
     doLast {
         println "Executing last action"
     }
 }
 ```
 
-2. `dependsOn`: This method allows you to define dependencies between tasks. It ensures that the specified tasks are executed before the current task.
+2. `dependsOn`: This method allows you to define dependencies between tasks. It ensures that the specified tasks are
+   executed before the current task.
+
 ```groovy
 task taskA {
     doLast {
@@ -634,6 +645,7 @@ task taskC {
 ```
 
 3. `onlyIf`: This method allows you to conditionally execute a task based on a given condition.
+
 ```groovy
 task myTask {
     def shouldExecute = true
@@ -641,21 +653,364 @@ task myTask {
     onlyIf {
         shouldExecute
     }
-  
+
     doLast {
         println "Executing My Task"
     }
 }
 ```
 
-4. `inputs` and `outputs`: These methods define the inputs and outputs of a task. Gradle uses these to determine if a task is up-to-date and needs to be executed.
+4. `inputs` and `outputs`: These methods define the inputs and outputs of a task. Gradle uses these to determine if a
+   task is up-to-date and needs to be executed.
+
 ```groovy
 task myTask {
     inputs.file 'input.txt'
     outputs.file 'output.txt'
-  
+
     doLast {
         println "Executing My Task"
+    }
+}
+```
+
+## Multi-Module Project
+
+### allprojects, subprojects and project
+
+In Gradle, `allprojects`, `subprojects`, and `project(...)` are configuration blocks that allow you to apply
+configurations to specific subsets of your project hierarchy. They can be used in the root `build.gradle` or in
+individual module build files to define configurations that apply to multiple projects or all projects within a
+multi-module project.
+
+#### 1. **`allprojects`:**
+
+The `allprojects` block is used to apply configurations to all projects within your multi-module project, including the
+root project and all its subprojects. This is useful when you want to set up common configurations, plugins, or
+repositories that should be shared across all modules.
+
+Example in `build.gradle`:
+
+```groovy
+allprojects {
+    // Common configurations for all projects
+    repositories {
+        jcenter()
+    }
+}
+```
+
+In this example, all projects (including the root project and all subprojects) will use the JCenter repository for
+dependency resolution.
+
+#### 2. **`subprojects`:**
+
+The `subprojects` block is similar to `allprojects`, but it applies only to the subprojects (child modules) of the
+current project. This block is particularly useful when you want to apply a configuration to all subprojects but not the
+root project itself.
+
+Example in `build.gradle`:
+
+```groovy
+subprojects {
+    // Common configurations for all subprojects
+    apply plugin: 'java'
+}
+```
+
+In this example, all subprojects will have the Java plugin applied, which allows them to be built as Java projects.
+
+#### 3. **`project(...)`:**
+
+The `project(...)` block allows you to apply configurations to a specific project or set of projects within your
+multi-module project. It provides more flexibility in targeting individual projects.
+
+Example in `build.gradle`:
+
+```groovy
+project(':module1', ':module2') {
+    // Configurations specific to module1 and module2
+    dependencies {
+        implementation 'com.example:some-library:1.0'
+    }
+}
+```
+
+In this example, the `dependencies` configuration is applied only to `module1` and `module2`. This means that these two
+modules will have the specified library dependency, while other modules won't be affected.
+
+Using these configuration blocks, you can easily manage and customize your multi-module project in a more organized and
+modular way. They help avoid code duplication and make it simpler to maintain the project as it grows in complexity.
+
+### dependsOn, finalizedBy etc
+
+In Gradle, `dependsOn` and `finalizedBy` are two task-related features that help you define task dependencies and task finalization actions, respectively.
+
+**1. dependsOn:**
+
+`dependsOn` is used to define task dependencies, which means that a task will run only after the tasks it depends on have completed successfully. This allows you to establish a task execution order and ensure that certain tasks are executed before others.
+
+**Example:**
+
+Let's say we have two custom tasks, `taskA` and `taskB`, and we want `taskB` to run only after `taskA` has completed:
+
+```groovy
+// build.gradle
+
+task taskA {
+    doLast {
+        println "Executing taskA..."
+    }
+}
+
+task taskB(dependsOn: taskA) {
+    doLast {
+        println "Executing taskB..."
+    }
+}
+```
+
+In this example, when you run `gradle taskB`, it will first execute `taskA` and then proceed to execute `taskB`.
+
+**2. finalizedBy:**
+
+`finalizedBy` is used to specify that a task should always run after another task, regardless of the outcome of the first task. This is commonly used to ensure cleanup or finalization tasks are always executed, even if the main task fails.
+
+**Example:**
+
+Let's consider a scenario where we have a `cleanup` task that should always run after the main `build` task, regardless of whether the `build` task succeeded or failed:
+
+```groovy
+// build.gradle
+
+task build {
+    doLast {
+        println "Executing build..."
+        // Simulate build failure for demonstration purposes
+        throw new GradleException("Build failed!")
+    }
+}
+
+task cleanup {
+    doLast {
+        println "Executing cleanup..."
+    }
+}
+
+build.finalizedBy(cleanup)
+```
+
+In this example, when you run `gradle build`, the `build` task will throw an exception, but the `cleanup` task will still run afterward.
+
+**Other Similar Features:**
+
+Apart from `dependsOn` and `finalizedBy`, Gradle provides a few more features related to task ordering and execution:
+
+1. **Must Run After / Should Run After:**
+   These two methods allow you to specify ordering constraints between tasks without making the relationship implicit through task dependencies.
+
+   ```groovy
+   task taskA {
+       doLast {
+           println "Executing taskA..."
+       }
+   }
+
+   task taskB {
+       doLast {
+           println "Executing taskB..."
+       }
+   }
+
+   taskA.mustRunAfter taskB
+   // OR
+   taskB.shouldRunAfter taskA
+   ```
+
+   Unlike `dependsOn`, these methods don't establish a direct task dependency but rather provide guidance to Gradle about the desired execution order.
+
+2. **Finalizer Tasks:**
+   In addition to using `finalizedBy`, you can also define finalizer tasks for specific tasks. Finalizer tasks run only when the task they are associated with has completed, regardless of the outcome (success or failure).
+
+   ```groovy
+   task build {
+       doLast {
+           println "Executing build..."
+       }
+   }
+
+   task buildFinalizer {
+       doLast {
+           println "Build finalization task..."
+       }
+   }
+
+   build.finalizedBy(buildFinalizer)
+   ```
+
+   Here, `buildFinalizer` will always run after the `build` task finishes, regardless of its success or failure.
+
+These task-related features in Gradle provide powerful ways to manage task dependencies, task finalization, and task execution order, making your build scripts more efficient and organized.
+
+## Unit Testing coverage etc
+**Test Coverage with Gradle:**
+
+Test coverage is a metric that measures how much of your code is covered by automated tests. Gradle provides several plugins that can generate test coverage reports for your projects. One popular plugin for test coverage is the "JaCoCo" plugin.
+
+**Example:**
+
+1. First, apply the JaCoCo plugin in your `build.gradle`:
+
+```groovy
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.7" // Set the version of JaCoCo plugin
+}
+
+test {
+    // Optionally configure test task
+}
+```
+
+2. After applying the JaCoCo plugin, you can run the tests and generate the coverage report by running:
+
+```bash
+gradle test jacocoTestReport
+```
+
+The `jacocoTestReport` task generates an HTML report in the `build/reports/jacoco/test/html` directory. Open the `index.html` file in your browser to view the coverage report.
+
+**SonarQube Integration with Gradle:**
+
+SonarQube is a popular code quality analysis tool that provides insights into code quality, security vulnerabilities, and test coverage. To integrate SonarQube with your Gradle project, you need to use the "SonarScanner for Gradle" plugin.
+
+**Example:**
+
+1. First, apply the SonarQube plugin in your `build.gradle`:
+
+```groovy
+plugins {
+    id 'java'
+    id 'org.sonarqube' version '3.3'
+}
+
+sonarqube {
+    properties {
+        property 'sonar.projectName', 'My Project'
+        property 'sonar.projectKey', 'my-project'
+        property 'sonar.host.url', 'http://localhost:9000' // Replace with your SonarQube server URL
+    }
+}
+```
+
+2. Make sure you have SonarQube server running. Adjust the `sonar.host.url` property to point to your SonarQube server.
+
+3. Run the following command to analyze your project and send the results to SonarQube:
+
+```bash
+gradle sonarqube
+```
+
+This will analyze your project, and the results will be available on your SonarQube server's dashboard.
+
+**Other Code Quality Plugins:**
+
+Apart from test coverage and SonarQube integration, Gradle supports many other plugins to improve code quality. Here are a few examples:
+
+1. **Checkstyle:**
+   The Checkstyle plugin allows you to check your code against a set of coding standards and rules.
+
+   ```groovy
+   plugins {
+       id 'java'
+       id 'checkstyle'
+   }
+
+   checkstyle {
+       toolVersion = '8.42' // Set the version of Checkstyle plugin
+   }
+   ```
+
+   Run `gradle check` to perform a Checkstyle analysis.
+
+2. **FindBugs:**
+   The FindBugs plugin identifies potential bugs and issues in your code.
+
+   ```groovy
+   plugins {
+       id 'java'
+       id 'findbugs'
+   }
+
+   findbugs {
+       toolVersion = '3.0.1' // Set the version of FindBugs plugin
+   }
+   ```
+
+   Run `gradle findBugsMain` to perform FindBugs analysis on the main source code.
+
+3. **PMD:**
+   The PMD plugin finds common programming flaws in your code.
+
+   ```groovy
+   plugins {
+       id 'java'
+       id 'pmd'
+   }
+   ```
+
+   Run `gradle pmdMain` to perform PMD analysis on the main source code.
+
+These are just a few examples of the code quality-related plugins available in Gradle. You can explore and use other plugins based on your specific project needs to ensure your code meets the desired quality standards.
+## Migration from maven to gradle
+`gradle init` does auto migration for most common cases but it will require review and small fixes in the `build.gradle`.
+
+## Create plugins
+create plugin code in `src/main/groovy`
+```groovy
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+
+class MyPlugin implements Plugin<Project> {
+    void apply(Project project) {
+        project.task('customTask') {
+            doLast {
+                println "Custom task is executed!"
+            }
+        }
+    }
+}
+```
+create the plugin descriptor
+```groovy
+// src/main/groovy/my-gradle-plugin.gradle
+
+apply plugin: MyPlugin
+```
+publish pulgin
+```groovy
+// build.gradle
+
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
     }
 }
 ```
@@ -663,3 +1018,4 @@ task myTask {
 ## References
 
 * Chatgpt
+* Udemy Course

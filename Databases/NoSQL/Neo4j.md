@@ -69,6 +69,16 @@ Key points about properties in Neo4j:
 |  `use database student`   | switches the current database to student |
 |  `drop database student`  | drops the student database               |
 
+### Node
+
+|                    Command                     | Description                                                         |
+|:----------------------------------------------:|:--------------------------------------------------------------------|
+|                  `create ()`                   | create node without label                                           |
+|              `create (:Student)`               | create node with label Student                                      |
+|           `create (:Student:Person)`           | create node with label Student, Person                              |
+|     `create (st:Student:Person) return st`     | create node with label Student, Person and returns the node         |
+| `create (st:Student){name : 'John'} return st` | create node with label Student , property name and returns the node |
+
 ## References
 
 * Chatgpt

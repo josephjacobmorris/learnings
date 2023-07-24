@@ -71,18 +71,19 @@ Key points about properties in Neo4j:
 
 ### Node
 
-|                              Command                               | Description                                                                          |
-|:------------------------------------------------------------------:|:-------------------------------------------------------------------------------------|
-|                            `create ()`                             | create node without label                                                            |
-|                        `create (:Student)`                         | create node with label Student                                                       |
-|                     `create (:Student:Person)`                     | create node with label Student, Person                                               |
-|               `create (st:Student:Person) return st`               | create node with label Student, Person and returns the node                          |
-|           `create (st:Student){name : 'John'} return st`           | create node with label Student , property name and returns the node                  |
-|                  `match(st:Student{name:'John'})`                  | returns all nodes with label student and name property = 'John`                      |
-|  `match(st:Student) where st.name='John' and st.birth_year=1990`   | returns all nodes with label student and name property = 'John` and birth_year =1990 |
-| `match(st:Student) where st.birth_year=1990 OR st.birth_year=1991` | returns all nodes with label student  and birth_year =1990  or 1991                  |
-|       `match(st:Student) where st.birth_year IN [1990,1991]`       | returns all nodes with label student  and birth_year =1990  or 1991                  |
-|                `match(st:Student) where ID(st) = 4`                | returns all nodes with label student  and ID = 4                                     |
+|                                                     Command                                                      | Description                                                                          |
+|:----------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------|
+|                                                   `create ()`                                                    | create node without label                                                            |
+|                                               `create (:Student)`                                                | create node with label Student                                                       |
+|                                            `create (:Student:Person)`                                            | create node with label Student, Person                                               |
+|                                      `create (st:Student:Person) return st`                                      | create node with label Student, Person and returns the node                          |
+|                                  `create (st:Student){name : 'John'} return st`                                  | create node with label Student , property name and returns the node                  |
+|                                         `match(st:Student{name:'John'})`                                         | returns all nodes with label student and name property = 'John`                      |
+|                         `match(st:Student) where st.name='John' and st.birth_year=1990`                          | returns all nodes with label student and name property = 'John` and birth_year =1990 |
+|                        `match(st:Student) where st.birth_year=1990 OR st.birth_year=1991`                        | returns all nodes with label student  and birth_year =1990  or 1991                  |
+|                              `match(st:Student) where st.birth_year IN [1990,1991]`                              | returns all nodes with label student  and birth_year =1990  or 1991                  |
+|                                       `match(st:Student) where ID(st) = 4`                                       | returns all nodes with label student  and ID = 4                                     |
+| `MATCH (n:OldLabel) WHERE ID(n) = 4 SET n:NewLabel SET n.property1 = 'new value 1', n.property2 = 'new value 2'` | sample query to add new label and upsert properties                                  |
 
 ## References
 

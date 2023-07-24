@@ -85,6 +85,8 @@ Key points about properties in Neo4j:
 |                                       `match(st:Student) where ID(st) = 4`                                       | returns all nodes with label student  and ID = 4                                     |
 | `MATCH (n:OldLabel) WHERE ID(n) = 4 SET n:NewLabel SET n.property1 = 'new value 1', n.property2 = 'new value 2'` | sample query to add new label and upsert properties                                  |
 |                        `MATCH (n:Student) WHERE ID(n) = 4 remove n:Student , n.property1`                        | sample query to remove  label and  properties                                        |
+|                                   `MATCH (n:Student) WHERE ID(n) = 4 delete n`                                   | sample query to delete node without relationships                                    |
+|                                  `MATCH (n) WHERE SIZE(labels(n)) = 0 delete n`                                  | sample query to delete node without relationships and labels                         |
 
 ## References
 

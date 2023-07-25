@@ -88,6 +88,13 @@ Key points about properties in Neo4j:
 |                                   `MATCH (n:Student) WHERE ID(n) = 4 delete n`                                   | sample query to delete node without relationships                                    |
 |                                  `MATCH (n) WHERE SIZE(labels(n)) = 0 delete n`                                  | sample query to delete node without relationships and labels                         |
 
+### Relationship
+
+|                                                                    Command                                                                     | Description                                                            |
+|:----------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------|
+|                    `CREATE (node1:Label1 {property1: 'value1'})-[:RELATIONSHIP_TYPE]->(node2:Label2 {property2: 'value2'})`                    | create relationship between two nodes at the time of creation of nodes |
+| <pre> MATCH (node1:Label1 {property1: 'value1'}), (node2:Label2 {property2: 'value2'}) <br> CREATE (node1)-[:RELATIONSHIP_TYPE]->(node2)</pre> | create relationship between two existing nodes                         |
+
 ## References
 
 * Chatgpt

@@ -90,10 +90,18 @@ Key points about properties in Neo4j:
 
 ### Relationship
 
-|                                                                    Command                                                                     | Description                                                            |
-|:----------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------|
-|                    `CREATE (node1:Label1 {property1: 'value1'})-[:RELATIONSHIP_TYPE]->(node2:Label2 {property2: 'value2'})`                    | create relationship between two nodes at the time of creation of nodes |
-| <pre> MATCH (node1:Label1 {property1: 'value1'}), (node2:Label2 {property2: 'value2'}) <br> CREATE (node1)-[:RELATIONSHIP_TYPE]->(node2)</pre> | create relationship between two existing nodes                         |
+|                                                                                           Command                                                                                           | Description                                                            |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------|
+|                                          `CREATE (node1:Label1 {property1: 'value1'})-[:RELATIONSHIP_TYPE]->(node2:Label2 {property2: 'value2'})`                                           | create relationship between two nodes at the time of creation of nodes |
+|                       <pre> MATCH (node1:Label1 {property1: 'value1'}), (node2:Label2 {property2: 'value2'}) <br> CREATE (node1)-[:RELATIONSHIP_TYPE]->(node2)</pre>                        | create relationship between two existing nodes                         |
+|                                        <pre> MATCH (node1:Label1)-[rel]-(node2:Label2)<br>RETURN node1, TYPE(rel) AS relationship_type, node2 </pre>                                        | find relationship between two existing nodes                           |
+| <pre> MATCH (startNode:Label1)-[r:RELATIONSHIP_TYPE]->(endNode:Label2)<br>WHERE r.property_name = 'old_value'<br> SET r.property_name = 'new_value'<br> RETURN startNode, r, endNode </pre> | update relationship property between two existing nodes                |
+|      <pre> MATCH (startNode:Label1)-[r:RELATIONSHIP_TYPE]->(endNode:Label2)<br>WHERE r.property_name = 'old_value'<br> remove r.property_name <br> RETURN startNode, r, endNode </pre>      | remove relationship property between two existing nodes                |
+|             <pre> MATCH (startNode:Label1)-[r:RELATIONSHIP_TYPE]->(endNode:Label2)<br>WHERE r.property_name = 'old_value'<br> delete r <br> RETURN startNode, r, endNode </pre>             | delete relationship  between two existing nodes                        |
+|   <pre>MATCH (startNode)-[oldRel:OLD_TYPE]->(endNode)<br>MERGE (startNode)-[newRel:NEW_TYPE]->(endNode)<br>SET newRel = oldRel <br>DELETE oldRel<br> RETURN startNode, r, endNode </pre>    | update relationship type  between two existing nodes                   |
+|                                                             <pre> MATCH (n)-[r]-(m) WHERE ID(n) = 4 DETACH DELETE n, r, m</pre>                                                             | delete a node with relationships                                       |
+|                                                                          <pre> MATCH (n)<br>DETACH DELETE n</pre>                                                                           | delete all node even those with relationships                          |
+|                                                              <pre> MATCH (n)<br>OPTIONAL MATCH (n)-[r]-()<br>DELETE n, r</pre>                                                              | delete all node even those with relationships                          |
 
 ## References
 

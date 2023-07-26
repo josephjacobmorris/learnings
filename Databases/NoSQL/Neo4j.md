@@ -103,6 +103,16 @@ Key points about properties in Neo4j:
 |                                                                          <pre> MATCH (n)<br>DETACH DELETE n</pre>                                                                           | delete all node even those with relationships                          |
 |                                                              <pre> MATCH (n)<br>OPTIONAL MATCH (n)-[r]-()<br>DELETE n, r</pre>                                                              | delete all node even those with relationships                          |
 
+### Constraint
+
+|                                         Command                                          | Description                                                                       |
+|:----------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------|
+|  <pre> CREATE CONSTRAINT cn1 ON (node:Label1) ASSERT node.property_name IS UNIQUE</pre>  | create unique constraint on node property. It will allow null values              |
+| <pre> CREATE CONSTRAINT cn2 ON (node:Label1) ASSERT node.property_name IS NODE KEY</pre> | create unique and not null constraint on node property                            |
+|  <pre> CREATE CONSTRAINT cn3  ON (node:Label1) ASSERT exists(node.property_name) </pre>  | create not null constraint on node property. It will work with relationships also |
+|                               <pre>SHOW CONSTRAINTS </pre>                               | show all constraints in database                                                  |
+|                       <pre>DROP CONSTRAINT constraint_name </pre>                        | drop constraint with given name                                                   |
+
 ## References
 
 * Chatgpt

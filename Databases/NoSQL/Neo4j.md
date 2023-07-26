@@ -113,6 +113,14 @@ Key points about properties in Neo4j:
 |                               <pre>SHOW CONSTRAINTS </pre>                               | show all constraints in database                                                  |
 |                       <pre>DROP CONSTRAINT constraint_name </pre>                        | drop constraint with given name                                                   |
 
+### String Comparisons
+
+|                                 Command                                  | Description |
+|:------------------------------------------------------------------------:|:------------|
+|  <pre> match(st:Student) where st.name ends with 'son' return st </pre>  |             |
+| <pre> match(st:Student) where st.name starts with 'son' return st </pre> |             |
+|  <pre> match(st:Student) where st.name contains 'son' return st </pre>   |             |
+
 ## References
 
 * Chatgpt

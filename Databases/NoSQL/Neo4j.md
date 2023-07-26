@@ -136,6 +136,13 @@ Key points about properties in Neo4j:
 | `MATCH (n:Label) WITH COLLECT(n.property) AS values RETURN percentileDisc(values, 0.75) AS percentile` | Calculates the 75th percentile of the specified property (`property`) for nodes with a specific label (`Label`).       |
 | `MATCH (n:Label) WITH COLLECT(n.property) AS values RETURN percentileCont(values, 0.95) AS percentile` | Calculates the 95th percentile of the specified property (`property`) for nodes with a specific label (`Label`).       |
 
+### Pagination and sorting
+
+| Neo4j Pagination & Sorting Example                 | Description                                                                                                                      |
+|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| `MATCH (n:Label) RETURN n SKIP 10 LIMIT 5`         | Performs pagination by skipping the first 10 results and returning the next 5 results for nodes with a specific label (`Label`). |
+| `MATCH (n:Label) RETURN n ORDER BY n.property ASC` | Sorts the results in ascending order based on the specified property (`property`) for nodes with a specific label (`Label`).     |
+
 ## References
 
 * Chatgpt

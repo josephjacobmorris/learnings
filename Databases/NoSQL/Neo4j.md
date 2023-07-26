@@ -121,6 +121,21 @@ Key points about properties in Neo4j:
 | <pre> match(st:Student) where st.name starts with 'son' return st </pre> |             |
 |  <pre> match(st:Student) where st.name contains 'son' return st </pre>   |             |
 
+### Aggregate Functions
+
+| Neo4j Aggregate Function Example                                                                       | Description                                                                                                            |
+|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| `MATCH (n:Label) RETURN COUNT(n) AS count`                                                             | Returns the total count of nodes with a specific label (`Label`).                                                      |
+| `MATCH (n:Label) RETURN SUM(n.property) AS total`                                                      | Calculates the sum of the specified property (`property`) for all nodes with a specific label (`Label`).               |
+| `MATCH (n:Label) RETURN AVG(n.property) AS average`                                                    | Calculates the average of the specified property (`property`) for all nodes with a specific label (`Label`).           |
+| `MATCH (n:Label) RETURN MIN(n.property) AS min`                                                        | Finds the minimum value of the specified property (`property`) among all nodes with a specific label (`Label`).        |
+| `MATCH (n:Label) RETURN MAX(n.property) AS max`                                                        | Finds the maximum value of the specified property (`property`) among all nodes with a specific label (`Label`).        |
+| `MATCH (n:Label) RETURN COLLECT(n.property) AS values`                                                 | Collects all the values of the specified property (`property`) into a list for nodes with a specific label (`Label`).  |
+| `MATCH (n:Label) RETURN COLLECT(DISTINCT n.property) AS unique_values`                                 | Collects distinct values of the specified property (`property`) into a list for nodes with a specific label (`Label`). |
+| `MATCH (n:Label) WITH COLLECT(n.property) AS values RETURN STDEV(values) AS stdev`                     | Calculates the standard deviation of the specified property (`property`) for nodes with a specific label (`Label`).    |
+| `MATCH (n:Label) WITH COLLECT(n.property) AS values RETURN percentileDisc(values, 0.75) AS percentile` | Calculates the 75th percentile of the specified property (`property`) for nodes with a specific label (`Label`).       |
+| `MATCH (n:Label) WITH COLLECT(n.property) AS values RETURN percentileCont(values, 0.95) AS percentile` | Calculates the 95th percentile of the specified property (`property`) for nodes with a specific label (`Label`).       |
+
 ## References
 
 * Chatgpt

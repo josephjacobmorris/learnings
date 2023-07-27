@@ -143,6 +143,61 @@ Key points about properties in Neo4j:
 | `MATCH (n:Label) RETURN n SKIP 10 LIMIT 5`         | Performs pagination by skipping the first 10 results and returning the next 5 results for nodes with a specific label (`Label`). |
 | `MATCH (n:Label) RETURN n ORDER BY n.property ASC` | Sorts the results in ascending order based on the specified property (`property`) for nodes with a specific label (`Label`).     |
 
+## Spring & Neo4j
+`build.gradle`
+```groovy
+// Spring Boot WebFlux and Spring Data Neo4j dependencies
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-data-neo4j'
+}
+```
+```java
+@Node
+public class Person {
+    @Id @GeneratedValue
+    private Long id;
+    private String name;
+    private int age;
+
+    @Relationship(type = "FRIEND_OF")
+    private List<Friendship> friendships = new ArrayList<>();
+
+    // Getters, setters, and other properties.
+}
+
+@Node
+public class Hobby {
+    @Id @GeneratedValue
+    private Long id;
+    private String name;
+    private String description;
+
+    // Getters, setters, and other properties.
+}
+
+@RelationshipProperties
+public class Friendship {
+    @Id @GeneratedValue
+    private Long id;
+    private LocalDate since;
+
+    // Getters, setters, and other properties.
+}
+
+```
+
+`application.yaml`
+```yaml
+spring:
+  data:
+    neo4j:
+      uri: bolt://localhost:7687
+      username: neo4j
+      password: your_password
+
+```
+
 ## References
 
 * Chatgpt

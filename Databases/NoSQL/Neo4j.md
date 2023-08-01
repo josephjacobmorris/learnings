@@ -198,6 +198,9 @@ spring:
 
 ```
 
+### See generated Queries
+> logging.level.org.springframework.data.neo4j=DEBUG
+
 ## References
 
 * Chatgpt

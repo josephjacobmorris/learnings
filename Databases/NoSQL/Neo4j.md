@@ -231,6 +231,40 @@ PageRequest pageRequest = PageRequest.of(1, 10, sortByAgeDesc); // Page number s
 Page<Person> pageOfPersons = personRepository.findAll(pageRequest);
 List<Person> personsOnPage = pageOfPersons.getContent();
 ```
+
+### Starts with, Ends With & Contains
+ Spring Data Neo4j provides method proxying and supports various keyword-based query methods that allow you to perform string matching operations such as `STARTS WITH`, `ENDS WITH`, `CONTAINS`, and more. These methods leverage Spring Data's query generation capabilities, making it more convenient to perform string matching without the need to write custom Cypher queries explicitly.
+
+Here's how you can use some of these method proxying options in Spring Data Neo4j:
+
+1. **STARTS WITH:**
+   To perform the `STARTS WITH` operation, you can use the `findBy<Property>StartsWith` method naming convention in your repository interface. For example:
+
+```java
+public interface PersonRepository extends Neo4jRepository<Person, Long> {
+    List<Person> findByNameStartsWith(String prefix);
+}
+```
+
+2. **ENDS WITH:**
+   For the `ENDS WITH` operation, you can use the `findBy<Property>EndsWith` method naming convention. For example:
+
+```java
+public interface PersonRepository extends Neo4jRepository<Person, Long> {
+    List<Person> findByNameEndsWith(String suffix);
+}
+```
+
+3. **CONTAINS:**
+   For the `CONTAINS` operation, you can use the `findBy<Property>Containing` or `findBy<Property>Like` method naming conventions. Both options will perform a substring search. For example:
+
+```java
+public interface PersonRepository extends Neo4jRepository<Person, Long> {
+    List<Person> findByNameContaining(String substring);
+    // Or
+    List<Person> findByNameLike(String substring);
+}
+```
 ## References
 
 * Chatgpt

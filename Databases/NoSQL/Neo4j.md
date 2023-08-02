@@ -201,6 +201,36 @@ spring:
 ### See generated Queries
 > logging.level.org.springframework.data.neo4j=DEBUG
 
+### Sorting & Pagination
+1. Sorting:
+
+To sort the results based on a specific property, you can use the `Sort` class. The `Sort` class allows you to specify one or more properties and their sorting direction (ascending or descending).
+
+```java
+import org.springframework.data.domain.Sort;
+
+// ...
+
+Sort sortByNameAsc = Sort.by(Sort.Direction.ASC, "name");
+Iterable<Person> sortedPersons = personRepository.findAll(sortByNameAsc);
+```
+
+2. Pagination:
+
+To perform pagination, you can use the `PageRequest` class. The `PageRequest` class allows you to specify the page number, the number of items per page (page size), and the sorting criteria.
+
+```java
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
+// ...
+
+Sort sortByAgeDesc = Sort.by(Sort.Direction.DESC, "age");
+PageRequest pageRequest = PageRequest.of(1, 10, sortByAgeDesc); // Page number starts from 0
+Page<Person> pageOfPersons = personRepository.findAll(pageRequest);
+List<Person> personsOnPage = pageOfPersons.getContent();
+```
 ## References
 
 * Chatgpt

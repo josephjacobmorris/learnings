@@ -12,6 +12,38 @@
 
 ### Streams API
 
+## CLI Commands
+**1. Create a Topic:**
+You need to create a topic before producing or consuming messages.
+
+```sh
+kafka-topics.sh --bootstrap-server localhost:9092 --topic my-topic --create --partitions 3 --replication-factor 1
+```
+
+- `--bootstrap-server`: Specifies the Kafka broker(s) to connect to.
+- `--topic`: Name of the topic to create.
+- `--create`: Indicates that you want to create a topic.
+- `--partitions`: Number of partitions for the topic.
+- `--replication-factor`: Number of replicas for each partition.
+
+**2. Produce Messages:**
+You can use the Kafka producer to send messages to a topic.
+
+```sh
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic my-topic
+```
+
+This will open an interactive shell where you can enter messages. Press `Ctrl + D` to exit.
+
+**3. Consume Messages:**
+You can use the Kafka consumer to read messages from a topic.
+
+```sh
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic my-topic --from-beginning
+```
+
+- `--from-beginning`: Start consuming messages from the beginning of the topic.
+
 ## Architecture
 
 ### Partitioner

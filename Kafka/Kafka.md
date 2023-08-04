@@ -80,7 +80,30 @@ Consumer groups in Kafka are a mechanism that enables parallel and distributed p
 8. **Complex Event Processing**: Consumer groups enable complex event processing scenarios, where different consumers perform distinct processing tasks on the same stream of data.
 
 Consumer groups are a fundamental concept in Kafka, promoting efficient and reliable distribution of data processing tasks across a distributed system while providing fault tolerance and scalability.
+
+### **Commit Log in Kafka:**
+
+A commit log in Kafka refers to the durable and sequentially ordered record of all published messages within a Kafka cluster. It serves as the backbone of data persistence and fault tolerance in Kafka's architecture. Each topic partition has its own commit log, and messages are appended to the log as they are produced. This allows for high-throughput and low-latency data storage and retrieval. Consumers use committed offsets in the commit log to keep track of their progress, ensuring reliable and accurate data consumption. The commit log structure enhances data durability, enables efficient replayability, and contributes to Kafka's robust and scalable event streaming capabilities. The commit log in Kafka is present within each topic partition on the Kafka brokers. Each partition maintains its own commit log, which is a sequentially ordered and immutable record of all messages produced to that partition. This commit log is stored on the local file system of the broker.
+
+
+### **Retention Policy in Kafka:**
+
+Retention policy in Kafka refers to the configuration that determines how long messages are retained within a topic's partition commit log. It specifies the duration or size of data that Kafka will retain before potentially discarding or deleting it. Kafka supports two primary retention policies: time-based retention and size-based retention. Time-based retention retains messages for a specified time period, while size-based retention retains a specific amount of data before older messages are discarded. Retention policies allow efficient management of storage resources, data lifecycle, and compliance requirements. By setting appropriate retention policies, users can ensure that Kafka maintains the desired balance between data availability, storage costs, and operational needs.
+#### Configuring Retention Period:
+
+The retention period in Kafka can be configured using the log.retention.ms property for time-based retention, and the log.retention.bytes property for size-based retention. These properties can be set in the Kafka broker configuration (server.properties) or for specific topics.
+
+* log.retention.ms: Specifies the maximum time in milliseconds that a message will be retained in the commit log.
+* log.retention.bytes: Specifies the maximum size in bytes that the commit log for a partition can grow before older messages are discarded.
+
+#### Default Retention Values:
+
+The default retention period values are as follows:
+
+log.retention.ms: 7 days (1 week)
+log.retention.bytes: -1 (infinite, i.e., size-based retention is not enabled by default)
+These default values can be modified according to the data retention requirements and storage capacity of the Kafka cluster. By adjusting these configuration settings, administrators can control how long data is retained in Kafka topics, managing storage utilization and data availability effectively.
 ## References
 
-* Udemy
+* Udemy 
 * Chatgpt

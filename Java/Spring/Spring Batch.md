@@ -271,5 +271,81 @@ public class SampleItemWriter implements ItemWriter<String> {
     // Implement the writer logic to write processed data (e.g., to console)
 }
 ```
+
+### Job && Step Listeners
+In Spring Batch, Job Listeners and Step Listeners are callback mechanisms that allow you to hook into and customize the behavior of batch jobs and individual steps. They provide the ability to perform actions before or after specific events in the lifecycle of a job or step. Here's an explanation of both types of listeners:
+
+**Job Listeners**:
+
+1. **Job Listener**:
+    - A Job Listener is an interface that defines callback methods to respond to events occurring during the execution of a batch job.
+    - Job Listeners can be used to perform tasks such as sending notifications, logging, setting up resources, or performing cleanup after the job completes.
+    - There are two main callback methods in a Job Listener:
+        - `beforeJob`: This method is invoked before the job begins its execution. It's often used for tasks like resource setup.
+        - `afterJob`: This method is invoked after the job has completed its execution. It's commonly used for tasks like cleanup or sending job status notifications.
+    - You can create a custom Job Listener by implementing the `JobExecutionListener` interface and overriding the callback methods.
+
+**Step Listeners**:
+
+2. **Step Listener**:
+    - A Step Listener is similar to a Job Listener, but it's specific to individual steps within a batch job.
+    - Step Listeners allow you to customize and perform actions at different stages of step execution, such as before and after reading, processing, or writing items.
+    - Key callback methods in a Step Listener include:
+        - `beforeStep`: Executed before the step begins its execution.
+        - `beforeChunk`: Invoked before each chunk of items is processed (in chunk-oriented steps).
+        - `afterChunk`: Executed after each chunk of items is processed.
+        - `afterStep`: Called after the step has completed its execution.
+    - You can create a custom Step Listener by implementing the `StepExecutionListener` interface and overriding the callback methods.
+
+**Usage**:
+
+Listeners are especially useful for implementing cross-cutting concerns like logging, error handling, or auditing. For example, you can create a Job Listener that sends an email notification when a job fails or a Step Listener that logs item processing details for debugging.
+
+Here's an example of a custom Job Listener:
+
+```java
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobExecutionListener;
+
+public class MyJobListener implements JobExecutionListener {
+
+    @Override
+    public void beforeJob(JobExecution jobExecution) {
+        // Perform tasks before the job starts
+        System.out.println("Job started: " + jobExecution.getJobInstance().getJobName());
+    }
+
+    @Override
+    public void afterJob(JobExecution jobExecution) {
+        // Perform tasks after the job completes
+        System.out.println("Job completed with status: " + jobExecution.getStatus());
+    }
+}
+```
+
+And here's an example of a custom Step Listener:
+
+```java
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.listener.StepExecutionListenerSupport;
+
+public class MyStepListener extends StepExecutionListenerSupport {
+
+    @Override
+    public void beforeStep(StepExecution stepExecution) {
+        // Perform tasks before the step starts
+        System.out.println("Step started: " + stepExecution.getStepName());
+    }
+
+    @Override
+    public void afterStep(StepExecution stepExecution) {
+        // Perform tasks after the step completes
+        System.out.println("Step completed with status: " + stepExecution.getStatus());
+    }
+}
+```
+
+By incorporating Job and Step Listeners, you can add custom behavior and monitoring to your batch jobs, making them more robust and easier to manage.
+
 ## Reference
 * Chatgpt

@@ -407,5 +407,46 @@ public class ScheduledJobStarter {
 
 By incorporating Job and Step Listeners, you can add custom behavior and monitoring to your batch jobs, making them more robust and easier to manage.
 
+> **Note:**
+> To prevent Spring Batch jobs from running on startup and to avoid the automatic creation of batch-related tables in the database, you can configure the relevant properties in your application's `application.properties` or `application.yml` file. Here's how you can achieve this:
+>
+> 1. **Preventing Jobs from Running on Startup**:
+>
+>   To prevent Spring Batch jobs from running automatically when your application starts, you can set the `spring.batch.job.enabled` property to `false`. By default, this property is set to `true`, which means that Spring Batch will attempt to run any jobs that are configured in your application context.
+>
+>  In `application.properties`:
+>
+> ```properties
+>   spring.batch.job.enabled=false
+>    ```
+>
+>   In `application.yml`:
+>
+>    ```yaml
+>    spring:
+>      batch:
+>        job:
+>          enabled: false
+>    ```
+>
+>2. **Disabling Automatic Table Creation**:
+>
+>   Spring Batch uses a `DataSourceInitializer` to automatically create the necessary batch-related tables in the database. To disable this behavior, you can set the `spring.batch.initialize-schema` property to `never`. This prevents Spring Batch from attempting to create or update the batch schema.
+>
+>   In `application.properties`:
+>
+>    ```properties
+>    spring.batch.initialize-schema=never
+>    ```
+>
+>   In `application.yml`:
+>
+>    ```yaml
+>    spring:
+>      batch:
+>        initialize-schema: never
+>    ```
+>
+>By configuring these properties as shown above, you ensure that Spring Batch jobs are not automatically executed on application startup, and no automatic batch schema creation occurs. You can then trigger batch jobs explicitly when needed and manage your database schema separately if required.
 ## Reference
 * Chatgpt

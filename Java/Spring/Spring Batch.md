@@ -272,6 +272,36 @@ public class SampleItemWriter implements ItemWriter<String> {
 }
 ```
 
+**Sample Application where job is started by rest api call**
+```java
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/batch")
+public class BatchController {
+
+    private final JobLauncher jobLauncher;
+    private final Job job;
+
+    public BatchController(JobLauncher jobLauncher, Job job) {
+        this.jobLauncher = jobLauncher;
+        this.job = job;
+    }
+
+    @PostMapping("/start")
+    public String startBatchJob() throws Exception {
+        // Launch the batch job
+        jobLauncher.run(job, new JobParametersBuilder().toJobParameters());
+        return "Batch job started!";
+    }
+}
+
+```
+
 ### Job && Step Listeners
 In Spring Batch, Job Listeners and Step Listeners are callback mechanisms that allow you to hook into and customize the behavior of batch jobs and individual steps. They provide the ability to perform actions before or after specific events in the lifecycle of a job or step. Here's an explanation of both types of listeners:
 

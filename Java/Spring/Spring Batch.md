@@ -119,6 +119,65 @@ Task Execution and Task Execution Context are concepts related to the execution 
 
 In summary, Task Execution represents the execution of a specific unit of work within a batch job, while Task Execution Context is a storage mechanism that allows you to manage and pass data within the scope of that task execution. These concepts are crucial for orchestrating complex batch processes and ensuring that data and state information are managed effectively during batch job execution.
 
+### Role of Job Parameters
+Job parameters play a crucial role in customizing and making each run of a Spring Batch job unique. They allow you to pass runtime information or configuration values to your batch job, making it flexible and adaptable to different scenarios. Here's an explanation of the role of job parameters and how to make them unique for each run:
+
+**Role of Job Parameters**:
+
+1. **Customization**: Job parameters enable you to customize the behavior of your batch job without modifying its core logic. You can adjust parameters such as input file paths, processing thresholds, date ranges, or any other values that affect how the job operates.
+
+2. **Uniqueness**: By including unique parameters for each job run, you can ensure that each execution is distinct. This is especially important for scenarios where you need to process different data sources, apply different filters, or generate unique outputs.
+
+3. **Restartability**: Job parameters are essential for making batch jobs restartable. When a job fails and needs to be restarted, the original parameters are reused to ensure the job resumes from where it left off.
+
+**How to Make Job Parameters Unique for Each Run**:
+
+To make job parameters unique for each run, follow these steps:
+
+1. **Define Job Parameters**:
+
+   In your Spring Batch job configuration, define the job parameters you need. You can use the `JobParameters` class to encapsulate these parameters. For example:
+
+    ```java
+    @Bean
+    public Job job() {
+        return jobBuilderFactory.get("myJob")
+            .incrementer(new RunIdIncrementer()) // This ensures uniqueness by adding a run id
+            .start(myStep())
+            .build();
+    }
+    ```
+
+2. **Use an Incrementer**:
+
+   To ensure uniqueness for each run, use an "incrementer." Spring Batch provides the `RunIdIncrementer`, which automatically increments the run id for each job execution, making the job parameters unique:
+
+    ```java
+    .incrementer(new RunIdIncrementer())
+    ```
+
+3. **Pass Parameters at Runtime**:
+
+   When launching the batch job, you need to pass the job parameters as command-line arguments or through a scheduler. For example, if you're using the Spring Boot command-line runner, you can pass parameters like this:
+
+    ```shell
+    java -jar my-batch-job.jar inputFilePath=/path/to/input-data.csv date=2023-08-25
+    ```
+
+4. **Access Parameters in Your Job**:
+
+   In your job configuration and job components (e.g., readers, processors, writers), you can access the job parameters using the `JobParameters` object. For example, you can inject it into your step and use it within your reader:
+
+    ```java
+    @StepScope
+    @Bean
+    public FlatFileItemReader<MyData> reader(@Value("#{jobParameters['inputFilePath']}") String inputFilePath) {
+        // Use the inputFilePath parameter to configure your reader
+        // ...
+    }
+    ```
+
+With these steps, you ensure that job parameters are unique for each run of your batch job, making it highly adaptable and restartable. Each time you launch the job with different parameters, it creates a new job instance with a unique run id, preserving the distinctiveness of each execution.
 
 ## Syntax
 **Dependencies for Spring Batch**
@@ -126,7 +185,7 @@ In summary, Task Execution represents the execution of a specific unit of work w
 implementation("org.springframework.boot:spring-boot-starter-batch")
 
 ```
-** Sample Spring Batch Configuration
+**Sample Spring Batch Configuration**
 ```java
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

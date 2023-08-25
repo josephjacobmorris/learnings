@@ -375,6 +375,36 @@ public class MyStepListener extends StepExecutionListenerSupport {
 }
 ```
 
+**Schedule based execution of Jobs**
+```java
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ScheduledJobStarter {
+
+    private final Job job;
+    private final JobLauncher jobLauncher;
+
+    @Autowired
+    public ScheduledJobStarter(Job job, JobLauncher jobLauncher) {
+        this.job = job;
+        this.jobLauncher = jobLauncher;
+    }
+
+    @Scheduled(cron = "0 0 0 * * ?") // Schedule the job to run daily at midnight
+    public void runJob() throws Exception {
+        JobParameters jobParameters = new JobParameters(); // You can pass job parameters here
+        jobLauncher.run(job, jobParameters);
+    }
+}
+
+```
+
 By incorporating Job and Step Listeners, you can add custom behavior and monitoring to your batch jobs, making them more robust and easier to manage.
 
 ## Reference

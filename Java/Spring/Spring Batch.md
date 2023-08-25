@@ -35,5 +35,122 @@ Spring Batch is a comprehensive framework for building and executing batch proce
 
 These components work together to provide a structured and scalable framework for developing and executing batch processing applications in Spring Batch. Developers can configure and customize these components to meet the specific requirements of their batch processing workflows.
 
+### Tasklet && Chunk Oriented Processing
+In Spring Batch, "tasklet" and "chunk-oriented processing" are two approaches used for implementing the processing logic within a step of a batch job. They serve different purposes and have distinct characteristics:
+
+1. **Tasklet**:
+
+    - **Purpose**: A tasklet is a simple, single-operation component that allows you to execute custom logic within a step. It is suitable for scenarios where the processing logic can be performed in a single, typically short-lived, operation.
+
+    - **Characteristics**:
+        - Tasklets are ideal for non-repeatable, one-time tasks, such as sending notifications, generating reports, or invoking external processes.
+        - They are implemented by implementing the `Tasklet` interface and overriding the `execute` method with the custom logic.
+        - Tasklets are transactional by default. Spring Batch ensures that if an exception occurs during the tasklet's execution, the entire step can be rolled back.
+        - Tasklets are suitable for tasks that do not involve reading and writing a large number of items.
+
+2. **Chunk-Oriented Processing**:
+
+    - **Purpose**: Chunk-oriented processing is a pattern used for batch jobs that involve processing large volumes of data, typically in chunks. It's designed for scenarios where data is read in chunks, processed in parallel, and then written in chunks.
+
+    - **Characteristics**:
+        - Chunk-oriented processing is well-suited for ETL (Extract, Transform, Load) scenarios and similar batch processes where data needs to be read from a source, processed in batches, and written to a destination.
+        - It involves three key components: the **reader**, the **processor**, and the **writer**. Items are read one by one or in chunks from the input source by the reader, processed (optionally) by the processor, and then written to the output by the writer.
+        - Spring Batch allows you to configure the chunk size, which defines the number of items processed together as a batch.
+        - Chunk-oriented processing is designed for high throughput and efficient use of resources. It can handle large datasets and is suitable for repeatable and restartable batch jobs.
+
+In summary, tasklets are best for small, non-repeating tasks within a step, while chunk-oriented processing is ideal for batch jobs that involve reading, processing, and writing data in chunks. The choice between them depends on the specific requirements and characteristics of the batch processing task you are implementing.
+
+## Syntax
+**Dependencies for Spring Batch**
+```kotlin
+implementation("org.springframework.boot:spring-boot-starter-batch")
+
+```
+** Sample Spring Batch Configuration
+```java
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@EnableBatchProcessing
+public class BatchConfig {
+
+    @Autowired
+    private JobBuilderFactory jobBuilderFactory;
+
+    @Autowired
+    private StepBuilderFactory stepBuilderFactory;
+
+    @Bean
+    public Job sampleJob() {
+        return jobBuilderFactory.get("sampleJob")
+                .start(taskletStep())
+                .next(chunkStep())
+                .build();
+    }
+
+    @Bean
+    public Step taskletStep() {
+        return stepBuilderFactory.get("taskletStep")
+                .tasklet(new SampleTasklet())
+                .build();
+    }
+
+    @Bean
+    public Step chunkStep() {
+        return stepBuilderFactory.get("chunkStep")
+                .<String, String>chunk(2) // Chunk size of 2
+                .reader(new SampleItemReader())
+                .processor(new SampleItemProcessor())
+                .writer(new SampleItemWriter())
+                .build();
+    }
+}
+
+```
+
+**Sample Tasklet Implementation**
+```java
+import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.repeat.RepeatStatus;
+
+public class SampleTasklet implements Tasklet {
+    @Override
+    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+        // Your tasklet logic here
+        System.out.println("Executing tasklet step...");
+        return RepeatStatus.FINISHED;
+    }
+}
+
+```
+
+**Sample Item Reader, Processor & Item Writer**
+```java
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
+import java.util.List;
+
+public class SampleItemReader implements ItemReader<String> {
+    // Implement the reader logic to read data (e.g., from a list)
+}
+
+public class SampleItemProcessor implements ItemProcessor<String, String> {
+    // Implement the processor logic to process the data
+}
+
+public class SampleItemWriter implements ItemWriter<String> {
+    // Implement the writer logic to write processed data (e.g., to console)
+}
+```
 ## Reference
 * Chatgpt

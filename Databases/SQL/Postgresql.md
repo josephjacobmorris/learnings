@@ -24,7 +24,22 @@
 
 6. **Conclusion**: The article concludes that while PostgreSQL was not originally designed for applications that require processing large live datasets, materialized views are a powerful feature for improving query performance. However, they have limitations, and TimescaleDB's continuous aggregates address these limitations by providing automated, efficient, and up-to-date solutions for real-time analytics.
 
+## Postgresql 15 features 
+
+### DBA Related Features
+* Support for `pg_dump` for older versions than 9.2 has been removed.
+* Deprecating python2 in stored procedures 
+* Fixed the public schema - Previously the public schema was available to every user. This was a security concern as one user could just revoke the access of other users. Now the `public` schema is not available by default. The user should be granted permission to use it.  
+f* Supports adding permissions to variables.
+* `pg_stat_statements` can now display info about the JIT compilation process and is helpful in detecting JIT related performance issues.
+* New wait events - ???
+* Adding new json logging features which enables logs to be parsed more easily.This can be done by modifying the `postgresql.conf`
+<code>
+`log_destination`= 'jsonlog'
+`logging_collector`= on
+</code>
 ## References
 
 * https://stackoverflow.com/questions/12206600/how-to-speed-up-insertion-performance-in-postgresql
 * https://www.timescale.com/blog/real-time-analytics-in-postgres-why-its-hard-and-how-to-solve-it/
+* Mastering PostgreSQL 15 

@@ -538,3 +538,4 @@ In the JUnit 5 test class annotate it with ```@ExtendWith({RestDocumentationExte
 * <https://www.springcloud.io/post/2022-01/content-negotiation-manager/#gsc.tab=0>
 * <https://www.baeldung.com/spring-mvc-content-negotiation-json-xml>
 * <https://www.baeldung.com/spring-rest-docs>
+* https://github.com/spring-projects

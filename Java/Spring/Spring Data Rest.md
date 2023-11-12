@@ -32,4 +32,5 @@ All endpoints exposed can be found under `https://localhost:8080/` along with su
 ## References
 * https://www.codegrepper.com/profile/pragya-keshap
 * https://spring.io/projects/spring-data-rest
+* https://tanzu.vmware.com/developer/blog/getting-started-with-spring-data-rest-and-postgresql/
 * https://www.baeldung.com/spring-data-rest-intro

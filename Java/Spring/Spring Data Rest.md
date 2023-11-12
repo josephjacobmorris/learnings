@@ -12,9 +12,9 @@ extends CustomerRepository<sample, Long> {
 It can be added by adding the following dependency in `pom.xml`
 ```xml
 <dependency>
-    <groupId>org.springframework.boot</groupId
-    <artifactId>spring-boot-starter-data-rest</artifactId></dependency>
-<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-rest</artifactId>
+</dependency>
 
 ```
 ## Syntax

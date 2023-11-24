@@ -37,9 +37,32 @@ f* Supports adding permissions to variables.
 <code>
 `log_destination`= 'jsonlog'
 `logging_collector`= on
-</code>
+</code>s
+
+### Developer Related Features
+* Security invoker views - ???
+* ICU locales - The locale determines the sort order and in postgres the sort used to be provided by underlying  C library. The sort order changes over time and as indexes are basically sorted lists, this breaks indexing
+* Numeric datatypes allow -ve scale `select 1234::numeric(5,-1);` gives 1230
+* ON DELETE SET NULL behaviour in upon deletion marks the foreign key as null and hence maintaining the integrity of reference on delete. In Pg 15 it is now possible to set null only for few columns.
+* Previously UNIQUE constraint used to treat null as different values but by adding `NULLS NOT DISTINCT` along with unique key will allow only one null entry
+* `Merge` command is introduced in postgres
+
+### Performance Related Features
+*  Now possible to add compression algorithms for various things especially `TOAST ` TOAST stands for "The Oversizes-Attribute Storage Technique."
+* 'Distinct' query uses parallelism as of pg 15
+* Uses shared memory instead of UDP packets to transmit information.
+* 2 Phase Commit is now supported for Logical Decoding
+* Allows Column and row Level filtering for `publication`
+* In previous versions postgresql was only able to compress at client side but in pg 15 it is now possible to compress at server side hence saving bandwidth.
+* Introduced archival_library for easier backups.
+
 ## References
 
 * https://stackoverflow.com/questions/12206600/how-to-speed-up-insertion-performance-in-postgresql
 * https://www.timescale.com/blog/real-time-analytics-in-postgres-why-its-hard-and-how-to-solve-it/
+* [Explain On Delete Set Null](https://chat.openai.com/share/5bac6472-4058-40df-8e84-df4c82b9b5e1)
+* [TOAST](https://chat.openai.com/share/0551b942-da8d-4229-9449-ce50cfb9c724)
+* [Shared Memory in Postgresql](https://chat.openai.com/share/1551290b-edc0-4f94-a34f-35d20afc7541)
+* [Two Phase Commit](https://chat.openai.com/share/1b8fbceb-663d-437d-adcc-2d1cbad08acb)
+* [PUBLICATION](https://chat.openai.com/share/1bba311f-bc82-427e-aa89-b09dca94b512)
 * Mastering PostgreSQL 15 

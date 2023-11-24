@@ -56,6 +56,30 @@ f* Supports adding permissions to variables.
 * In previous versions postgresql was only able to compress at client side but in pg 15 it is now possible to compress at server side hence saving bandwidth.
 * Introduced archival_library for easier backups.
 
+## Transactions and Locking
+> Note `Now()` returns the transaction time instead of actual time use `clock_timestamp()` to get real time
+
+* If more than one statement has to be part of transaction then it should be enclosed by `BEGIN` .. `END`
+* We can have unlimited `SAVEPOINT` inside the transaction. After transaction the savepoint wont exist and we can release a savepoint using `RELEASE SAVEPOINT name`.
+* **TRANSACTIONAL DDLs** - In Postgresql even DDLs are transactional (except `DROP/CREAE DATABASE/TABLESPACE` etc) . So in case of version upgrades it ensures that the DDL changes are atomic.
+* In case of concurrent read and write the read will return the old data and the write will update the data. This behaviour is called Multi-Version Concurrency Control (MVCC)
+* In case of concurrent writes (updates) postgres guarantees that updates are done sequentially.
+
+### Common Scenarios
+
+   * Explicit Table locking using lock table command
+
+     |           Lock           | Description                                                                                                                                                                                                     |
+     |:------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     |      `ACCESS SHARE`      | Used by read operations. Conflicts only with `ACCESS EXCLUSIVE`.                                                                                                                                                |
+     |       `ROW SHARE`        | Used by `FOR UPDATE/FOR SHARE`. Conflicts with `ACCESS EXCLUSIVE` and `EXCLUSIVE`.                                                                                                                              |
+     |     `ROW EXCLUSIVE`      | Used by Insert, Update, and Delete operations. Conflicts with `SHARE`, `SHARE ROW EXCLUSIVE`, `EXCLUSIVE`, and `ACCESS EXCLUSIVE`.                                                                              |
+     |         `SHARE`          | Used by operations that don't modify data (e.g., SELECT ... FOR KEY SHARE). Conflicts with `ROW EXCLUSIVE`, `SHARE ROW EXCLUSIVE`, `EXCLUSIVE`, and `ACCESS EXCLUSIVE`.                                         |
+     |  `SHARE ROW EXCLUSIVE`   | Used for creating index. Conflicts with `ROW EXCLUSIVE`, `EXCLUSIVE`, and `ACCESS EXCLUSIVE`.                                                                                                                   |
+     |       `EXCLUSIVE`        | Prevents read and write . Most restrictive                                                                                                                                                                      |
+     |    `ACCESS EXCLUSIVE`    | Prevents concurrent transactions from reading and writing                                                                                                                                                       |
+     | `SHARE UPDATE EXCLUSIVE` | Used in the CREATE INDEX CONCURRENTLY, ANALYZE, ALTER TABLE, VACCUM. Conflicts with `SHARE`, `SHARE ROW EXCLUSIVE`,`SHARE UPDATE EXCLUSIVE`, `EXCLUSIVE`, `ROW SHARE`, `ROW EXCLUSIVE`, and `ACCESS EXCLUSIVE`. |
+
 ## References
 
 * https://stackoverflow.com/questions/12206600/how-to-speed-up-insertion-performance-in-postgresql

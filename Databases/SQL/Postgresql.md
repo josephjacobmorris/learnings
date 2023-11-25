@@ -67,7 +67,7 @@ f* Supports adding permissions to variables.
 
 ### Common Scenarios
 
-   * Explicit Table locking using lock table command
+   * **Explicit Table locking using lock table command**
 
      |           Lock           | Description                                                                                                                                                                                                     |
      |:------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -80,6 +80,62 @@ f* Supports adding permissions to variables.
      |    `ACCESS EXCLUSIVE`    | Prevents concurrent transactions from reading and writing                                                                                                                                                       |
      | `SHARE UPDATE EXCLUSIVE` | Used in the CREATE INDEX CONCURRENTLY, ANALYZE, ALTER TABLE, VACCUM. Conflicts with `SHARE`, `SHARE ROW EXCLUSIVE`,`SHARE UPDATE EXCLUSIVE`, `EXCLUSIVE`, `ROW SHARE`, `ROW EXCLUSIVE`, and `ACCESS EXCLUSIVE`. |
 
+* **Check for locks**
+```roomsql
+Select pid,wait_event_type,wait_event, query from pg_stat_activity where datname= 'test';
+```
+* **Select data , do processing and update**
+When we are doing select to do processing , followed by update use `FOR UPDATE` else two concurrent transactions might read at same time and cause undesired results. This causes the second select to wait. If we don't want to wait we could use `SELECT FOR UPDATE NOWAIT` which will error out instead of waiting
+We could also set lock_timeout to avoid potential infinite delay in second transaction like below
+```roomsql
+SET lock_timeout TO 5000;
+```
+In scenarios similar to seat booking where we don't want the other customers to wait. We can skip the locked rows using `SELECT FOR UPDATE SKIP LOCKED`
+`FOR UPDATE` also works on foreign keys and foreign keys are also locked. This might to lead to contentions.
+Other locks which can be considered are `FOR NO KEY UPDATE`, `FOR SHARE` and `FOR KEY SHARE`.
+
+### Transaction Isolation Levels
+* READ COMMITTED
+* REPEATABLE READ
+* SERIALIZABLE SNAPSHOT ISOLATION (SSI)
+
+### Advisory Locks
+In Advisory locks what we are locking is a number and they dont unlock automatically on commit.
+```roomsql
+SELECT pg_advisory_lock(12);
+....
+COMMIT
+SELECT pg_advisory_unlock(12);
+```
+Use `pg_advisory_unlock_all` to unlock all locked numbers
+
+### Optimizing Storage/CleanUp
+Delete cant clear data as ROLLBACK can't happen properly. So the solution is to use VACUUM.
+VACUUM will map all the free space to the free space map (FSM) of the relation
+> Note : VACCUM will not release the space in most cases and it only releases space if there are not valid rows at end of a table.
+
+| Feature                     | VACUUM                     | VACUUM FULL                 |
+|-----------------------------|----------------------------|-----------------------------|
+| Reclaims storage            | Yes                        | Yes                         |
+| Compacts table              | No                         | Yes                         |
+| Releases space to OS        | No                         | Yes                         |
+| Locking                     | Lightweight (concurrent)   | Exclusive                  |
+| Downtime                    | Minimal                    | Potentially significant     |
+| Frequency                   | Regularly used              | Occasionally used          |
+| Concurrent with operations  | Yes                        | No                          |
+| Use case                    | Routine maintenance        | Periodic, scheduled         |
+
+Keep in mind that while `VACUUM FULL` is more aggressive in returning space to the operating system, it comes with the cost of potentially longer downtime and exclusive table locks. Therefore, its usage should be carefully considered and scheduled appropriately to minimize the impact on the application's availability.
+> Note : Consider using `pg_squeeze` instead of VACUUM FULL to avoid blocking concurrent writes.
+
+#### Configuring VACUUM and Autovacuum
+* vacuum is done now automatically by tool autovacuum which is part of pg server. It wakes up once every minute (`autovacuum_naptime = 1`). If vacuum is required it(asks main process to) spins up three workers (based on `autovacuum_max_workers`).
+* `autovacuum_vacuum_threshold=50` 
+* `autovacuum_vacuum_scale_factor=0.2` 
+* `autovacuum_analyze_threshold=50` 
+* `autovacuum_analyze_scale_factor=0.1`
+* In past (prior to postgres) autovacuum was not triggered for inserts but now it is triggered based on `autovacuum_vacuum_insert_threshold`
+* Transaction IDs used for transactions are finite , this case also vacuum becomes relevant.
 ## References
 
 * https://stackoverflow.com/questions/12206600/how-to-speed-up-insertion-performance-in-postgresql
@@ -89,4 +145,5 @@ f* Supports adding permissions to variables.
 * [Shared Memory in Postgresql](https://chat.openai.com/share/1551290b-edc0-4f94-a34f-35d20afc7541)
 * [Two Phase Commit](https://chat.openai.com/share/1b8fbceb-663d-437d-adcc-2d1cbad08acb)
 * [PUBLICATION](https://chat.openai.com/share/1bba311f-bc82-427e-aa89-b09dca94b512)
+* https://www.cybertec-postgresql.com/en/products/pg_squeeze/#:~:text=pg_squeeze%20is%20an%20open%20source,bloat%20%E2%80%93%20without%20extensive%20table%20locking.
 * Mastering PostgreSQL 15 

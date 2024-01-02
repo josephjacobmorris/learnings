@@ -136,6 +136,27 @@ Keep in mind that while `VACUUM FULL` is more aggressive in returning space to t
 * `autovacuum_analyze_scale_factor=0.1`
 * In past (prior to postgres) autovacuum was not triggered for inserts but now it is triggered based on `autovacuum_vacuum_insert_threshold`
 * Transaction IDs used for transactions are finite , this case also vacuum becomes relevant.
+
+## Index & How to use them
+* `\timing` in psql can be used to give runtime of the query (as measured by psql and not the server)
+* Run `EXPLAIN` to identify the performance bottleneck in your query
+    * `EXPLAIN` returns the penalty points and not the actual time it takes to execute the query
+* The `pg_relation_size` function will give the size of the table in bytes.
+* `\x` in psql enables the expanded display
+* Indexing slows doing write operations. As of postgres version 11 we can use more cpu cores to build index
+in parallel (only for B-tree index) via `max_parallel_maintenance_workers`
+* B-tree indexes can also be used for sorting, finding min , max. They can be read in both ways high to low and vice-versa
+* Postgres can use multiple indexes in the same query ( and same index also mutiple times as in the case of `OR` clause)
+* Postgres will not use an index just bcoz one exists
+* From version 13 , postgres has index deduplicated which occupies less storage,less ram and have higher cache hit rates
+
+### Steps in Query Execution
+* Parsing the query
+* Rewriting the query to take care of rules
+* The optimizer finds an ideal query plan
+* The plan is then executed by the executor
+
+
 ## References
 
 * https://stackoverflow.com/questions/12206600/how-to-speed-up-insertion-performance-in-postgresql

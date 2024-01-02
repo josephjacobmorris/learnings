@@ -149,6 +149,15 @@ in parallel (only for B-tree index) via `max_parallel_maintenance_workers`
 * Postgres can use multiple indexes in the same query ( and same index also mutiple times as in the case of `OR` clause)
 * Postgres will not use an index just bcoz one exists
 * From version 13 , postgres has index deduplicated which occupies less storage,less ram and have higher cache hit rates
+* `pg_stats` is a system view which contains all the stats of the column content.
+* `CLUSTER` command helps in clustering data in table along a particular column.However
+  * It locks table during clustering
+  * can be done only based on one column
+  * based on data changes the table might become declustered.
+* Index Only Scan - If the result of the query is present in the index and then postgres does not read it from the disk
+    * `INCLUDE` clause in index allows column to be present in the index which are not part of index keys
+* Indexes can be defined on immutable functions
+* Consider partial indexing wherever applicable.
 
 ### Steps in Query Execution
 * Parsing the query

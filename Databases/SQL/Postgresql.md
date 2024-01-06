@@ -158,12 +158,38 @@ in parallel (only for B-tree index) via `max_parallel_maintenance_workers`
     * `INCLUDE` clause in index allows column to be present in the index which are not part of index keys
 * Indexes can be defined on immutable functions
 * Consider partial indexing wherever applicable.
+* Modifying data while indexing is possible when we create index using `CREATE_INDEX CONCURRENTLY` command. But the index creation will be longer and it does'nt guarantee successful index creation.
+* For date with special context postgres provides the feature to define operator classes
 
 ### Steps in Query Execution
 * Parsing the query
 * Rewriting the query to take care of rules
 * The optimizer finds an ideal query plan
 * The plan is then executed by the executor
+
+### Index Types
+
+| Index Type                     | Description                                                                                                     |      Use Case      |                                 Syntax                                 |
+|:-------------------------------|:----------------------------------------------------------------------------------------------------------------|:------------------:|:----------------------------------------------------------------------:|
+| B-tree                         |                                                                                                                 | >,<,<=,>,=,Max,Min |                                                                        |
+| Heap                           |                                                                                                                 | >,<,<=,>,=,Max,Min |                                                                        |
+| Hash                           | Not advisable before pg 10.0 since there was no WAL support. Hash indexes are larger than B-trees in most cases |         =          | `CREATE INDEX shorturl_hash_hash_ix ON shorturl_hash USING hash(key);` |
+| GiST (Generalized Search Tree) | Can be used to implement r-tree behaviour, Fuzzy searching                                                      |                    |                                                                        |
+| GIN (Generalized Inverted)     | Inverted index similar to elastic search.                                                                       | >,<,<=,>,=,Max,Min |                                                                        |
+| BRIN (Block Range Indexes)     |                                                                                                                 |      >,<,<=,>      |                                                                        |
+
+#### Hash Index
+Hash index maintain hash of the key . It has less impact on insertion performance compared to b-tree and faster lookup (select) for unique values.
+It has restrictions such as
+* cannot enforce unique constraint
+* cannot create index on multiple columns
+* cannot cluster a table via hash index
+* cannot create a sorted index
+* cannot be used for range queries
+* cannot be used by `ORDER BY` queries
+
+#### BRIN (Block Range Indexes)
+BRIN is index block and hence it occupies less space. It is recommended when your data is sorted
 
 
 ## References
@@ -175,5 +201,6 @@ in parallel (only for B-tree index) via `max_parallel_maintenance_workers`
 * [Shared Memory in Postgresql](https://chat.openai.com/share/1551290b-edc0-4f94-a34f-35d20afc7541)
 * [Two Phase Commit](https://chat.openai.com/share/1b8fbceb-663d-437d-adcc-2d1cbad08acb)
 * [PUBLICATION](https://chat.openai.com/share/1bba311f-bc82-427e-aa89-b09dca94b512)
+* [HASH INDEX](https://hakibenita.com/postgresql-hash-index)
 * https://www.cybertec-postgresql.com/en/products/pg_squeeze/#:~:text=pg_squeeze%20is%20an%20open%20source,bloat%20%E2%80%93%20without%20extensive%20table%20locking.
 * Mastering PostgreSQL 15 

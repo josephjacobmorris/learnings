@@ -172,10 +172,10 @@ in parallel (only for B-tree index) via `max_parallel_maintenance_workers`
 | Index Type                     | Description                                                                                                     |      Use Case      |                                 Syntax                                 |
 |:-------------------------------|:----------------------------------------------------------------------------------------------------------------|:------------------:|:----------------------------------------------------------------------:|
 | B-tree                         |                                                                                                                 | >,<,<=,>,=,Max,Min |                                                                        |
-| Heap                           |                                                                                                                 | >,<,<=,>,=,Max,Min |                                                                        |
+| Heap                           |                                                                                                                 |                    |                                                                        |
 | Hash                           | Not advisable before pg 10.0 since there was no WAL support. Hash indexes are larger than B-trees in most cases |         =          | `CREATE INDEX shorturl_hash_hash_ix ON shorturl_hash USING hash(key);` |
 | GiST (Generalized Search Tree) | Can be used to implement r-tree behaviour, Fuzzy searching                                                      |                    |                                                                        |
-| GIN (Generalized Inverted)     | Inverted index similar to elastic search.                                                                       | >,<,<=,>,=,Max,Min |                                                                        |
+| GIN (Generalized Inverted)     | Inverted index similar to elastic search.                                                                       |  Full text search  |                                                                        |
 | BRIN (Block Range Indexes)     |                                                                                                                 |      >,<,<=,>      |                                                                        |
 
 #### Hash Index
@@ -190,6 +190,26 @@ It has restrictions such as
 
 #### BRIN (Block Range Indexes)
 BRIN is index block and hence it occupies less space. It is recommended when your data is sorted
+
+### Fuzzy Search
+```roomsql
+SELECT * FROM t_location
+ ORDER BY name <-> 'Ktaly';
+```
+
+### Full Text Search
+```roomsql
+-- Search for documents containing the words 'food' or 'ice'
+SELECT to_tsvector('english','I like food like ice-cream')  @@ to_tsquery('english', 'food | ice');
+```
+
+* `ts_debug` to understand why a search result eas returned.
+* There are two options to define GIN indexes
+  * have a column storing the vector in table and for update use trigger to maintain consistency, this occupies more space but better runtime behaviour
+  * have functional index (with `to_tsvector` function) which is space efficient but slower
+
+### Indexes for exclusion
+Indexes can also be used for exclusion & data integrity.
 
 
 ## References

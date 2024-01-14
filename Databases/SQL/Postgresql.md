@@ -211,6 +211,39 @@ SELECT to_tsvector('english','I like food like ice-cream')  @@ to_tsquery('engli
 ### Indexes for exclusion
 Indexes can also be used for exclusion & data integrity.
 
+## Advanced SQL - Aggregations,RECURSIONS,JSONB
+
+### Recursions (Hierarchical Query)
+Sample recursive query
+```roomsql
+with recursive x(n) as (
+    SELECT 1 AS n, 'a'::text AS dummy // init condition
+    UNION ALL
+    SELECT n+2, dummy || 'a' //n +2 is the incremented value
+    FROM x
+    WHERE n <5 # loop condition
+) 
+SELECT * FROM x;
+```
+> Note:
+> Using UNION instead of UNION ALL prevents calls with the same set of values. This can be useful to avoid infinite loops
+
+### JSONB & JSON
+* Use JSON only if we just want to store the `JSON` as text if it requires processing store it as `JSONB`
+* The functions and operators only exist for `JSONB`
+
+| Function/Operator      | Description                                                            |
+|:-----------------------|:-----------------------------------------------------------------------|
+| `jsonb_pretty`         | Beautify & format the json                                             | 
+| `row_to_json`          | Pass anything to convert to json.Each row is coverted to seperate json | 
+| `json_agg`             | Pass anything to convert to json.A single json document is returned    | 
+| `json_populate_record` | Used to populate a row with json document                              | 
+| `->`                   | Used to fetch subtree in json.Return type is 'jsonb'                   | 
+| `jsonb_each`           | Used to loop over subtree and return all elements in composite type    | 
+| `jsonb_each_text`      | Used to loop over subtree and return all elements as text              | 
+| `jsonb_object_keys`    | Used to get the keys in json doc                                       | 
+
+
 
 ## References
 

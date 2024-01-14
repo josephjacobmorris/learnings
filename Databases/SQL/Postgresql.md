@@ -213,6 +213,25 @@ Indexes can also be used for exclusion & data integrity.
 
 ## Advanced SQL - Aggregations,RECURSIONS,JSONB
 
+### Range types
+* Useful to store ranges has in-built check validation
+* `daterange`, `int4range`
+
+| Operator | Description               |
+|:---------|:--------------------------|
+| `<@`     | is part of range          |
+| `&&`     | overlaps range            |
+| `<<`     | strictly left of          |
+| `&<`     | doesn not extend right of |
+| `-\|-`   | is adjacent to            |
+| `+`      | union                     |
+| `*`      | intersection              |
+| `*`      | difference                |
+
+* As of postgresql 14, multiranges have also been added
+
+
+
 ### Recursions (Hierarchical Query)
 Sample recursive query
 ```roomsql

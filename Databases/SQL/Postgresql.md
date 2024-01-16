@@ -336,7 +336,21 @@ SELECT * FROM x;
 | `jsonb_each_text`      | Used to loop over subtree and return all elements as text              | 
 | `jsonb_object_keys`    | Used to get the keys in json doc                                       | 
 
+## Miscellaneous
 
+### Serial
+The `SERIAL` keyword is not a true data type but rather a shorthand notation for defining an integer column that is automatically populated by a sequence. It is commonly used for creating auto-incrementing primary key columns. When you define a column as `SERIAL`, PostgreSQL automatically creates a sequence and sets up the column to use that sequence, ensuring each new row gets a unique value in that column.
+
+```sql
+CREATE TABLE households (
+    id SERIAL PRIMARY KEY,
+    income DECIMAL(10, 2)
+);
+```
+
+- `id SERIAL PRIMARY KEY`: This line creates a column named `id` with a data type of `SERIAL`. The `SERIAL` type implies an integer that automatically increments for each new row and is backed by a sequence. The `PRIMARY KEY` constraint indicates that this column is also the primary key for the table.
+
+ The `SERIAL` keyword is used for creating auto-incrementing integer columns, often used as primary keys. It simplifies the process of creating sequences and assigning unique values to columns, especially primary key columns, without explicitly managing the sequence.
 
 ## References
 

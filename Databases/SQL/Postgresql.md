@@ -292,6 +292,19 @@ In this example:
 > 
 > In case there is an option for using `WHERE` clause instead of `FILTER` clause always opt for that as it is more performant.
 
+### Ordered Sets
+An "ordered set" refers to a set of aggregate functions that maintain the order of input rows and produce ordered results. These functions are particularly useful when you want to perform aggregations while preserving the order of the data. Ordered sets are implemented using the `WITHIN GROUP` clause.
+
+```roomsql
+SELECT percentile_disc(0.5) WITHIN GROUP (ORDER BY income) FROM households;
+```
+
+Use Cases for Ordered Sets:
+- **Running Totals and Averages:** Calculating running totals or averages based on a specific order, such as time-based data.
+- **Moving Aggregates:** Calculating aggregates over a moving window of rows, e.g., finding the average of the last N values.
+- **Top-N Analysis:** Identifying top or bottom N values within a specific ordering.
+
+Ordered sets are beneficial when you need to perform such analyses while considering the order of the data. They provide a flexible way to perform calculations over specific partitions with an ordered context.
 
 ### Recursions (Hierarchical Query)
 Sample recursive query

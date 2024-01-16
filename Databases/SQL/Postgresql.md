@@ -230,6 +230,67 @@ Indexes can also be used for exclusion & data integrity.
 
 * As of postgresql 14, multiranges have also been added
 
+### Grouping Sets
+ `ROLLUP`, `CUBE`, and `GROUPING SETS` are extensions to the `GROUP BY` clause that allow you to generate subtotals and grand totals in your query results. These features are particularly useful when you want to create summary reports or analyze data at different levels of granularity.
+
+1. **ROLLUP:**
+    - The `ROLLUP` operator is used to generate subtotals and grand totals in a query.
+    - It produces a result set that represents a hierarchy of grouping sets, where each level of the hierarchy represents a different level of aggregation.
+    - Here's a simple example:
+
+      ```sql
+      SELECT category, subcategory, SUM(sales)
+      FROM sales_data
+      GROUP BY ROLLUP(category, subcategory);
+      ```
+
+    - This query would produce results with subtotals for each `category` and grand total for all categories.
+
+2. **CUBE:**
+    - The `CUBE` operator generates all possible combinations of the specified columns in the `GROUP BY` clause, providing a more comprehensive set of aggregations.
+    - Here's an example:
+
+      ```sql
+      SELECT region, product, SUM(sales)
+      FROM sales_data
+      GROUP BY CUBE(region, product);
+      ```
+
+    - This query would produce results with subtotals for each `region`, each `product`, and grand totals for all combinations of `region` and `product`.
+
+3. **GROUPING SETS:**
+    - `GROUPING SETS` allows you to explicitly specify multiple grouping sets in a single query. This provides more flexibility compared to `ROLLUP` and `CUBE`.
+    - Example:
+
+      ```sql
+      SELECT region, product, SUM(sales)
+      FROM sales_data
+      GROUP BY GROUPING SETS ((region, product), (region), ());
+      ```
+
+    - This query generates results with subtotals for each `region`, each `product`, and grand totals. The empty parentheses `()` represent the grand total.
+
+These features are particularly useful for generating summary reports where you need to analyze data at different levels of granularity in a single query. Adjust the columns and tables in the examples based on your specific database schema and requirements.
+
+#### Filter Clause along with grouping sets
+
+Now, let's say you want to calculate the total sales for each region and product combination, but you also want to calculate the total sales for only those records where the sales amount is greater than 150. You can use the `FILTER` clause in combination with `GROUPING SETS` for this:
+
+```sql
+SELECT region, product, 
+       SUM(sales) AS total_sales,
+       SUM(sales) FILTER(WHERE sales > 150) AS high_sales
+FROM sales_data
+GROUP BY GROUPING SETS ((region, product), (region));
+```
+
+In this example:
+- The `GROUPING SETS` clause is used to define two grouping sets: one for the combination of `region` and `product`, and another for only `region`.
+- The `FILTER` clause is used with the `SUM` function to calculate the total sales (`total_sales`) and the total sales for amounts greater than 150 (`high_sales`).
+
+> Note:
+> 
+> In case there is an option for using `WHERE` clause instead of `FILTER` clause always opt for that as it is more performant.
 
 
 ### Recursions (Hierarchical Query)

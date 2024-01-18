@@ -360,6 +360,75 @@ Explanation:
 
 The result will show each row with the original `date`, `product`, `revenue`, and the calculated `rolling_total`.
 
+#### Functions
+Certainly! PostgreSQL provides several useful window functions that help in performing calculations and aggregations across a set of rows related to the current row. Here are explanations and examples for the `LAG`, `LEAD`, `RANK`, `DENSE_RANK`, and `ARRAY_AGG` functions:
+
+##### 1. LAG and LEAD:
+
+- `LAG` and `LEAD` are used to access data from rows that come before (`LAG`) or after (`LEAD`) the current row in the result set.
+
+##### Example:
+
+```sql
+SELECT
+    date,
+    product,
+    revenue,
+    LAG(revenue) OVER (PARTITION BY product ORDER BY date) AS lag_revenue,
+    LEAD(revenue) OVER (PARTITION BY product ORDER BY date) AS lead_revenue
+FROM
+    sales
+ORDER BY
+    product,
+    date;
+```
+
+In this example, `lag_revenue` will show the revenue of the previous date within the same product, and `lead_revenue` will show the revenue of the next date within the same product.
+
+##### 2. RANK and DENSE_RANK:
+
+- `RANK` and `DENSE_RANK` assign a rank to each row based on the values in the specified column(s).
+
+###### Example:
+
+```sql
+SELECT
+    date,
+    product,
+    revenue,
+    RANK() OVER (PARTITION BY product ORDER BY revenue DESC) AS revenue_rank,
+    DENSE_RANK() OVER (PARTITION BY product ORDER BY revenue DESC) AS dense_rank
+FROM
+    sales
+ORDER BY
+    product,
+    revenue DESC;
+```
+
+In this example, `revenue_rank` will assign a rank to each row based on the descending order of revenue within the same product. `dense_rank` will do the same but without leaving gaps in the ranking.
+
+##### 3. ARRAY_AGG:
+
+- `ARRAY_AGG` is an aggregation function that collects values from rows into an array.
+
+###### Example:
+
+```sql
+SELECT
+    product,
+    ARRAY_AGG(revenue ORDER BY date) AS revenue_array
+FROM
+    sales
+GROUP BY
+    product
+ORDER BY
+    product;
+```
+
+In this example, `revenue_array` will contain an array of revenues for each product ordered by date.
+
+These functions, when used with the `OVER` clause, enable powerful analytical queries on data sets. Keep in mind that the choice of partitioning and ordering in the `OVER` clause affects the window of rows to consider for these functions.
+
 ### Recursions (Hierarchical Query)
 Sample recursive query
 ```roomsql

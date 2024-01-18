@@ -427,7 +427,58 @@ ORDER BY
 
 In this example, `revenue_array` will contain an array of revenues for each product ordered by date.
 
-These functions, when used with the `OVER` clause, enable powerful analytical queries on data sets. Keep in mind that the choice of partitioning and ordering in the `OVER` clause affects the window of rows to consider for these functions.
+##### NTILE
+
+The `NTILE` window function in PostgreSQL is used to divide the result set into a specified number of roughly equal groups or "tiles." Each row is assigned a tile number based on the specified number of tiles, and this can be useful for percentile calculations or other cases where you want to distribute rows evenly into a predefined number of buckets.
+
+Here's an example of how to use the `NTILE` function:
+
+```sql
+SELECT
+    date,
+    product,
+    revenue,
+    NTILE(3) OVER (PARTITION BY product ORDER BY revenue DESC) AS revenue_tile
+FROM
+    sales
+ORDER BY
+    product,
+    revenue DESC;
+```
+
+In this example, the `NTILE(3)` function is applied to the `revenue` column within each partition of the `product`. It orders the rows by revenue in descending order and assigns each row a tile number between 1 and 3, attempting to distribute the rows as evenly as possible.
+
+The `revenue_tile` column will show the tile number for each row within its product partition.
+
+Let's say you have the following simplified data:
+
+```plaintext
+|   date    | product | revenue |
+|-----------|---------|---------|
+| 2024-01-01| A       | 200.00  |
+| 2024-01-02| A       | 150.00  |
+| 2024-01-03| A       | 120.00  |
+| 2024-01-04| A       | 100.00  |
+| 2024-01-05| B       | 80.00   |
+| 2024-01-06| B       | 70.00   |
+| 2024-01-07| B       | 50.00   |
+```
+
+After applying the query, you might get results like this:
+
+```plaintext
+|   date    | product | revenue | revenue_tile |
+|-----------|---------|---------|--------------|
+| 2024-01-01| A       | 200.00  | 1            |
+| 2024-01-02| A       | 150.00  | 2            |
+| 2024-01-03| A       | 120.00  | 2            |
+| 2024-01-04| A       | 100.00  | 3            |
+| 2024-01-05| B       | 80.00   | 2            |
+| 2024-01-06| B       | 70.00   | 3            |
+| 2024-01-07| B       | 50.00   | 1            |
+```
+
+In this result, the rows for each product are divided into three tiles based on their revenue in descending order. The `revenue_tile` column reflects the assigned tile number.
 
 ### Recursions (Hierarchical Query)
 Sample recursive query

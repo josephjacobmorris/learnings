@@ -306,6 +306,60 @@ Use Cases for Ordered Sets:
 
 Ordered sets are beneficial when you need to perform such analyses while considering the order of the data. They provide a flexible way to perform calculations over specific partitions with an ordered context.
 
+### Window function
+A window function performs a calculation across a set of table rows that are related to the current row. Window functions are typically used in conjunction with the `OVER` clause, which defines a window of rows for the function to operate on.
+
+Here's a basic explanation of windowing functions in PostgreSQL with an example using SQL:
+
+Suppose you have a table called `sales` with columns `date`, `product`, and `revenue`. You want to calculate the total revenue for each product over a rolling 3-day window.
+
+```sql
+CREATE TABLE sales (
+    date DATE,
+    product VARCHAR(50),
+    revenue DECIMAL(10, 2)
+);
+
+INSERT INTO sales VALUES
+('2024-01-01', 'A', 100.00),
+('2024-01-02', 'A', 150.00),
+('2024-01-03', 'A', 200.00),
+('2024-01-04', 'A', 120.00),
+('2024-01-05', 'A', 180.00),
+('2024-01-01', 'B', 50.00),
+('2024-01-02', 'B', 70.00),
+('2024-01-03', 'B', 90.00),
+('2024-01-04', 'B', 60.00),
+('2024-01-05', 'B', 80.00);
+```
+
+Now, let's use a window function to calculate the rolling 3-day total revenue for each product:
+
+```sql
+SELECT
+    date,
+    product,
+    revenue,
+    SUM(revenue) OVER (PARTITION BY product ORDER BY date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS rolling_total
+FROM
+    sales
+ORDER BY
+    product,
+    date;
+```
+
+Explanation:
+
+- The `PARTITION BY` clause is used to divide the result set into partitions to which the window function is applied. In this case, we partition by the `product` column.
+
+- The `ORDER BY` clause specifies the order of rows within each partition. In this example, we order by the `date` column.
+
+- The `ROWS BETWEEN 2 PRECEDING AND CURRENT ROW` clause defines the window frame, indicating that the window includes the current row and the two preceding rows based on the specified order.
+
+- The `SUM(revenue) OVER (...)` is the window function itself, calculating the cumulative sum of the `revenue` column within the specified window frame.
+
+The result will show each row with the original `date`, `product`, `revenue`, and the calculated `rolling_total`.
+
 ### Recursions (Hierarchical Query)
 Sample recursive query
 ```roomsql

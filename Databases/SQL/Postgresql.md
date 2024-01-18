@@ -480,6 +480,92 @@ After applying the query, you might get results like this:
 
 In this result, the rows for each product are divided into three tiles based on their revenue in descending order. The `revenue_tile` column reflects the assigned tile number.
 
+##### 1. `FIRST_VALUE`:
+
+- `FIRST_VALUE` returns the value of the specified expression for the first row within the window frame.
+
+###### Example:
+
+```sql
+SELECT
+    date,
+    product,
+    revenue,
+    FIRST_VALUE(revenue) OVER (PARTITION BY product ORDER BY date) AS first_revenue
+FROM
+    sales
+ORDER BY
+    product,
+    date;
+```
+
+In this example, `first_revenue` will contain the revenue for the first date within each product partition.
+
+##### 2. `LAST_VALUE`:
+
+- `LAST_VALUE` returns the value of the specified expression for the last row within the window frame.
+
+###### Example:
+
+```sql
+SELECT
+    date,
+    product,
+    revenue,
+    LAST_VALUE(revenue) OVER (PARTITION BY product ORDER BY date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS last_revenue
+FROM
+    sales
+ORDER BY
+    product,
+    date;
+```
+
+In this example, `last_revenue` will contain the revenue for the last date within each product partition. Note the use of the `ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING` clause to include all rows in the window frame.
+
+##### 3. `NTH_VALUE`:
+
+- `NTH_VALUE` returns the value of the specified expression for the nth row within the window frame.
+
+###### Example:
+
+```sql
+SELECT
+    date,
+    product,
+    revenue,
+    NTH_VALUE(revenue, 2) OVER (PARTITION BY product ORDER BY date) AS second_revenue
+FROM
+    sales
+ORDER BY
+    product,
+    date;
+```
+
+In this example, `second_revenue` will contain the revenue for the second date within each product partition.
+
+##### 4. `ROW_NUMBER`:
+
+- `ROW_NUMBER` assigns a unique integer to each row based on the specified ordering within the window frame.
+
+###### Example:
+
+```sql
+SELECT
+    date,
+    product,
+    revenue,
+    ROW_NUMBER() OVER (PARTITION BY product ORDER BY date) AS row_num
+FROM
+    sales
+ORDER BY
+    product,
+    date;
+```
+
+In this example, `row_num` will contain the row number for each row within its product partition based on the ordering by date.
+
+These window functions are powerful tools for analyzing and summarizing data within partitions of a result set. The choice of partitioning and ordering in the `OVER` clause is crucial for obtaining the desired results.
+
 ### Recursions (Hierarchical Query)
 Sample recursive query
 ```roomsql

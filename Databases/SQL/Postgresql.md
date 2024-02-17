@@ -612,6 +612,45 @@ CREATE TABLE households (
 
  The `SERIAL` keyword is used for creating auto-incrementing integer columns, often used as primary keys. It simplifies the process of creating sequences and assigning unique values to columns, especially primary key columns, without explicitly managing the sequence.
 
+## Logs and System Statistics
+
+| System View                     | Description                                                                                                                                                                                                                                                                                                     |
+|:--------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `pg_stat_activity`              | To know the current live connections stats                                                                                                                                                                                                                                                                      | 
+| `pg_stat_database`              | To know the individual stats at database level                                                                                                                                                                                                                                                                  | 
+| `pg_stat_user_tables`           | To know the individual stats at table level. Can be useful to find missing indexes                                                                                                                                                                                                                              | 
+| `pg_statio_user_tables`         | To know the individual stats at table level for caching behaviour etc                                                                                                                                                                                                                                           | 
+| `pg_stat_user_indexes`          | To know the individual stats and usage of indexes. Can be useful to find unnecessary indexes                                                                                                                                                                                                                    | 
+| `pg_statio_user_indexes`        | Similar to `pg_statio_user_tables` for indexes                                                                                                                                                                                                                                                                  | 
+| `pg_statio_user_indexes`        | Similar to `pg_statio_user_tables` for indexes                                                                                                                                                                                                                                                                  | 
+| `pg_stat_ssl`                   | To know details about encrypted connections                                                                                                                                                                                                                                                                     | 
+| `pg_stat_xact_user_tables`      | To know details about encrypted connections                                                                                                                                                                                                                                                                     | 
+| `pg_stat_progress_vacuum`       | To know vacuum stats                                                                                                                                                                                                                                                                                            | 
+| `pg_stat_progress_create_index` | To know index creation progress                                                                                                                                                                                                                                                                                 | 
+| `pg_stat_bgwriter`              | ``` `pg_stat_bgwriter` is a PostgreSQL system view that provides statistics about the background writer process. The background writer is responsible for ensuring that dirty (modified) data pages in memory are written out to disk periodically to prevent the system from running out of available buffers. |
+
+Here's a breakdown of the information provided by `pg_stat_bgwriter`:
+
+1. `checkpoints_timed`: Number of scheduled checkpoints that have been performed.
+2. `checkpoints_req`: Number of requested checkpoints that have been performed.
+3. `checkpoint_write_time`: Total amount of time spent writing data files to disk during checkpoints, in milliseconds.
+4. `checkpoint_sync_time`: Total amount of time spent syncing data files to disk during checkpoints, in milliseconds.
+5. `buffers_checkpoint`: Number of buffers written during checkpoints.
+6. `buffers_clean`: Number of buffers written by the background writer.
+7. `maxwritten_clean`: Number of times the background writer stopped a cleaning scan because it had written too many buffers.
+8. `buffers_backend`: Number of buffers written directly by backend processes.
+9. `buffers_alloc`: Number of buffers allocated.
+
+These statistics can be useful for monitoring the performance and efficiency of the background writer process, identifying potential bottlenecks, and tuning PostgreSQL configuration parameters related to background writer behavior. For example, if you notice that `buffers_checkpoint` is consistently high, it might indicate that the checkpoint frequency or configuration needs adjustment. Similarly, if `buffers_backend` is high, it might suggest that there's excessive write activity from user queries that could benefit from optimization or indexing.
+
+Overall, `pg_stat_bgwriter` helps database administrators understand and optimize the behavior of PostgreSQL's background writer for better system performance and stability.                                                                         | 
+
+| System Function        | Description                                               |
+|:-----------------------|:----------------------------------------------------------|
+| `pg_cancel_backend`    | To cancel the current query but keep the connection alive | 
+| `pg_terminate_backend` | To kill the connection                                    | 
+
+
 ## References
 
 * https://stackoverflow.com/questions/12206600/how-to-speed-up-insertion-performance-in-postgresql

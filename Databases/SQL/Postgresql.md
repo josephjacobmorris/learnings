@@ -651,6 +651,31 @@ Overall, `pg_stat_bgwriter` helps database administrators understand and optimiz
 | `pg_cancel_backend`    | To cancel the current query but keep the connection alive | 
 | `pg_terminate_backend` | To kill the connection                                    | 
 
+## Logging
+
+### Setup Log Destination
+| Configuration                 | Description                                                                         |
+|:------------------------------|:------------------------------------------------------------------------------------|
+| `log_destination`             | Controls the log destination. Possible values are stderr,csvlog,syslog and eventlog | 
+| `log_directory`               | Directory where log files are stored. Can be absolute or relative to PG_DATA        | 
+| `log_filename`                | Log file name pattern. Supports strftime() escapes                                  | 
+| `log_truncate_on_rotation`    |                                                                                     | 
+| `log_rotation_age`            |                                                                                     | 
+| `log_rotation_size`           |                                                                                     | 
+| `log_min_duration_statement`  | Logs query taking time more than the value specified.                               | 
+| `log_min_duration_sample`     |                                                                                     | 
+| `log_statement_sample_rate`   |                                                                                     | 
+| `log_transaction_sample_rate` |                                                                                     | 
+| `log_checkpoint`              | Whether to log checkpoints.                                                         | 
+| `log_connections`             | Whether to log connections                                                          | 
+| `log_disconnections`          | Whether to log connections disconnected.                                            | 
+| `log_duration`                | Whether to log time to all statements.                                              | 
+| `log_line_prefix`             | Line Prefix pattern.                                                                | 
+| `log_lock_waits`              | Whether to log waits caused due to deadloack.                                       | 
+| `log_temp_files`              |                                                                                     | 
+| `log_time_zone`               |                                                                                     | 
+| `log_statements`              | Valid values are none,ddl,mod, all                                                  | 
+
 
 ## References
 

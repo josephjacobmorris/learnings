@@ -676,6 +676,24 @@ Overall, `pg_stat_bgwriter` helps database administrators understand and optimiz
 | `log_time_zone`               |                                                                                     | 
 | `log_statements`              | Valid values are none,ddl,mod, all                                                  | 
 
+### Query Optimization
+
+#### Explain
+```roomsql
+explain select * from a,b where ....
+```
+* OFFSET 0 is a scenario where performance might be adversely affected
+* Constant folding is process by which postgres evaluates expressions and turns them into constants to improve performance.
+* function inlining
+* join pruning
+* UNION vs UNION ALL , UNION ALL is almost always faster as postgres has to filter out duplicates in case of union
+
+#### Understanding Execution Plan
+```roomsql
+EXPLAIN (analyze, verbose, costs, timing, buffers) Query
+```
+* In many cases WHERE clause cannot be processed properly which causes more data to be loaded into memory which could be avoided in some scenarios using functional indexes
+
 
 ## References
 

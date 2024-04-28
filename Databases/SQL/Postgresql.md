@@ -745,6 +745,16 @@ ALTER DEFAULT PRIVILEGES FOR ROLE joe IN SCHEMA public GRANT ALL ON TABLES TO pa
 ```roomsql
 CREATE POLICY pi ON table_1 FOR SELECT TO role_1 USING (gender='male');
 ```
+
+##### Checking Permissions
+```roomsql
+\z role1
+```
+
+##### Reassign owners
+```roomsql
+REASSIGN OWNED BY role1 TO role2;
+```
 ## References
 
 * https://stackoverflow.com/questions/12206600/how-to-speed-up-insertion-performance-in-postgresql

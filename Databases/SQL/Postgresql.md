@@ -730,6 +730,21 @@ GRANT USAGE ON SCHEMA public TO role1;
 * REFERENCES - for foreign key creation
 * TRIGGER - for trigger creation
 
+##### Column Level Permissions
+```roomsql
+GRANT SELECT (col2) ON SCHEMA public TO role
+```
+The above statements grants only select on col2 to role and not all the columns
+
+##### Configure default privilges
+```roomsql
+ALTER DEFAULT PRIVILEGES FOR ROLE joe IN SCHEMA public GRANT ALL ON TABLES TO paul;
+```
+
+##### Row Level Permissions
+```roomsql
+CREATE POLICY pi ON table_1 FOR SELECT TO role_1 USING (gender='male');
+```
 ## References
 
 * https://stackoverflow.com/questions/12206600/how-to-speed-up-insertion-performance-in-postgresql

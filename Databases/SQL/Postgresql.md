@@ -694,6 +694,41 @@ EXPLAIN (analyze, verbose, costs, timing, buffers) Query
 ```
 * In many cases WHERE clause cannot be processed properly which causes more data to be loaded into memory which could be avoided in some scenarios using functional indexes
 
+{WIP}
+## Managing Security   in PostgreSQL
+### N/w Security
+* Bind address :listen_addresses : The addresses on which pg listens for a connection. It should be server ip's.
+* Unix sockets are lot faster than loopback devices.
+
+#### Configuring pg_hba.conf
+
+* local
+* host
+* hostssl
+* hostnossl
+* hostgssenc
+* hostnogssenc
+
+##### Database Level Permissions
+* CREATE
+* CONNECT - to connect to database
+* public role grants default permissions to users
+
+##### Schemaa Level Permissions
+```roomsql
+GRANT USAGE ON SCHEMA public TO role1;
+```
+* CREATE - gives permission to create,rename objects
+* USAGE -
+
+##### Table Level Permissions
+* SELECT
+* INSERT - for insert and copy
+* UPDATE
+* DELETE
+* TRUNCATE
+* REFERENCES - for foreign key creation
+* TRIGGER - for trigger creation
 
 ## References
 

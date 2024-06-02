@@ -141,7 +141,37 @@ To check if a number falls within a specific range.
 * match response.score < 90
 ```
 
-These assertions provide powerful and flexible ways to validate API responses in Karate, ensuring that your API behaves as expected.
+### Post endpoint
+Testing a POST request in Karate 
+```feature
+Feature: Test POST request
+
+  Scenario: Create a new user
+    Given url 'https://jsonplaceholder.typicode.com/users'
+    And request { 
+      "name": "John Doe",
+      "username": "johndoe",
+      "email": "johndoe@example.com"
+    }
+    When method post
+    Then status 201
+    And match response == { 
+      "id": "#notnull",
+      "name": "John Doe",
+      "username": "johndoe",
+      "email": "johndoe@example.com"
+    }
+```
+
+**Explanation**:
+
+    - `Feature`: Defines the feature we are testing.
+    - `Scenario`: Describes a specific test case within the feature.
+    - `Given url 'https://jsonplaceholder.typicode.com/users'`: Sets the base URL for the API endpoint.
+    - `And request { ... }`: Specifies the JSON payload to send in the POST request.
+    - `When method post`: Indicates that the HTTP method to use is POST.
+    - `Then status 201`: Verifies that the response status code is 201 (Created).
+    - `And match response == { ... }`: Asserts that the response JSON matches the expected structure and values. The `#notnull` keyword is a Karate-specific placeholder to check that the `id` field is not null.
 
 ## References
 * Chatgpt

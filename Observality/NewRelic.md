@@ -119,6 +119,17 @@ An observability platform is a comprehensive tool or suite of tools designed to 
 
 Each method of collecting telemetry data has its own set of advantages and trade-offs, and the choice often depends on the specific requirements and constraints of the system being monitored. In practice, a combination of these methods is often used to achieve comprehensive observability.
 
+## Basics of newrelic
+### Setup of newrelic cli
+Look up steps corresponding to os from [here](https://github.com/newrelic/newrelic-cli?tab=readme-ov-file#installation--upgrades]
+https://github.com/newrelic/newrelic-cli)
+
+To add new profile to newrelic-cli
+```bash
+sudo newrelic profile add --profile LearnNewRelicJose --apiKey <paste api key here> -r <eu/us> --accountId <paste account id here>
+```
+
+
 ## References
 * chatgpt
 * udemy - Metric and Log Collection with Agents, New Relic Query Language (NRQL), Alerts and Incidents, and New Relic CLI

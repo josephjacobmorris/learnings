@@ -9,3 +9,6 @@
 * ``` apt-get autoclean ``` - cleans the local repository of retrieved packages but only for the packages that you have uninstalled or those with no newer versions available.
 
 * ``` apt-get autoremove ``` - removes the unneeded packages that were once installed as a dependency
+
+### ```printenv```
+* Displays all the environment variables delared

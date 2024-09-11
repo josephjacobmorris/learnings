@@ -129,6 +129,20 @@ To add new profile to newrelic-cli
 sudo newrelic profile add --profile LearnNewRelicJose --apiKey <paste api key here> -r <eu/us> --accountId <paste account id here>
 ```
 
+### 1. Entities
+Entities in New Relic represent the fundamental units of monitoring data. They can be various types of components within your infrastructure or applications. For example, entities might include:
+- **Applications:** Monitored apps, including web applications, mobile apps, and server-side applications.
+- **Hosts:** Individual servers or instances running your applications.
+- **Services:** Specific services or microservices that are part of your architecture.
+- **Databases:** Database instances or clusters.
+
+Entities are central to New Relic’s data model because they are the objects for which performance metrics and other telemetry data are collected and displayed.
+
+### 2. Tags
+Tags are key-value pairs that you can assign to entities in New Relic. They help in categorizing and organizing data for easier management and analysis. Tags can be used to:
+- **Group Entities:** For example, you might tag entities with their environment (e.g., `environment:production`) or their role (e.g., `role:frontend`).
+- **Filter Data:** Tags allow you to filter and drill down into specific sets of data. For example, you might want to see metrics only for entities tagged as `region:us-east`.
+- **Create Custom Dashboards and Alerts:** Tags can be used to create customized dashboards and alert policies based on specific criteria relevant to your business.
 
 ## References
 * chatgpt

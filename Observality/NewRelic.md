@@ -144,6 +144,53 @@ Tags are key-value pairs that you can assign to entities in New Relic. They help
 - **Filter Data:** Tags allow you to filter and drill down into specific sets of data. For example, you might want to see metrics only for entities tagged as `region:us-east`.
 - **Create Custom Dashboards and Alerts:** Tags can be used to create customized dashboards and alert policies based on specific criteria relevant to your business.
 
+Apdex, or Application Performance Index, is a metric used to measure user satisfaction with application performance. In New Relic, Apdex is a key performance indicator that helps you understand how well your application is meeting user expectations regarding response times.
+
+### What is Apdex?
+
+Apdex is a standardized way to quantify user satisfaction based on the response times of an application. It provides a single score that reflects the percentage of user interactions that meet performance targets.
+
+#### How is Apdex Calculated?
+
+Apdex is calculated using the following formula:
+
+\[ \text{Apdex} = \frac{S + \frac{T}{2}}{N} \]
+
+Where:
+- \( S \) is the number of satisfactory interactions.
+- \( T \) is the number of tolerating interactions.
+- \( N \) is the total number of interactions.
+
+#### Detailed Breakdown
+
+1. **Satisfactory Interactions (S):** These are the interactions where the response time is less than or equal to the defined threshold for satisfactory performance (often referred to as \( T_s \)). This is the optimal performance where users are generally satisfied.
+
+2. **Tolerating Interactions (T):** These interactions have response times that exceed the satisfactory threshold but are still within a tolerable range (often referred to as \( T_t \)). Users may experience some delays but are still able to use the application without major issues.
+
+3. **Total Interactions (N):** This is the total number of interactions or transactions considered for Apdex calculation.
+
+#### Steps to Calculate Apdex
+
+1. **Define Thresholds:** Set the thresholds for satisfactory and tolerating performance. For example:
+   - **Satisfactory Threshold (T_s):** Time within which users are highly satisfied.
+   - **Tolerating Threshold (T_t):** Time within which users are still able to tolerate some delays but are not fully satisfied.
+
+2. **Collect Data:** Gather data on response times for interactions or transactions in your application.
+
+3. **Categorize Interactions:**
+   - Count how many interactions are within the satisfactory threshold.
+   - Count how many interactions fall between the satisfactory and tolerating thresholds.
+
+4. **Apply Formula:** Use the Apdex formula to calculate the Apdex score based on the counts from the previous step.
+
+### Apdex Score Interpretation
+
+- **Apdex Score Range:** The Apdex score ranges from 0 to 1.
+   - **1:** Perfect Apdex score indicates that all interactions are satisfactory.
+   - **0:** A score of 0 indicates that none of the interactions meet the satisfactory threshold.
+
+- **Score Interpretation:** Higher Apdex scores indicate better performance and higher user satisfaction. Conversely, lower scores indicate performance issues and lower user satisfaction.
+
 ## References
 * chatgpt
 * udemy - Metric and Log Collection with Agents, New Relic Query Language (NRQL), Alerts and Incidents, and New Relic CLI

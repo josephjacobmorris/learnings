@@ -7,6 +7,8 @@ dependency injection at compile time instead of run-time unlike other f/ws.
 
 ## Advantages
 
+* Less Startup time
+* Less Resource consumption
 * No reflection is required for dependency injection, 
 so it is more faster startup and less memory requirements
 * Works well for cloud-native applications since it supports different service
@@ -49,4 +51,5 @@ To make the application reactive just change return type to reactive components.
 
 ## References
 
+* chatgpt
 * https://www.baeldung.com/micronaut

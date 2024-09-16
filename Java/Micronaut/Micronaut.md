@@ -68,6 +68,7 @@ mn create-app <<project name>> -build maven
 
 `@Body` for request body
 
+
 ### Reactive
 
 To make the application reactive just change return type to reactive components.
@@ -97,6 +98,79 @@ class ApplicationTest {
 }
 
 ```
+
+## Serialization and deserialization
+
+### `@Serdeable` in Micronaut
+
+The `@Serdeable` annotation is used to indicate that a class can be serialized and deserialized using Micronaut's **serialization engine**. It is part of the **micronaut-serialization** module, which is an alternative to the more common **Jackson** library used for JSON (and other formats) serialization/deserialization.
+
+### Usage of `@Serdeable`
+
+Here’s how you can use `@Serdeable` in Micronaut:
+
+1. **Annotating a Class for Serialization/Deserialization**:
+   You can annotate a class with `@Serdeable` to mark it as eligible for automatic serialization/deserialization by Micronaut.
+
+   ```java
+   import io.micronaut.serde.annotation.Serdeable;
+
+   @Serdeable
+   public class Person {
+       private String name;
+       private int age;
+
+       // Constructors, getters, setters, etc.
+   }
+   ```
+
+2. **Serialization and Deserialization**:
+  - **Serialization**: When you convert a Java object to a format like JSON.
+  - **Deserialization**: When you convert JSON (or other formats) back into a Java object.
+
+   With `@Serdeable`, Micronaut can automatically serialize and deserialize objects when needed, such as in HTTP requests and responses.
+
+3. **Customizing Serdeable**:
+   You can customize serialization behavior by using additional attributes in the `@Serdeable` annotation. For example:
+
+   ```java
+   @Serdeable(
+       include = Serdeable.Include.NON_NULL // Only include non-null fields in serialization
+   )
+   public class Person {
+       private String name;
+       private int age;
+   }
+   ```
+
+4. **Advantages of `@Serdeable` over Jackson**:
+  - **Performance**: Micronaut’s serialization engine can be more efficient than Jackson for certain use cases.
+  - **Modular**: You can choose to use it without depending on Jackson or other libraries.
+  - **Native Image**: Works better with GraalVM native image support because it does not rely on runtime reflection.
+
+<details>
+<summary>Example of HTTP Controller using `@Serdeable`</summary>
+import io.micronaut.http.annotation.*;
+import io.micronaut.http.MediaType;
+import io.micronaut.serde.annotation.Serdeable;
+
+@Controller("/person")
+public class PersonController {
+
+    @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public Person createPerson(@Body Person person) {
+        return person; // Micronaut will automatically deserialize request and serialize the response
+    }
+}
+
+@Serdeable
+class Person {
+private String name;
+private int age;
+
+    // getters and setters
+}
+</details>
 
 ## References
 

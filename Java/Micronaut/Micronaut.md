@@ -72,6 +72,32 @@ mn create-app <<project name>> -build maven
 
 To make the application reactive just change return type to reactive components.
 
+## Testing
+
+### Checking if application is running
+```java
+import io.micronaut.runtime.EmbeddedApplication;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
+import jakarta.inject.Inject;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@MicronautTest // This sets up the Micronaut environment for testing
+class ApplicationTest {
+
+    // Injecting the EmbeddedApplication to check if it's running
+    @Inject
+    EmbeddedApplication<?> application;
+
+    @Test
+    void testApplicationIsRunning() {
+        // Assert that the application is running
+        assertTrue(application.isRunning());
+    }
+}
+
+```
+
 ## References
 
 * chatgpt

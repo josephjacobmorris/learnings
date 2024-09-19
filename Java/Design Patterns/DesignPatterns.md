@@ -136,6 +136,142 @@ The criteria used to determine the concrete implementation may become more compl
 
 ## Structural Design Patterns
 
+### Decorator Pattern
+The **Decorator Pattern** is a structural design pattern used to dynamically add behavior and responsibilities to objects without modifying their code. It provides a flexible alternative to subclassing for extending functionality.
+
+#### Intent
+The intent of the Decorator Pattern is to:
+1. Attach additional responsibilities to an object dynamically.
+2. Provide a flexible alternative to subclassing for extending functionality.
+3. Allow behavior to be added to individual objects, either statically or dynamically, without affecting the behavior of other objects from the same class.
+
+#### Advantages
+1. **Open/Closed Principle**: New functionality can be added to existing classes without modifying their structure.
+2. **Single Responsibility Principle**: Functionality can be divided between classes with different areas of concern.
+3. **Dynamic Composition**: You can combine decorators at runtime, offering a more flexible solution compared to inheritance.
+4. **Reusability**: Decorators can be reused across different objects.
+
+#### Disadvantages
+1. **Complexity**: Adding many decorators can make the system more complex and harder to understand.
+2. **Hard to Debug**: Multiple layers of decorators can make it difficult to trace the flow of control and behavior in the system.
+3. **Decorators' Ordering**: The order in which decorators are applied can affect the behavior, leading to subtle bugs.
+
+<details>
+<summary>Code example for decorter pattern</summary>
+** Example Code in Java**
+Let’s consider a simple example where we have a `Coffee` interface with a basic implementation `SimpleCoffee`. We will add additional functionalities like adding milk or sugar to the coffee using the decorator pattern.
+
+** Step 1: Create the Component Interface**
+<code>
+// Component interface
+interface Coffee {
+    String getDescription();
+    double cost();
+}
+</code>
+
+** Step 2: Create the Concrete Component**
+
+// Concrete Component
+class SimpleCoffee implements Coffee {
+    @Override
+    public String getDescription() {
+        return "Simple Coffee";
+    }
+
+    @Override
+    public double cost() {
+        return 2.0;
+    }
+}
+
+** Step 3: Create the Abstract Decorator **
+// Abstract Decorator
+abstract class CoffeeDecorator implements Coffee {
+    protected Coffee decoratedCoffee;
+
+    public CoffeeDecorator(Coffee coffee) {
+        this.decoratedCoffee = coffee;
+    }
+
+    @Override
+    public String getDescription() {
+        return decoratedCoffee.getDescription();
+    }
+
+    @Override
+    public double cost() {
+        return decoratedCoffee.cost();
+    }
+}
+
+** Step 4: Create Concrete Decorators **
+
+// Concrete Decorator 1: Adds Milk
+class MilkDecorator extends CoffeeDecorator {
+    public MilkDecorator(Coffee coffee) {
+        super(coffee);
+    }
+
+    @Override
+    public String getDescription() {
+        return decoratedCoffee.getDescription() + ", Milk";
+    }
+
+    @Override
+    public double cost() {
+        return decoratedCoffee.cost() + 0.5;
+    }
+}
+
+// Concrete Decorator 2: Adds Sugar
+class SugarDecorator extends CoffeeDecorator {
+    public SugarDecorator(Coffee coffee) {
+        super(coffee);
+    }
+
+    @Override
+    public String getDescription() {
+        return decoratedCoffee.getDescription() + ", Sugar";
+    }
+
+    @Override
+    public double cost() {
+        return decoratedCoffee.cost() + 0.2;
+    }
+}
+
+** Step 5: Using the Decorators **
+
+public class DecoratorPatternExample {
+    public static void main(String[] args) {
+        Coffee coffee = new SimpleCoffee();
+        System.out.println(coffee.getDescription() + " $" + coffee.cost());
+
+        // Add milk to the coffee
+        coffee = new MilkDecorator(coffee);
+        System.out.println(coffee.getDescription() + " $" + coffee.cost());
+
+        // Add sugar to the coffee
+        coffee = new SugarDecorator(coffee);
+        System.out.println(coffee.getDescription() + " $" + coffee.cost());
+    }
+}
+
+#### Output:
+
+Simple Coffee $2.0
+Simple Coffee, Milk $2.5
+Simple Coffee, Milk, Sugar $2.7
+
+### Explanation:
+- **Component Interface (`Coffee`)**: Defines the interface for objects that can have responsibilities added to them.
+- **Concrete Component (`SimpleCoffee`)**: The class to which additional functionality will be added.
+- **Decorator (`CoffeeDecorator`)**: Maintains a reference to a `Coffee` object and defines an interface that conforms to `Coffee`'s interface.
+- **Concrete Decorators (`MilkDecorator`, `SugarDecorator`)**: Adds responsibilities to the `Coffee` object by extending `CoffeeDecorator`.
+
+This pattern allows for dynamic and flexible combinations of responsibilities, providing a powerful alternative to using extensive subclassing.
+</details>
 ## Behavioural Design Patterns
 
 ### Strategy Pattern
@@ -357,5 +493,6 @@ public class StrategyPatternDemo {
 
 Overall, the Strategy Design Pattern is powerful for situations where an algorithm or behavior needs to be interchangeable and dynamic. It provides a clean way to separate concerns and promote flexibility and maintainability in your code.
 </details>
+
 ## Reference
 * chatgpt

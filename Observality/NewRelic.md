@@ -191,6 +191,23 @@ Where:
 
 - **Score Interpretation:** Higher Apdex scores indicate better performance and higher user satisfaction. Conversely, lower scores indicate performance issues and lower user satisfaction.
 
+## NRQL Syntax
+**Query Your Data** is a useful widget to create queries or view various metrics raw data
+### Transaction
+
+```
+SELECT * FROM transaction facet host  WHERE transactionType in ('web',Web)
+```
+Now the above query runs on entire telemetry data .To time slice it we can use SINCE and/or UNTIL
+```
+SELECT * FROM transaction facet host  WHERE transactionType in ('web',Web) SINCE 1 day ago UNTIL 1 minute ago
+```
+
+Now lets say we want to see the for every hour we can use TIMESERIES for that
+```
+SELECT * FROM transaction facet host  WHERE transactionType in ('web',Web) SINCE 1 day ago UNTIL 1 minute ago TIMESERIES 1 HOUR
+```
+
 ## References
 * chatgpt
 * udemy - Metric and Log Collection with Agents, New Relic Query Language (NRQL), Alerts and Incidents, and New Relic CLI

@@ -68,6 +68,40 @@ mn create-app <<project name>> -build maven
 
 `@Body` for request body
 
+GET endpoint with path variable and query param 
+```java
+package example.micronaut;
+
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.QueryValue;
+import io.micronaut.http.annotation.PathVariable;
+
+@Controller("/greet") // Base path for the controller
+public class GreetingController {
+
+    @Get("/{name}/age/{age}") // Path variables: name and age
+    public String greet(@PathVariable String name, 
+                        @PathVariable int age, 
+                        @QueryValue(defaultValue = "en") String lang) {
+        // Query parameter: lang (with a default value of "en")
+
+        String greeting;
+        switch (lang) {
+            case "es":
+                greeting = "Hola";
+                break;
+            case "fr":
+                greeting = "Bonjour";
+                break;
+            default:
+                greeting = "Hello";
+        }
+
+        return String.format("%s, %s! You are %d years old.", greeting, name, age);
+    }
+}
+```
 
 ### Reactive
 

@@ -499,6 +499,71 @@ import java.util.List;
 }
 
 ```
+### Accessing http request headers
+The `@RequestHeader` annotation is used to access HTTP headers in controller methods. It allows you to map specific headers from an HTTP request to method parameters. Here are several ways to use it:
+
+1. **Simple Header Mapping**:
+   ```java
+   @GetMapping("/greet")
+   public String greet(@RequestHeader("User-Agent") String userAgent) {
+       return "User-Agent: " + userAgent;
+   }
+   ```
+
+2. **Optional Headers with Default Value**:
+   ```java
+   @GetMapping("/info")
+   public String info(@RequestHeader(value = "X-Request-ID", defaultValue = "unknown") String requestId) {
+       return "Request ID: " + requestId;
+   }
+   ```
+
+3. **Access All Headers**:
+   ```java
+   @GetMapping("/headers")
+   public String headers(@RequestHeader Map<String, String> headers) {
+       return headers.toString();
+   }
+   ```
+
+4. **Multiple Headers**:
+   ```java
+   @GetMapping("/multi")
+   public String multi(@RequestHeader("Host") String host, @RequestHeader("Accept") String accept) {
+       return "Host: " + host + ", Accept: " + accept;
+   }
+   ```
+5 **HttpHeaders**:
+```java
+@GetMapping("/all-headers")
+public String allHeaders(@RequestHeader HttpHeaders headers) {
+    List<String> values = headers.get("X-Header");
+    return "X-Header values: " + String.join(", ", values);
+}
+```
+
+6 **Multi Value Headers**:
+```java
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HeaderController {
+
+    @GetMapping("/headers")
+    public ResponseEntity<String> getHeaders(@RequestHeader MultiValueMap<String, String> headers) {
+        headers.forEach((key, value) -> {
+            System.out.println("Header '" + key + "' = " + String.join(", ", value));
+        });
+        return new ResponseEntity<>("Headers received: " + headers.size(), HttpStatus.OK);
+    }
+}
+```
+`@RequestHeader` simplifies handling headers, supporting both required and optional parameters in Spring MVC controllers.
 
 ## Content Negotiation in Spring
 
@@ -539,3 +604,4 @@ In the JUnit 5 test class annotate it with ```@ExtendWith({RestDocumentationExte
 * <https://www.baeldung.com/spring-mvc-content-negotiation-json-xml>
 * <https://www.baeldung.com/spring-rest-docs>
 * https://github.com/spring-projects
+* [http request header](https://www.baeldung.com/spring-rest-http-headers)

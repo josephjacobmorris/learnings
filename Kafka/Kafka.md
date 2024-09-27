@@ -133,4 +133,5 @@ These default values can be modified according to the data retention requirement
 
 * Udemy 
 * Chatgpt
+* Substack - The polymathic engineer
 *  Reactive Kafka example - https://github.com/Kevded/example-reactive-spring-kafka-consumer-and-producer/blob/master/README.md

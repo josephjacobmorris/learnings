@@ -362,31 +362,120 @@ public class AdapterPatternDemo {
    List<String> list = Arrays.asList(array);  // Adapter
    ```
 
-2. **`java.io.InputStreamReader` and `java.io.OutputStreamWriter`:**
-   These classes act as adapters between byte streams (`InputStream`, `OutputStream`) and character streams (`Reader`, `Writer`), allowing the use of character streams where byte streams are expected.
+The Adapter Design Pattern can be implemented in two main ways: **Object Adapter** and **Class Adapter**. Here's a detailed explanation of both:
 
-   ```java
-   InputStream inputStream = new FileInputStream("file.txt");
-   Reader reader = new InputStreamReader(inputStream);  // Adapter
-   ```
+### 1. **Object Adapter**
 
-3. **Spring Framework - `HandlerAdapter`**:
-   In Spring MVC, `HandlerAdapter` is used to adapt various handler types (like Controllers) to the interface expected by the DispatcherServlet. For example, `SimpleControllerHandlerAdapter` adapts Spring's `Controller` interface to be handled by the DispatcherServlet.
+#### **Definition:**
+An Object Adapter uses composition to adapt one interface to another. In this approach, the adapter holds a reference to an instance of the adaptee class (the class that needs to be adapted).
 
-   ```java
-   @Controller
-   public class MyController {
-       @RequestMapping("/welcome")
-       public String welcome() {
-           return "welcome";
-       }
-   }
-   ```
+#### **How It Works:**
+- The Object Adapter implements the target interface and has an instance of the adaptee as an attribute.
+- When a method from the target interface is called, the adapter delegates the call to the adaptee’s corresponding method.
 
-   Here, Spring uses `HandlerAdapter` behind the scenes to make `MyController` work with the framework’s request handling flow.
+#### **Advantages:**
+- It allows for adapting classes at runtime because the adaptee can be changed dynamically.
+- You can adapt multiple classes to the same interface, providing more flexibility.
 
----
+#### **Example:**
+Here's an example of an Object Adapter in Java:
 
+```java
+// Adaptee class (the class with an incompatible interface)
+class LegacyPrinter {
+    public void printWithOldFormat(String text) {
+        System.out.println("Old Format: " + text);
+    }
+}
+
+// Target interface (the interface expected by the client)
+interface Printer {
+    void print(String text);
+}
+
+// Object Adapter class
+class PrinterAdapter implements Printer {
+    private LegacyPrinter legacyPrinter;
+
+    public PrinterAdapter(LegacyPrinter legacyPrinter) {
+        this.legacyPrinter = legacyPrinter;
+    }
+
+    @Override
+    public void print(String text) {
+        legacyPrinter.printWithOldFormat(text); // Delegates the call to adaptee
+    }
+}
+
+// Client code
+public class ObjectAdapterDemo {
+    public static void main(String[] args) {
+        Printer printer = new PrinterAdapter(new LegacyPrinter());
+        printer.print("Hello, Adapter Pattern!");
+    }
+}
+```
+
+### 2. **Class Adapter**
+
+#### **Definition:**
+A Class Adapter uses inheritance to adapt one interface to another. In this approach, the adapter extends the adaptee class and implements the target interface.
+
+#### **How It Works:**
+- The Class Adapter extends the adaptee class and implements the target interface, allowing it to override the methods of the adaptee to conform to the target interface.
+
+#### **Advantages:**
+- It can be simpler in cases where you only need to adapt one specific class and you can take advantage of inheritance.
+- The implementation can be cleaner since there’s no need to hold a reference to the adaptee.
+
+#### **Disadvantages:**
+- It doesn’t support multiple inheritance, which can be limiting.
+- It can lead to tighter coupling between the adapter and the adaptee.
+
+#### **Example:**
+Here's an example of a Class Adapter in Java:
+
+```java
+// Adaptee class
+class LegacyPrinter {
+    public void printWithOldFormat(String text) {
+        System.out.println("Old Format: " + text);
+    }
+}
+
+// Target interface
+interface Printer {
+    void print(String text);
+}
+
+// Class Adapter class
+class ClassPrinterAdapter extends LegacyPrinter implements Printer {
+    @Override
+    public void print(String text) {
+        printWithOldFormat(text); // Calls the adaptee's method directly
+    }
+}
+
+// Client code
+public class ClassAdapterDemo {
+    public static void main(String[] args) {
+        Printer printer = new ClassPrinterAdapter();
+        printer.print("Hello, Adapter Pattern!");
+    }
+}
+```
+
+### Summary of Differences
+
+| Feature          | Object Adapter                        | Class Adapter                    |
+|------------------|--------------------------------------|----------------------------------|
+| Implementation    | Uses composition (has-a relationship)| Uses inheritance (is-a relationship)|
+| Flexibility       | More flexible (can change adaptee at runtime) | Less flexible (tied to specific adaptee) |
+| Multiple Adaptees | Can adapt multiple classes to the same interface | Generally adapts one specific class |
+| Coupling          | Looser coupling between adapter and adaptee | Tighter coupling due to inheritance |
+
+### Conclusion
+Both Object and Class Adapters serve the same purpose of adapting interfaces but do so in different ways. The choice between them depends on the specific requirements of the application, such as the need for flexibility and the existing class hierarchy.
 
 
 ## Behavioural Design Patterns

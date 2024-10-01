@@ -284,6 +284,111 @@ Simple Coffee, Milk, Sugar $2.7
 
 This pattern allows for dynamic and flexible combinations of responsibilities, providing a powerful alternative to using extensive subclassing.
 </details>
+
+### **Adapter Design Pattern**
+
+#### **Intent:**
+The **Adapter pattern** (also known as the **Wrapper pattern**) allows objects with incompatible interfaces to work together. The intent is to bridge the gap between two otherwise incompatible interfaces by providing a new interface that adapts one object to another.
+
+It allows the interface of an existing class to be used as another interface. This pattern is especially useful when you want to integrate classes that weren't designed to work together.
+
+#### **Advantages:**
+1. **Reusability**: You can reuse existing classes even if they don’t match the expected interface.
+2. **Single Responsibility**: The adapter helps separate the concerns between the client and the service provider.
+3. **Decoupling**: The client code becomes decoupled from the implementation of third-party or legacy systems.
+4. **Extensibility**: Easily adaptable if the target interface or legacy system changes.
+
+#### **Disadvantages:**
+1. **Complexity**: Introducing an adapter increases the complexity of the system due to additional layers of abstraction.
+2. **Performance Overhead**: The adapter might introduce a performance overhead as it translates requests between the client and the adaptee.
+3. **Limited Scope**: It can only adapt the interface, not the behavior. If you need deeper changes, this pattern may not be the right choice.
+
+---
+
+### **Java Code Example:**
+
+```java
+// Adaptee class (incompatible interface)
+class LegacyCharger {
+    public void connectWithFlatPin() {
+        System.out.println("Connecting with flat pin");
+    }
+}
+
+// Target Interface (desired interface)
+interface Charger {
+    void connect();
+}
+
+// Adapter class (adapts the Adaptee to the Target interface)
+class ChargerAdapter implements Charger {
+    private LegacyCharger legacyCharger;
+
+    public ChargerAdapter(LegacyCharger legacyCharger) {
+        this.legacyCharger = legacyCharger;
+    }
+
+    @Override
+    public void connect() {
+        // Adapter adapts the behavior by calling the incompatible method.
+        legacyCharger.connectWithFlatPin();
+    }
+}
+
+// Client code
+public class AdapterPatternDemo {
+    public static void main(String[] args) {
+        // Client needs Charger interface
+        Charger charger = new ChargerAdapter(new LegacyCharger());
+        charger.connect();
+    }
+}
+```
+
+#### **Explanation:**
+- `LegacyCharger`: An existing class that has an incompatible interface.
+- `Charger`: The desired interface that the client expects.
+- `ChargerAdapter`: Adapts the `LegacyCharger` to the `Charger` interface, allowing it to be used by the client.
+
+---
+
+### **Well-known Examples in Java or Spring:**
+
+1. **`java.util.Arrays#asList()`**:
+   This method takes an array and adapts it to be used as a `List`, even though arrays and lists have different interfaces.
+
+   ```java
+   String[] array = {"A", "B", "C"};
+   List<String> list = Arrays.asList(array);  // Adapter
+   ```
+
+2. **`java.io.InputStreamReader` and `java.io.OutputStreamWriter`:**
+   These classes act as adapters between byte streams (`InputStream`, `OutputStream`) and character streams (`Reader`, `Writer`), allowing the use of character streams where byte streams are expected.
+
+   ```java
+   InputStream inputStream = new FileInputStream("file.txt");
+   Reader reader = new InputStreamReader(inputStream);  // Adapter
+   ```
+
+3. **Spring Framework - `HandlerAdapter`**:
+   In Spring MVC, `HandlerAdapter` is used to adapt various handler types (like Controllers) to the interface expected by the DispatcherServlet. For example, `SimpleControllerHandlerAdapter` adapts Spring's `Controller` interface to be handled by the DispatcherServlet.
+
+   ```java
+   @Controller
+   public class MyController {
+       @RequestMapping("/welcome")
+       public String welcome() {
+           return "welcome";
+       }
+   }
+   ```
+
+   Here, Spring uses `HandlerAdapter` behind the scenes to make `MyController` work with the framework’s request handling flow.
+
+---
+
+
+
 ## Behavioural Design Patterns
 
 ### Strategy Pattern

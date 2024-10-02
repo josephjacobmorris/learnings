@@ -103,6 +103,99 @@ public class GreetingController {
 }
 ```
 
+
+###  Custom Error Handling:
+
+1. **Create a Custom Exception**:
+   Define a custom exception that can be thrown in your service or controller when an error occurs.
+
+2. **Implement an Exception Handler**:
+   Create a class that implements `ExceptionHandler<T extends Throwable, R>` where `T` is the exception type to be handled and `R` is the return type (usually `HttpResponse`).
+
+3. **Register the Handler**:
+   Micronaut automatically detects and registers exception handlers based on the `@Singleton` annotation.
+
+
+#### 1. Create a Custom Exception:
+
+```java
+package com.example.exception;
+
+public class CustomNotFoundException extends RuntimeException {
+    public CustomNotFoundException(String message) {
+        super(message);
+    }
+}
+```
+
+#### 2. Create a Custom Exception Handler:
+
+```java
+package com.example.exception;
+
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.annotation.Produces;
+import io.micronaut.http.server.exceptions.ExceptionHandler;
+
+import javax.inject.Singleton;
+
+@Produces
+@Singleton
+public class CustomNotFoundExceptionHandler implements ExceptionHandler<CustomNotFoundException, HttpResponse<?>> {
+
+    @Override
+    public HttpResponse<?> handle(HttpRequest request, CustomNotFoundException exception) {
+        // You can create a custom response body if needed
+        return HttpResponse.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Resource Not Found", exception.getMessage()));
+    }
+    
+    // A simple class for custom error response
+    static class ErrorResponse {
+        private final String error;
+        private final String message;
+
+        public ErrorResponse(String error, String message) {
+            this.error = error;
+            this.message = message;
+        }
+
+        public String getError() {
+            return error;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+}
+```
+
+#### 3. Throw the Custom Exception in Your Controller:
+
+```java
+package com.example.controller;
+
+import com.example.exception.CustomNotFoundException;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+
+@Controller("/items")
+public class ItemController {
+
+    @Get("/{id}")
+    public String getItem(String id) {
+        // Simulating an error scenario
+        if ("404".equals(id)) {
+            throw new CustomNotFoundException("Item with id " + id + " not found.");
+        }
+        return "Item " + id;
+    }
+}
+```
+
 ### Reactive
 
 To make the application reactive just change return type to reactive components.

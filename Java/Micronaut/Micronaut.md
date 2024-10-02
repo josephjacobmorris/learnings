@@ -195,6 +195,64 @@ public class ItemController {
     }
 }
 ```
+### Local Custom error handling
+
+### Key Use Cases of `@Error` Annotation:
+1. **Handle Specific Exceptions**: It allows handling of specific exceptions that occur within a controller method. For example, if a method throws a `CustomNotFoundException`, you can use `@@Error` to handle it and return a custom response.
+
+2. **Fallback Mechanism**: It can act as a fallback mechanism to return a default response when an exception occurs, without propagating the error further.
+
+3. **Local Error Handling**: The error handling defined with `@@Error` is local to the controller where it is defined. It will not be applied globally, making it useful when you want specific controllers to have their own error-handling logic.
+
+### Example: Using `@Error` Annotation
+
+Here is an example demonstrating how to use the `@@Error` annotation in a Micronaut controller.
+
+```java
+package com.example.controller;
+
+import com.example.exception.CustomNotFoundException;
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Error;
+import io.micronaut.http.annotation.Get;
+
+@Controller("/items")
+public class ItemController {
+
+    // A regular controller method that can throw a custom exception
+    @Get("/{id}")
+    public String getItem(String id) {
+        if ("404".equals(id)) {
+            throw new CustomNotFoundException("Item with id " + id + " not found.");
+        }
+        return "Item " + id;
+    }
+
+    // Local error handler using the @@Error annotation to handle the custom exception
+    @Error(exception = CustomNotFoundException.class)
+    public HttpResponse<String> handleCustomNotFound(CustomNotFoundException exception) {
+        return HttpResponse.notFound("Custom Error: " + exception.getMessage());
+    }
+
+    // Catch-all error handler for any other exceptions that may occur in this controller
+    @Error
+    public HttpResponse<String> handleGeneralError(Throwable error) {
+        return HttpResponse.serverError("An unexpected error occurred: " + error.getMessage());
+    }
+}
+```
+
+### Explanation:
+- The `getItem()` method simulates an error scenario where if the ID is `404`, a `CustomNotFoundException` is thrown.
+- The method annotated with `@@Error` and `exception = CustomNotFoundException.class` will catch this specific exception and return a 404 error response with a custom message.
+- The second `@@Error` method serves as a **generic fallback** for any other exceptions that may occur in the controller.
+
+### Key Points:
+- **Local Scope**: The `@@Error` annotation applies only to the controller in which it's defined. If you need global exception handling, you would use a global exception handler class.
+- **Specific or Generic Handling**: You can define error handling for specific exception types or create a catch-all method for any uncaught exceptions.
+- **Return Custom Responses**: Methods annotated with `@@Error` can return custom `HttpResponse` objects, allowing you to define the error status, headers, and body.
+
 
 ### Reactive
 

@@ -8,6 +8,9 @@
 3. **Scalability**: Asynchronous processing allows the system to handle larger loads by adding more consumers or producers without changing the overall design. Producers and consumers can be scaled without blocking each other.
 4. **Fault Tolerance**: Kafka replicates data across multiple brokers, ensuring reliability even in case of node failures.
 
+### Kafka Childrens Book
+https://www.gentlydownthe.stream/
+
 ## APIs
 
 ### Producer API

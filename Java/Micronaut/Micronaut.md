@@ -52,6 +52,9 @@ Same as spring f/w , used to resolve ambiguity in-case multiple beans qualify.
 
 Similar to `@Conditional`
 
+### How micronaut does DI without reflection
+Micronaut achieves dependency injection without reflection by using **AST transformations** (Groovy) and **annotation processors** (Java) to generate classes implementing the `BeanDefinition` interface at compile time. It leverages the **ASM bytecode library** to generate bytecode, allowing it to know injection points ahead of time. This eliminates the need for runtime reflection, improving **startup time, memory usage, and runtime performance**, particularly for non-singleton beans. Unlike reflection-based frameworks like Spring, Micronaut’s performance is not impacted by codebase size, making it highly efficient for large applications.
+
 ## Building HTTP Server
 
 ```bash 
@@ -503,4 +506,5 @@ private int age;
 ## References
 
 * chatgpt
+* https://docs.micronaut.io/latest/guide/index.html
 * https://www.baeldung.com/micronaut

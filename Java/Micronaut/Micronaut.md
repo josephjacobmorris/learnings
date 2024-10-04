@@ -257,6 +257,149 @@ public class ItemController {
 ### Reactive
 
 To make the application reactive just change return type to reactive components.
+## Micronaut Events
+In Micronaut, the `@EventListener` annotation is used to designate methods as listeners for specific events that occur within the application. It allows for the creation of event-driven systems by decoupling event producers from event consumers. When an event is published in the application, all methods annotated with `@EventListener` and configured to handle that event type are triggered to handle the event.
+
+### Use Cases of `@EventListener`:
+1. **Asynchronous Event Handling**: You can process events asynchronously by marking event listeners as `@Async`, allowing non-blocking execution.
+2. **Application Lifecycle Events**: Listen for specific lifecycle events, such as when the application starts or shuts down, to perform initialization or cleanup tasks.
+3. **Custom Business Events**: Define and handle custom events within your application to implement decoupled services.
+
+### Example of Using `@EventListener` in Micronaut:
+
+#### 1. Define a Custom Event Class
+
+You can create a custom event class to represent the event that you want to publish and listen for.
+
+```java
+package com.example.event;
+
+public class UserCreatedEvent {
+    private final String username;
+
+    public UserCreatedEvent(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+}
+```
+
+#### 2. Publish the Event
+
+You can publish an event using the `ApplicationEventPublisher`. For example, in a service or a controller:
+
+```java
+package com.example.service;
+
+import com.example.event.UserCreatedEvent;
+import io.micronaut.context.event.ApplicationEventPublisher;
+import jakarta.inject.Singleton;
+
+@Singleton
+public class UserService {
+    private final ApplicationEventPublisher eventPublisher;
+
+    public UserService(ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
+    }
+
+    public void createUser(String username) {
+        // Business logic to create a user (e.g., saving to a database)
+        System.out.println("User created: " + username);
+
+        // Publish the UserCreatedEvent
+        eventPublisher.publishEvent(new UserCreatedEvent(username));
+    }
+}
+```
+
+#### 3. Listen for the Event
+
+Now, you can create a method annotated with `@EventListener` to listen for the `UserCreatedEvent`.
+
+```java
+package com.example.listener;
+
+import com.example.event.UserCreatedEvent;
+import io.micronaut.runtime.event.annotation.EventListener;
+import jakarta.inject.Singleton;
+
+@Singleton
+public class UserCreatedListener {
+
+    @EventListener
+    public void onUserCreated(UserCreatedEvent event) {
+        // Handle the event, e.g., sending a welcome email
+        System.out.println("Handling event: User " + event.getUsername() + " created.");
+    }
+}
+```
+
+### Explanation:
+
+- **Event Class**: `UserCreatedEvent` is a simple event that holds information about the created user.
+- **Event Publisher**: In `UserService`, the event is published using `ApplicationEventPublisher` after the user is created.
+- **Event Listener**: The `UserCreatedListener` class contains a method annotated with `@EventListener` that listens for `UserCreatedEvent` and handles it by performing some logic, such as sending a welcome email or logging the event.
+
+### Asynchronous Event Handling:
+
+If you want the event listener to handle events asynchronously, you can mark the listener method with `@Async`. This way, the event handling happens in a non-blocking manner:
+
+```java
+package com.example.listener;
+
+import com.example.event.UserCreatedEvent;
+import io.micronaut.runtime.event.annotation.EventListener;
+import io.micronaut.scheduling.annotation.Async;
+import jakarta.inject.Singleton;
+
+@Singleton
+public class UserCreatedListener {
+
+    @Async
+    @EventListener
+    public void onUserCreated(UserCreatedEvent event) {
+        // Asynchronous handling of the event
+        System.out.println("Asynchronously handling event: User " + event.getUsername() + " created.");
+    }
+}
+```
+
+### Application Lifecycle Event Example:
+
+Micronaut has built-in events that can be listened for, such as when the application starts or stops. You can listen to these events using `@EventListener`:
+
+```java
+import io.micronaut.runtime.event.annotation.EventListener;
+import io.micronaut.runtime.server.event.ServerStartupEvent;
+import io.micronaut.runtime.server.event.ServerShutdownEvent;
+import jakarta.inject.Singleton;
+
+@Singleton
+public class ApplicationLifecycleListener {
+
+    @EventListener
+    public void onStartup(ServerStartupEvent event) {
+        System.out.println("Application started!");
+    }
+
+    @EventListener
+    public void onShutdown(ServerShutdownEvent event) {
+        System.out.println("Application shutting down!");
+    }
+}
+```
+
+### Summary:
+- The `@EventListener` annotation in Micronaut is used to designate methods as event listeners that react to events.
+- It can be used for handling custom business events, application lifecycle events, and other system-level events.
+- You can define event listeners that process events synchronously or asynchronously, depending on the use case.
+- Event-driven architectures help decouple services and enhance modularity in the application.
+
+By using `@EventListener`, you can build event-driven systems in Micronaut with ease, leveraging both built-in and custom events.
 
 ## Testing
 

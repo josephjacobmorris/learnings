@@ -54,6 +54,14 @@ Similar to `@Conditional`
 
 ### How micronaut does DI without reflection
 Micronaut achieves dependency injection without reflection by using **AST transformations** (Groovy) and **annotation processors** (Java) to generate classes implementing the `BeanDefinition` interface at compile time. It leverages the **ASM bytecode library** to generate bytecode, allowing it to know injection points ahead of time. This eliminates the need for runtime reflection, improving **startup time, memory usage, and runtime performance**, particularly for non-singleton beans. Unlike reflection-based frameworks like Spring, Micronaut’s performance is not impacted by codebase size, making it highly efficient for large applications.
+Constructor based injection is preferred since "
+* Allows immutable types
+
+* Doesn’t require an additional annotation
+
+* Is less likely to result in a NullPointerException
+
+* More clearly expresses the dependencies of a particular type in one place."
 
 ## Building HTTP Server
 

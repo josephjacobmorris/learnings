@@ -110,5 +110,6 @@ JWTs provide a scalable and efficient way to handle authentication and data shar
 ## References
 
 * chatgpt
+* https://chatgpt.com/share/6704262b-7028-800c-a39a-2d2fe43628f0
 * <https://www.youtube.com/watch?v=zt8Cocdy15c&list=PLCRMIe5FDPseEIW687mH-LZ-DMNbzAQLF&ab_channel=ByteByteGo>
 

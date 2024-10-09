@@ -19,7 +19,16 @@ micronaut:
     authentication: bearer
 #used for generating JWT 
     token:
+        bearer:
+          #Set whether to enable bearer token authentication. Default value true.
+          enabled: true
+          #Sets the prefix to use for the auth token. Default value Bearer.
+          prefix: Bearer
+          #Sets the header name to use. Default value Authorization.
+          header-name: 
         jwt:
+          #Sets whether JWT security is enabled. Default value (true)
+          enabled: true
           signatures:
             secret:
               generator:
@@ -89,3 +98,4 @@ public interface AppClient {
 ```
 ## References
 * https://guides.micronaut.io/latest/micronaut-security-jwt-gradle-java.html
+* https://micronaut-projects.github.io/micronaut-security/latest/guide/#jwt

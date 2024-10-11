@@ -133,7 +133,52 @@ micronaut:
 
 ## Authentication Provider
  > Note : For reactive use `HttpRequestReactiveAuthenticationProvider`
- 
+
+### Built-in Authentication Providers
+ * LdapAuthenticationProvider
+ * OauthPasswordAuthenticationProvider
+ * OpenIdPasswordAuthenticationProvider
+
+## Security Rules
+
+```yaml
+micronaut:
+  security:
+    ip-patterns:
+      - 127.0.0.1
+      - 192.168.1.*
+```
+
+Using expression to restrict access
+`@Secured("#{ user?.attributes?.get('email') == 'sherlock@micronaut.example' }")`
+
+Using intercept map
+
+```yaml
+micronaut:
+  security:
+    intercept-url-map:
+      -
+        pattern: /images/*
+        http-method: GET
+        access:
+          - isAnonymous()
+      -
+        pattern: /books
+        access:
+          - isAuthenticated()
+      -
+        pattern: /books/grails
+        http-method: POST
+        access:
+          - ROLE_GRAILS
+          - ROLE_GROOVY
+      -
+        pattern: /books/grails
+        http-method: PUT
+        access:
+          - ROLE_ADMIN
+```
 
 ## References
 * https://guides.micronaut.io/latest/micronaut-security-jwt-gradle-java.html

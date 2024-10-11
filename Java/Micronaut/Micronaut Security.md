@@ -97,6 +97,9 @@ public interface AppClient {
 }
 ```
 
+### Step 6: Validating JWT 
+Use    `JsonWebTokenValidator`, and `ReactiveJsonWebTokenValidator`
+
 ## Authentication Strategy
 "By default, Micronaut requires just one Authentication Provider to return a successful authentication response. You can set `micronaut.security.authentication-provider-strategy: ALL` to require all AuthenticationProviders to return a successful authentication response."
 
@@ -179,6 +182,9 @@ micronaut:
         access:
           - ROLE_ADMIN
 ```
+
+## Security Events
+Events are generated for login sucess,failure, logout etc
 
 ## References
 * https://guides.micronaut.io/latest/micronaut-security-jwt-gradle-java.html

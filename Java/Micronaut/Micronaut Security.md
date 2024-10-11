@@ -96,6 +96,45 @@ public interface AppClient {
     String home(@Header(AUTHORIZATION) String authorization);
 }
 ```
+
+## Authentication Strategy
+"By default, Micronaut requires just one Authentication Provider to return a successful authentication response. You can set `micronaut.security.authentication-provider-strategy: ALL` to require all AuthenticationProviders to return a successful authentication response."
+
+## Login Handler
+Login Handler defines how to handle login attempts. There are various default implementation as well as we could have custom implementation.
+Default implementation can be used by setting config values of `micronaut.security.authentication` as below
+
+| Config Value | Required Dependency module | Bean Registered                |
+|:------------:|:--------------------------:|:-------------------------------|
+|    cookie    |       micronaut-jwt        | JwtCookieLoginHandler          |
+|    bearer    |       micronaut-jwt        | AccessRefreshTokenLoginHandler |
+|   idtoken    |      micronaut-oauth       | IdTokenLoginHandler            |
+|   session    |     micronaut-session      | SessionLoginHandler            |
+
+## Redirect configuration
+```yaml
+micronaut:
+  security:
+    redirect:
+      enabled: true
+      #Where the user is redirected to after a successful login. Default value ("/").
+      login-success: /
+      login-failure: /
+      logout: /
+      # where to redirect in case of un-authorized response
+      unauthorized:
+        url: /
+        enabled: true
+      # where to redirect in case of forbidden response  
+      forbidden:
+        url: /
+        enabled: true
+```
+
+## Authentication Provider
+ > Note : For reactive use `HttpRequestReactiveAuthenticationProvider`
+ 
+
 ## References
 * https://guides.micronaut.io/latest/micronaut-security-jwt-gradle-java.html
 * https://micronaut-projects.github.io/micronaut-security/latest/guide/#jwt

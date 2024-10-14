@@ -7,6 +7,68 @@
 ## Canary
 
 ## Rolling
+### **Rolling Deployment Strategy**
+
+**Rolling deployment** is a strategy in which a new version of an application is gradually rolled out to replace the old version in small batches or increments, without taking the entire application offline. Instead of updating all instances of the application at once, the update happens sequentially, typically updating a few servers or containers at a time. During this process, both the old and new versions of the application are running simultaneously.
+
+This strategy is common in cloud-based environments or containerized applications, where instances of an application can be easily managed in groups or individually.
+
+---
+
+### **How Rolling Deployment Works**
+
+1. **Phased Rollout**: The update is deployed to a small portion of the infrastructure (such as a few servers or containers), replacing the old version with the new version.
+2. **Monitoring**: The performance of the new version is monitored after deployment to ensure it's working correctly.
+3. **Progressive Replacement**: If no issues are found, the rollout continues, progressively replacing more instances of the old version with the new version until the entire application is updated.
+4. **Rollback Option**: If any issues arise during the rollout, the process can be halted, and the old version can be rolled back for the remaining instances.
+
+---
+
+### **Pros of Rolling Deployment**
+
+1. **Zero Downtime**: Because only a portion of the instances is updated at any given time, the application remains available throughout the deployment process.
+
+2. **Risk Mitigation**: The gradual nature of the rollout reduces the risk of system-wide failure. If the new version causes problems, you can stop the rollout and address the issues before proceeding.
+
+3. **Smooth Transition**: Both the old and new versions of the application run concurrently, ensuring a smooth transition between versions and reducing the risk of user disruption.
+
+4. **Easier Monitoring and Debugging**: Since changes are rolled out incrementally, it’s easier to identify problems early on by monitoring the small portion of the application that has been updated.
+
+---
+
+### **Cons of Rolling Deployment**
+
+1. **Requires Infrastructure Support**: Not all systems are easily adaptable to rolling deployments. It works best in environments where instances can be updated independently (e.g., microservices, containerized systems like Kubernetes). It may not be ideal for tightly coupled monolithic applications.
+
+2. **Complex Configuration**: Coordinating between old and new versions running simultaneously can introduce complexity, especially if they have significant differences or incompatible changes.
+
+3. **Longer Deployment Time**: Rolling deployments take more time than traditional deployments because the process is sequential. You may have to wait for the entire process to complete before making new updates.
+
+4. **Rollback Complexity**: If something goes wrong, rolling back isn’t as simple as reverting the entire application. It involves gradually switching back to the previous version across all instances.
+
+---
+
+### **Ideal Use Cases for Rolling Deployment**
+
+1. **Large-Scale Applications**: Ideal for applications with a large user base where downtime would significantly impact business operations. For example, a global SaaS platform can use rolling deployment to maintain uptime during a feature update.
+
+2. **Cloud-Native or Containerized Environments**: Rolling deployments work particularly well in environments like Kubernetes, where instances (pods) can be easily controlled and updated one by one.
+
+3. **Microservices Architecture**: Rolling deployments fit well with microservices, where individual services can be updated independently without affecting the entire system.
+
+4. **Real-Time Applications**: If you need to continuously serve users with minimal downtime, like in online banking or e-commerce platforms, rolling deployment is a great fit.
+
+---
+
+### **Example Scenario**
+Imagine a streaming service like Netflix planning to release a new video playback feature. Instead of updating the entire system at once, the service uses rolling deployment to update a few servers at a time. During the process, the service continues running, and if any issues occur, the update can be halted or rolled back before all servers are updated.
+
+This strategy ensures that most users can continue streaming without disruption, and engineers can monitor and address potential issues in the new version incrementally.
+
+---
+
+### **Summary**
+The **rolling deployment strategy** is designed for environments where maintaining availability is critical, offering a smooth, risk-mitigated way to update applications. While it requires infrastructure that supports phased updates and introduces some complexity in coordination, it's ideal for cloud-native, microservices, or containerized applications that need to ensure uptime during deployments.
 
 ## Feature Flag
 ### **Feature Flag Deployment Strategy**

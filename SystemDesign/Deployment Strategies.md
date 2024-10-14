@@ -5,6 +5,70 @@
 ## Blue/Green 
 
 ## Canary
+### **Canary Deployment Strategy**
+
+**Canary deployment** is a strategy in which a new version of an application is released to a small subset of users or servers (referred to as the "canary") before being rolled out to the entire user base. This allows the development team to observe the performance of the new version in a real-world environment while limiting the potential impact of any issues.
+
+The name "canary" comes from the historical practice of using canaries in coal mines to detect toxic gases. Similarly, in a canary deployment, a small group is exposed to potential risks (e.g., bugs or performance issues) before the wider audience is affected.
+
+---
+
+### **How Canary Deployment Works**
+
+1. **Initial Rollout**: The new version of the application is deployed to a small portion of the infrastructure (e.g., 5-10% of the user base or server instances).
+2. **Monitoring**: Key metrics such as performance, error rates, and user behavior are closely monitored to detect any issues with the new version.
+3. **Gradual Expansion**: If the canary performs well (i.e., no significant issues are detected), the deployment is progressively expanded to more users or instances.
+4. **Rollback if Necessary**: If problems are detected in the canary, the deployment is rolled back, and the impact is minimized since only a small subset was affected.
+
+---
+
+### **Pros of Canary Deployment**
+
+1. **Reduced Risk**: By deploying the new version to a small subset of users, you minimize the impact of potential bugs or issues. If something goes wrong, only a small group is affected.
+
+2. **Quick Feedback Loop**: The development team can gather real-world feedback quickly and validate the new version's performance under actual user conditions, allowing for rapid adjustments.
+
+3. **Gradual Rollout**: Canary deployments allow for a smooth, incremental rollout, which can be adjusted based on user response and system performance. This minimizes user disruption.
+
+4. **Easy Rollback**: If the canary version fails, it can be quickly rolled back without affecting the majority of users.
+
+5. **Improved Reliability**: By rolling out changes in phases, you reduce the likelihood of widespread system outages or major bugs affecting all users.
+
+---
+
+### **Cons of Canary Deployment**
+
+1. **Requires Infrastructure Support**: Canary deployments require infrastructure capable of routing traffic to different versions of the application simultaneously, which may involve load balancers, feature flags, or other routing mechanisms.
+
+2. **Complexity in Monitoring**: Monitoring can be complex, as you need robust analytics tools to detect subtle issues with the canary version, which can be challenging to configure and maintain.
+
+3. **Potential for Inconsistent User Experience**: Users in the canary group may have a different experience compared to the rest of the user base, leading to potential confusion or support issues.
+
+4. **Deployment Time**: Since the rollout is gradual and involves monitoring each stage, the overall deployment process can take more time compared to a single deployment.
+
+5. **Canary Traffic Selection**: Deciding which users or servers to route to the canary version is crucial. Improper selection could lead to biased results, making it hard to judge the overall success of the deployment.
+
+---
+
+### **Ideal Use Cases for Canary Deployment**
+
+1. **Feature Validation with Low Risk**: Canary deployment is perfect for releasing features or updates that have some risk but need to be validated in a live production environment. For example, an e-commerce site might test a new checkout process with a small percentage of users to validate it before rolling it out to everyone.
+
+2. **Large-Scale Applications**: Applications with a large user base (e.g., social media platforms or SaaS applications) can benefit from canary deployments since it allows for testing on a real but limited set of users, reducing the impact of potential issues.
+
+3. **Performance Testing in Real Conditions**: For updates that significantly change application performance (e.g., backend optimizations, database migrations), canary deployment allows testing under real-world load conditions while limiting potential damage.
+
+4. **Gradual Migration to New Technologies**: If you're adopting new technologies or architectures (e.g., moving from a monolith to microservices or introducing a new API), canary deployment lets you gradually migrate traffic, ensuring everything works as expected.
+
+---
+
+### **Example Scenario**
+Suppose a financial services company wants to release a new transaction processing system. Using canary deployment, they first deploy the new system to handle transactions for only 5% of their users. This way, they can monitor the performance and stability of the system in real-world conditions. If no significant issues are detected, they increase the traffic to 20%, then 50%, and finally 100%. If any issues arise, they can quickly switch back to the old system for the canary group and resolve the issues before moving forward.
+
+---
+
+### **Summary**
+The **canary deployment strategy** is highly effective for reducing the risks of large-scale rollouts by testing new features or updates with a small, real-world user segment. It allows teams to validate changes in production and gather valuable feedback while limiting potential negative impact. However, it requires a robust infrastructure and monitoring system, and it can introduce complexity in managing user experience and deployment time. Canary deployment is ideal for critical updates where reliability and gradual adoption are paramount.
 
 ## Rolling
 ### **Rolling Deployment Strategy**

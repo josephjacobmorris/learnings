@@ -19,6 +19,24 @@ Micronaut Data is a modern data access framework designed for building efficient
 
 7. **Transaction Management**: Simplifies transaction management with built-in support for managing transactions declaratively.
 
+## Comparison JDBC vs JPA
+Here’s a comparative table highlighting the key differences between Micronaut Data JDBC and Micronaut Data JPA:
+
+| Feature                    | Micronaut Data JDBC                           | Micronaut Data JPA                                    |
+|----------------------------|-----------------------------------------------|-------------------------------------------------------|
+| **Access Method**          | Direct JDBC                                   | JPA (Java Persistence API)                            |
+| **Abstraction Level**      | Low-level access                              | High-level ORM abstraction                            |
+| **Performance**            | Typically faster due to minimal overhead      | May have slightly higher overhead due to ORM features |
+| **Query Generation**       | Compile-time query generation                 | Supports JPQL and Criteria API for queries            |
+| **Complexity**             | Simpler, straightforward CRUD operations      | Better suited for complex relationships               |
+| **Entity Management**      | No built-in entity management                 | Provides entity lifecycle management                  |
+| **Relationship Handling**  | Manual handling of relationships              | Automatic handling of relationships                   |
+| **Transaction Management** | Basic transaction support                     | Advanced transaction management features              |
+| **Use Cases**              | Best for simple data models, high performance | Ideal for complex domain models and relationships     |
+| **Learning Curve**         | Easier for developers familiar with JDBC      | May require more understanding of JPA concepts        |
+
+This table provides a clear comparison to help in deciding which option to use based on specific project requirements.
+
 ## References
 
 * Chatgpt

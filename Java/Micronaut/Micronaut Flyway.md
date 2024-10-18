@@ -63,6 +63,22 @@ flyway:
 ```
 **2** inject the bean FlywayMigrator and execute the `run` method
 
+## Events
+
+Micronaut events emitted
+* SchemaCleanedEvent
+* MigrationFinishedEvent
+
+## Endpoint
+micronaut provides builtin endpoint to expose all the applied migrations `/flyway`
+It is disabled by default. To enable it add the config:
+```yaml
+endpoints:
+  flyway:
+    enabled: true
+    sensitive: false
+```
+
 ## References
 https://micronaut-projects.github.io/micronaut-flyway/latest/guide/
 

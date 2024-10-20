@@ -36,7 +36,41 @@ Here’s a comparative table highlighting the key differences between Micronaut 
 | **Learning Curve**         | Easier for developers familiar with JDBC      | May require more understanding of JPA concepts        |
 
 This table provides a clear comparison to help in deciding which option to use based on specific project requirements.
+## Common
+
+### Repository Interfaces
+Use `@Repository`
+The built-in Repository interfaces are
+```
+GenericRepository   
+│
+├── CrudRepository
+│   |── JpaRepository
+|   |── PageableRepository
+│
+├── AsyncCrudRepository
+│   └── AsyncPageableRepository
+│ 
+├── ReactiveStreamsCrudRepository
+│   └── ReactiveStreamsPageableRepository
+├── ReactorCrudRepository
+│   └── ReactorPageableRepository
+│
+├── RxJavaCrudRepository
+│   
+├── CoroutineCrudRepository
+    └── CoroutinePageableCrudRepository
+```
+### Validation
+Validation can be done Jakarta Validation annotations 
+
+### Querying
+
+### Data access
+
+### Transactions
 
 ## References
 
+* https://micronaut-projects.github.io/micronaut-data/latest/guide/
 * Chatgpt

@@ -271,9 +271,30 @@ In summary, partitions in Kafka are integral to enabling consumer scaling and ma
 
 Organizations should plan their Kafka architectures with an understanding of these trade-offs, ensuring that they provision the appropriate number of partitions and consumers to meet their performance and cost objectives effectively.
 
+## Message Sending Strategies
+After publishing an event to a Kafka broker, three message-sending strategies can be used: **Fire and Forget**, **Synchronous Send**, and **Asynchronous Send**. Here's how they differ:
+
+1. **Fire and Forget**:
+   - Send a message and move on without waiting for acknowledgment.
+   - High performance but messages may be lost. No feedback or error handling.
+   - Best for non-critical messages (e.g., logs or sensor data).
+
+2. **Synchronous Send**:
+   - Send the message and wait for a response using `.get()`.
+   - Ensures message delivery but blocks the thread, reducing performance.
+   - Should be avoided due to the performance trade-off.
+
+3. **Asynchronous Send**:
+   - Send the message with a callback function to handle responses.
+   - High performance, handles errors via callbacks.
+   - Best suited for production systems where both performance and reliability are important.
+
+**Recommendation**: Use Asynchronous Send in most cases. Avoid Synchronous Send unless absolutely necessary. Fire and Forget is useful for non-critical data like logs etc.
+
 ## References
 
 * Udemy 
 * Chatgpt
 * Substack - The polymathic engineer
+* Substack - https://newsletter.systemdesigncodex.com/p/3-kafka-messaging-strategies?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
 *  Reactive Kafka example - https://github.com/Kevded/example-reactive-spring-kafka-consumer-and-producer/blob/master/README.md

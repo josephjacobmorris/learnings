@@ -26,6 +26,10 @@ To check the current readahead value for the block device, use `lsblk -o NAME,RA
 
 It's also essential to note that blockdev expects values in 512-byte sectors, whereas lsblk reports values in KiB. To temporarily set the readahead value to 128 KiB on `/dev/nvme0n1`, use the command `blockdev --setra 256 /dev/nvme0n1`.
 
+### Using faster hardware 
+* Also consider local storage over remote storage
+
+
 ## References
 * Chatgpt or LLM
 * https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-search-speed.html

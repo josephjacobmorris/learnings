@@ -29,8 +29,21 @@ It's also essential to note that blockdev expects values in 512-byte sectors, wh
 ### Using faster hardware 
 * Also consider local storage over remote storage
 
+### Searching for as few fields as possible
+Using multiple fields in a query can significantly slow down search performance.
+To improve speed, it's best to pre-aggregate values from these fields at index time and store them in a single field. 
+This approach can be automated without altering the source documents using "copy_to"
 
+#### Copy-to
+The `copy-to` parameter allows copying values and joining them as a single field which provides much faster querying.
+"
+* It is the field value which is copied, not the terms (which result from the analysis process).
+* The original _source field will not be modified to show the copied values.
+* The same value can be copied to multiple fields, with "copy_to": [ "field_1", "field_2" ]
+* You cannot copy recursively using intermediary fields.
+"
 ## References
 * Chatgpt or LLM
 * https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-search-speed.html
 * https://www.elastic.co/guide/en/elasticsearch/reference/current/preload-data-to-file-system-cache.html
+* https://www.elastic.co/guide/en/elasticsearch/reference/current/copy-to.html

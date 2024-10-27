@@ -42,6 +42,11 @@ The `copy-to` parameter allows copying values and joining them as a single field
 * The same value can be copied to multiple fields, with "copy_to": [ "field_1", "field_2" ]
 * You cannot copy recursively using intermediary fields.
 "
+
+### Pre-Index Data
+Pre-indexing helps to make queries faster this is specially more useful such as in the case when you doing range queries and you have fixed list of ranges.
+
+
 ## References
 * Chatgpt or LLM
 * https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-search-speed.html

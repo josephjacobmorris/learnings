@@ -89,9 +89,13 @@ Micronaut data supports `@DateCreated`, `@DateUpdated` to maintain audits etc.
 #### Entity Events
 `@PrePersist`, `@PostPersist`, `@PostRemove`, `@PreRemove`, `@PreUpdate`, `@PostUpdate`.
 
-### Data access
+### Multi-tenancy
+Micronaut allows the use of multiple databases ,schemas or even the same table (with discriminator column ) for multi-tenant applications.
 
-### Transactions
+## Micronaut JDBC and R2DBC
+It has support for
+* Json column
+* Column transformation
 
 ## References
 

@@ -65,6 +65,29 @@ GenericRepository
 Validation can be done Jakarta Validation annotations 
 
 ### Querying
+![img.png](img.png)
+Instead of find,  you can also use search, query, get, read or retrieve.
+The return types supported are 
+* Entity Object
+* List<>
+* Stream <>
+* Option<>
+* Page
+* Slice
+* Future or CompletableFuture
+* Publisher ( reactive)
+* Primitives
+
+Micronaut JDBC and R2DBC supports cursor pageable.
+
+#### `@Where`
+Allows additional filtering to the generated query as in the case of soft deletes.
+
+#### Entity Timestamps
+Micronaut data supports `@DateCreated`, `@DateUpdated` to maintain audits etc.
+
+#### Entity Events
+`@PrePersist`, `@PostPersist`, `@PostRemove`, `@PreRemove`, `@PreUpdate`, `@PostUpdate`.
 
 ### Data access
 

@@ -17,10 +17,27 @@ kafka:
 |:--------------------:|:-----------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------|
 |    `@KafkaClient`    |                               Used to create kafka producer                               | `@KafkaClient(batch=true)`                                                                             |
 |   `@KafkaListener`   |                               Used to create kafka consumer                               | `@KafkaListener(groupId="myGroup", threads=10)`                                                        |
+|      `@SendTo`       |                                                                                           |                                                                                                        |
 | `@Topic("my-topic")` |              Topic for Kafka.We can mention multiple topics and regexes also              | `@Topic("my-topic")`, `@Topic("fun-products", "awesome-products")`, `@Topic(patterns="products-\\w+")` |
 |     `@KafkaKey`      | Key for Kafka. It can be omitted but it means kafka wont know how to partition the record | `@KafkaKey(value = "my-key")`                                                                          |
 |      `@Header`       |                         Used to  define headers for kafka message                         |                                                                                                        |
 |       `@Body`        |                       used to indicate the body message to be sent                        |                                                                                                        |
+
+**Serialization & Deserialization**
+Kafka provides default serializers and deserializers for primitive types.
+Configuring custom Serializer& deserializer can be done like below
+```yaml
+kafka:
+    consumers:
+        myGroup:
+            value:
+                deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+```
+
+### Kafka Streams
+```groovy
+compile 'io.micronaut.configuration:micronaut-kafka-streams'
+```
 
 ## Testing How to
 **Embedded Kafka for test**
@@ -31,3 +48,4 @@ testCompile 'org.apache.kafka:kafka_2.12:2.1.1:test'
 ```
 ## References
 * https://micronaut-projects.github.io/micronaut-kafka/1.1.x/guide/
+* https://stackoverflow.com/questions/44014975/kafka-consumer-api-vs-streams-api

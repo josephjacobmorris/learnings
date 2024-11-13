@@ -30,6 +30,25 @@ Limit the number of requests per given interval using counter with TTL value. It
 
 Using sorted sets.Allows for retrieval in log time.
 
+## Best Pratices when using redis
+
+* Use namespaces to keep track of keys
+* Keep the length of keys short
+* Use `SCAN` instead of `KEYS`
+* Use appropriate data structures
+* Use Server-Side Lua Scripts
+
+## Redis Insight
+Used to visualize ,Analyse the redis database
+**Downloads redis insight + redis server**
+```bash
+docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+```
+
 ## References
 
 * <https://www.youtube.com/watch?v=a4yX7RUgTxI&ab_channel=ByteByteGo>
+* https://redis.io/docs/latest/operate/redisinsight/install/install-on-docker/
+* https://medium.com/redis-with-raphael-de-lio/how-to-run-redis-locally-in-a-docker-container-and-manage-it-with-redis-insight-and-redis-cli-14b0af54e1d2
+* https://redis.io/docs/latest/develop/tools/insight/
+* https://redis.io/blog/5-key-takeaways-for-developing-with-redis/

@@ -2,10 +2,28 @@
 
 ## How to store passwords in database?
 
-* Dont store passwords as plain strings, since it will be visible to access to the database and will be easily compromised in case of attacks.
-* Use a modern hashing function and store the hash in the database, since hash function are one way functions.
-* Also add salting to increased security. Salts can be stored in database as plain strings.
+1. **Hashing**: Store the hashed version of the password in the database. Hash functions transform passwords into unique strings that cannot be reversed to obtain the original password.
 
+    * Advantages:
+        - Difficult for hackers to retrieve passwords from plaintext form.
+        - Slow and computationally expensive for attackers, making it difficult to crack passwords.
+    * Disadvantages: 
+        - rainbow table attacks
+
+2. **Salting**: Add a random salt value to the password before hashing. This ensures that even if an attacker uses a rainbow table to crack the password, they will not be able to obtain the original password using precomputed tables.
+
+    * Advantages:
+        - Prevents rainbow table attacks.
+        - Makes brute-force attacks slower and more difficult.
+    * Disadvantages: requires additional storage space for the salt value.
+
+3. **Stretching**: Apply a slow hashing algorithm (like bcrypt) multiple times to passwords, making it harder for attackers to crack them using brute force or rainbow tables.
+
+    * Advantages:
+        - Reduces the effectiveness of brute-force attacks.
+        - Slows down hacker attempts to crack passwords.
+    * Disadvantages: 
+        - requires significant computational resources and memory, making it challenging to use in high-traffic applications.
 ## Different methods to authenticate users
 
 ### JWT
@@ -111,5 +129,6 @@ JWTs provide a scalable and efficient way to handle authentication and data shar
 
 * chatgpt
 * https://chatgpt.com/share/6704262b-7028-800c-a39a-2d2fe43628f0
+* https://newsletter.systemdesign.one/p/how-to-store-passwords-in-database?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
 * <https://www.youtube.com/watch?v=zt8Cocdy15c&list=PLCRMIe5FDPseEIW687mH-LZ-DMNbzAQLF&ab_channel=ByteByteGo>
 

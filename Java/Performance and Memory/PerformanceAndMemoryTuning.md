@@ -1,9 +1,23 @@
 # Performance and Memory Fine-Tuning
 ## Introduction
 When we use `javac` to compile java code it coverts it to byte code and JVMs actually run the byte code (that's the reason why JVM can actually run multiple languages)
+
+### JIT
+The Java Virtual Machine (JVM) uses Just-in-Time (JIT) compilation to speed up execution by compiling bytecode to native machine code. This process involves the JVM monitoring which branches of code are executed most often and then deciding whether to compile specific methods or parts of methods into native machine code.
+
+When JIT compilation is in use, some application code runs in interpreted mode as bytecode, while other code runs natively on the underlying hardware. The JVM can switch between these two modes seamlessly, allowing for faster execution times without requiring significant changes to the application code.
+
+The process involves multiple steps:
+
+1. The JVM monitors bytecode execution.
+2. When a method is executed frequently, it is compiled into native machine code.
+3. The JVM switches from interpreted mode to natively compiled mode only when necessary.
+
+JIT compilation provides several benefits, including faster execution times and improved performance in applications with high CPU-intensive processing requirements. However, there are also limitations and considerations, such as potential performance reductions during JIT compilation and the need for careful evaluation of when to assess code performance.
 ## Design Time Optimization
 
 ## Runtime Optimization
 
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
+* LLMs

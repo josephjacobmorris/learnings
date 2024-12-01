@@ -26,6 +26,7 @@ JIT compilation provides several benefits, including faster execution times and 
 |      `-XX:+PrintFlagsFinal`       |                                                                        Prints all the jvm flags even those deflaut values                                                                         |
 |      `-XX:+PrintCompilation`      |                                                                        Prints all the jvm flags even those deflaut values                                                                         |
 |      `-XX:CICompilerCount=2`      | Number of threads used for compiling. In bigger application increasing number of threads might speed it up. In 32 bit java min is 1 whereas in 64-bit it is 2 (one for server and one for client) |
+|     `-XX:CompilerThreshold=2`     |                                                          Number of times the method has to be run before it is considered for compiling.                                                          |
 |      `-XX:+PrintCompilation`      |                                                                        Prints all the jvm flags even those deflaut values                                                                         |
 |             `-client`             |                                                         Runs the jvm in client mode which is more memory efficient. Has less startup time                                                         |
 ## Design Time Optimization

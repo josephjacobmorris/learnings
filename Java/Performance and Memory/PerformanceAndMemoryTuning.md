@@ -27,6 +27,9 @@ JIT compilation provides several benefits, including faster execution times and 
 * Heap stores all objects 
 * It is shared across all threads.
 
+> Note: Based on above, 
+> 1) the `final` keyword in java ensures that value in stack cant change meaning the reference for objects and value  for primitives
+> 2) the objects are passed by copying the value of reference while the actual object actually resides in the heap.
 ### Metaspace
 
 ## Runtime Optimization

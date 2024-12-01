@@ -16,15 +16,18 @@ The process involves multiple steps:
 JIT compilation provides several benefits, including faster execution times and improved performance in applications with high CPU-intensive processing requirements. However, there are also limitations and considerations, such as potential performance reductions during JIT compilation and the need for careful evaluation of when to assess code performance.
 
 ## JVM Params
-|               Flag                |                                    Description                                    |
-|:---------------------------------:|:---------------------------------------------------------------------------------:|
-|      `-XX:+PrintCompilation`      |                       Print which code is natively compiled                       |
-|       `-XX:+PrintCodeCache`       |                             Print the code cache info                             |
-|  `-XX:InitialCodeCacheSize=128k`  |                          Set the initial code cache size                          |
-|  `-XX:ReservedCodeCacheSize=1m`   |                       Set the max value of code cache size                        |
-| `-XX:CodeCacheExpansionSize=128k` |                 How much to increment by when code cache is full                  |
-|      `-XX:+PrintFlagsFinal`       |                Prints all the jvm flags even those deflaut values                 |
-|             `-client`             | Runs the jvm in client mode which is more memory efficient. Has less startup time |
+|               Flag                |                                                                                            Description                                                                                            |
+|:---------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|      `-XX:+PrintCompilation`      |                                                                               Print which code is natively compiled                                                                               |
+|       `-XX:+PrintCodeCache`       |                                                                                     Print the code cache info                                                                                     |
+|  `-XX:InitialCodeCacheSize=128k`  |                                                                                  Set the initial code cache size                                                                                  |
+|  `-XX:ReservedCodeCacheSize=1m`   |                                                                               Set the max value of code cache size                                                                                |
+| `-XX:CodeCacheExpansionSize=128k` |                                                                         How much to increment by when code cache is full                                                                          |
+|      `-XX:+PrintFlagsFinal`       |                                                                        Prints all the jvm flags even those deflaut values                                                                         |
+|      `-XX:+PrintCompilation`      |                                                                        Prints all the jvm flags even those deflaut values                                                                         |
+|      `-XX:CICompilerCount=2`      | Number of threads used for compiling. In bigger application increasing number of threads might speed it up. In 32 bit java min is 1 whereas in 64-bit it is 2 (one for server and one for client) |
+|      `-XX:+PrintCompilation`      |                                                                        Prints all the jvm flags even those deflaut values                                                                         |
+|             `-client`             |                                                         Runs the jvm in client mode which is more memory efficient. Has less startup time                                                         |
 ## Design Time Optimization
 
 ## Runtime Optimization

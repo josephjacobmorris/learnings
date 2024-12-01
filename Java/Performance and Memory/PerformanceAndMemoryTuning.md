@@ -15,7 +15,22 @@ The process involves multiple steps:
 
 JIT compilation provides several benefits, including faster execution times and improved performance in applications with high CPU-intensive processing requirements. However, there are also limitations and considerations, such as potential performance reductions during JIT compilation and the need for careful evaluation of when to assess code performance.
 
-## JVM Params
+
+## Design Time Optimization
+### Stack
+* There is multiple stack .i.e one stack is assigned per thread
+* Local variables are stored inside stack (primitives are stored directly in stack while objects are stored in heap with reference stored in stack)
+* Since stack uses the stack datastructure we have variable scoping rules in java.
+* Each stack size is much smaller than the heap size
+
+### Heap
+* Heap stores all objects 
+* It is shared across all threads.
+
+### Metaspace
+
+## Runtime Optimization
+### JVM Params
 |               Flag                |                                                                                            Description                                                                                            |
 |:---------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 |      `-XX:+PrintCompilation`      |                                                                               Print which code is natively compiled                                                                               |
@@ -29,9 +44,6 @@ JIT compilation provides several benefits, including faster execution times and 
 |     `-XX:CompilerThreshold=2`     |                                                          Number of times the method has to be run before it is considered for compiling.                                                          |
 |      `-XX:+PrintCompilation`      |                                                                        Prints all the jvm flags even those deflaut values                                                                         |
 |             `-client`             |                                                         Runs the jvm in client mode which is more memory efficient. Has less startup time                                                         |
-## Design Time Optimization
-
-## Runtime Optimization
 
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications

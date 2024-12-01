@@ -14,6 +14,15 @@ The process involves multiple steps:
 3. The JVM switches from interpreted mode to natively compiled mode only when necessary.
 
 JIT compilation provides several benefits, including faster execution times and improved performance in applications with high CPU-intensive processing requirements. However, there are also limitations and considerations, such as potential performance reductions during JIT compilation and the need for careful evaluation of when to assess code performance.
+
+## JVM Params
+|               Flag                |                   Description                    |
+|:---------------------------------:|:------------------------------------------------:|
+|      `-XX:+PrintCompilation`      |      Print which code is natively compiled       |
+|       `-XX:+PrintCodeCache`       |            Print the code cache info             |
+|  `-XX:InitialCodeCacheSize=128k`  |         Set the initial code cache size          |
+|  `-XX:ReservedCodeCacheSize=1m`   |       Set the max value of code cache size       |
+| `-XX:CodeCacheExpansionSize=128k` | How much to increment by when code cache is full |
 ## Design Time Optimization
 
 ## Runtime Optimization

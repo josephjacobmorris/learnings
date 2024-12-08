@@ -32,6 +32,14 @@ JIT compilation provides several benefits, including faster execution times and 
 > 2) the objects are passed by copying the value of reference while the actual object actually resides in the heap.
 ### Metaspace
 
+### Escaping References
+
+* using iterator
+* copying the collections
+* using immutable collections
+* using copy constructor
+* using interface to create immutable objects
+
 ## Runtime Optimization
 ### JVM Params
 |               Flag                |                                                                                            Description                                                                                            |

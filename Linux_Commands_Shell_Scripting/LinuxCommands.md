@@ -26,6 +26,14 @@ tally, and interact using a pointing device (mouse)
 ## System Information
 ### `uname`
 
+### `df`
+
+### `du`
+
+### `free`
+
+### `lscpu`
+
 ## User and Group Management
 
 ### `useradd`

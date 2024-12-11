@@ -52,6 +52,7 @@ Metaspace is subject to garbage collection, meaning that unused class metadata c
 * using interface to create immutable objects
 
 ### Interning Strings
+String `intern()` enusures that for the same value of string same object is re-used. It is useful when there are strings calculated and having the same value.
 
 ## Runtime Optimization
 ### JVM Params
@@ -73,3 +74,5 @@ Metaspace is subject to garbage collection, meaning that unused class metadata c
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
 * LLMs
+* https://stackoverflow.com/questions/10578984/what-is-java-string-interning
+* https://www.geeksforgeeks.org/interning-of-string/

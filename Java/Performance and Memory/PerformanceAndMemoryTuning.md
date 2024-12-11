@@ -31,6 +31,17 @@ JIT compilation provides several benefits, including faster execution times and 
 > 1) the `final` keyword in java ensures that value in stack cant change meaning the reference for objects and value  for primitives
 > 2) the objects are passed by copying the value of reference while the actual object actually resides in the heap.
 ### Metaspace
+Metaspace is a memory area in the Java Virtual Machine (JVM) introduced in Java 8 to replace the Permanent Generation (PermGen) space. It stores class metadata, such as:
+**Class definitions**: Information about the structure of classes, their methods, fields, and inheritance relationships.
+Method metadata: Bytecode instructions, method signatures, and other details about methods.
+**Static Variables**
+Key points about Metaspace:
+Native memory:
+Unlike the heap, Metaspace resides in native memory, which means it is outside the Java heap and is managed by the operating system.
+Dynamic sizing:
+Metaspace can dynamically grow and shrink depending on the application's needs, unlike PermGen which had a fixed size.
+Garbage collection:
+Metaspace is subject to garbage collection, meaning that unused class metadata can be reclaimed to free up memory.
 
 ### Escaping References
 
@@ -39,6 +50,8 @@ JIT compilation provides several benefits, including faster execution times and 
 * using immutable collections
 * using copy constructor
 * using interface to create immutable objects
+
+### Interning Strings
 
 ## Runtime Optimization
 ### JVM Params
@@ -54,6 +67,7 @@ JIT compilation provides several benefits, including faster execution times and 
 |      `-XX:CICompilerCount=2`      | Number of threads used for compiling. In bigger application increasing number of threads might speed it up. In 32 bit java min is 1 whereas in 64-bit it is 2 (one for server and one for client) |
 |     `-XX:CompilerThreshold=2`     |                                                          Number of times the method has to be run before it is considered for compiling.                                                          |
 |      `-XX:+PrintCompilation`      |                                                                        Prints all the jvm flags even those deflaut values                                                                         |
+|      `-XX:MaxMetaspaceSize`       |                                                                               control the maximum size of Metaspace                                                                               |
 |             `-client`             |                                                         Runs the jvm in client mode which is more memory efficient. Has less startup time                                                         |
 
 ## References

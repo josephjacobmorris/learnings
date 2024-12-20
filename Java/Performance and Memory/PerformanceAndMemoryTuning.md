@@ -71,7 +71,8 @@ String `intern()` enusures that for the same value of string same object is re-u
 |   `-XX:StringTableSize=120121`    |                                                                Increases the string pool bucket size and hence may improve latency                                                                |
 |      `-XX:MaxMetaspaceSize`       |                                                                               control the maximum size of Metaspace                                                                               |
 |             `-client`             |                                                         Runs the jvm in client mode which is more memory efficient. Has less startup time                                                         |
-
+|              `-Xms`               |                                                           Initial heap size. Give sufficient initial heap size can speedup startup time                                                           |
+|              `-Xmx`               |                                                                                        Maximum heap size.                                                                                         |
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
 * LLMs

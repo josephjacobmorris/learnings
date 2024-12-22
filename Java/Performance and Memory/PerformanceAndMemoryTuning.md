@@ -52,11 +52,11 @@ Metaspace is subject to garbage collection, meaning that unused class metadata c
 * using interface to create immutable objects
 
 ### Interning Strings
-String `intern()` enusures that for the same value of string same object is re-used. It is useful when there are strings calculated and having the same value.
+String `intern()` ensures that for the same value of string same object is re-used. It is useful when there are strings calculated and having the same value.
 
 ### Garbage collection
-Any object which cannot be reached from stack,metaspace will be garbage collected.
-
+Any object which cannot be reached from stack,metaspace will be eligible for garbage collected.
+`System.gc()` is a hint to JVM to do garbage collection
 ## Runtime Optimization
 ### JVM Params
 |               Flag                |                                                                                            Description                                                                                            |

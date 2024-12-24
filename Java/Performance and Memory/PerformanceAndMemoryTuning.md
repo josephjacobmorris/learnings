@@ -57,6 +57,11 @@ String `intern()` ensures that for the same value of string same object is re-us
 ### Garbage collection
 Any object which cannot be reached from stack,metaspace will be eligible for garbage collected.
 `System.gc()` is a hint to JVM to do garbage collection
+
+#### finalise()
+> Note: Depreciated since java 9
+
+It is executed when object is destroyed during gc. It had a lot of inherent issues like infinite loops, memory leaks ,deadlocks etc
 ## Runtime Optimization
 ### JVM Params
 |               Flag                |                                                                                            Description                                                                                            |

@@ -76,11 +76,18 @@ It is executed when object is destroyed during gc. It had a lot of inherent issu
 |      `-XX:CICompilerCount=2`      | Number of threads used for compiling. In bigger application increasing number of threads might speed it up. In 32 bit java min is 1 whereas in 64-bit it is 2 (one for server and one for client) |
 |     `-XX:CompilerThreshold=2`     |                                                          Number of times the method has to be run before it is considered for compiling.                                                          |
 | `-XX:+PrintStringTableStatistics` |                                                                                 Prints jvm string pool statistics                                                                                 |
+| `-XX:+HeapDumpOnOutOfMemoryError` |                                                                                       Does heap dump on OOM                                                                                       |
+|        `-XX:HeapDumpPath`         |                                                                            Path to which heap dump file is to be saved                                                                            |
 |   `-XX:StringTableSize=120121`    |                                                                Increases the string pool bucket size and hence may improve latency                                                                |
 |      `-XX:MaxMetaspaceSize`       |                                                                               control the maximum size of Metaspace                                                                               |
 |             `-client`             |                                                         Runs the jvm in client mode which is more memory efficient. Has less startup time                                                         |
 |              `-Xms`               |                                                           Initial heap size. Give sufficient initial heap size can speedup startup time                                                           |
 |              `-Xmx`               |                                                                                        Maximum heap size.                                                                                         |
+### Memory Leaks
+#### JVisualVM
+Can be used to see memory growth
+#### Heap Dump
+
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
 * LLMs

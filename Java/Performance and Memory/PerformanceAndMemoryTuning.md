@@ -56,7 +56,15 @@ String `intern()` ensures that for the same value of string same object is re-us
 
 ### Garbage collection
 Any object which cannot be reached from stack,metaspace will be eligible for garbage collected.
-`System.gc()` is a hint to JVM to do garbage collection
+`System.gc()` is a hint to JVM to do garbage collection.
+
+Garbage collection in java follows a mark and sweep process. JVM first checks which all objects are referenced from the stack and its children.
+After marking them and moving them together the rest of objects are cleaned. Now this approach would be okay if most of the objects are to be garbage collected but
+if there  are a lot of the long-lived objects this is not efficient . So the heap is divided into new and old . Usually the gc happens only in the new space and that is
+called a minor gc . Usually gc happens in old space only if the heap is almost completely used and it is called a major GC.
+
+The new gc is further divided into eden,s0 & s1. All the new objects are created in eden space after a gc if it survives it is moved to s0 and in further rounds all objects are moved to s1.
+This means that at any given point s0 or s1 is not used simultaneously.
 
 #### finalise()
 > Note: Depreciated since java 9

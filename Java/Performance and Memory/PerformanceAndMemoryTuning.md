@@ -101,7 +101,7 @@ It is executed when object is destroyed during gc. It had a lot of inherent issu
 |       `-XX:+UseParallelGC`        |                                                                                          use parallel gc                                                                                          |
 |     `-XX:+UseConcMarkSweepGC`     |                                                                                         use concurrent gc                                                                                         |
 |          `-XX:+UseG1GC`           |                                                                                         use concurrent gc                                                                                         |
-| ` -XX:+UseZGC -XX:+ZGenerational` |                                                                                        use concurrent zgc                                                                                         |
+| ` -XX:+UseZGC -XX:+ZGenerational` |                                                                                  use concurrent generational zgc                                                                                  |
 |   `-XX:UseStringDeDuplication`    |                                          available in g1gc only. if non string pool strings are having same value and useful in a memory constrained env                                          |
 ### Memory Leaks
 #### JVisualVM
@@ -115,3 +115,6 @@ Can be used to see memory growth
 * https://www.geeksforgeeks.org/interning-of-string/
 * https://inside.java/2023/11/28/gen-zgc-explainer/
 * https://medium.com/@roopa.kushtagi/netflixs-journey-from-g1gc-to-zgc-tackling-tail-latencies-66ee75681d49
+* https://www.baeldung.com/jvm-series
+* https://www.baeldung.com/jvm-garbage-collectors
+* https://www.baeldung.com/java-21-generational-z-garbage-collector

@@ -97,6 +97,11 @@ It is executed when object is destroyed during gc. It had a lot of inherent issu
 |         `-XX:NewRatio=2`          |                                                                        keeps the ratio of size between new and old gen 1:2                                                                        |
 |       `-XX:SurvivorRatio=2`       |                                                                    keeps the ratio of size between survivor and eden space 1:2                                                                    |
 |   `-XX:MaxTenuringThreshold=15`   |                                                              number of times it must survives b4 it is moved to old gen . Max is 15                                                               |
+|        `-XX:+UseSerialGC`         |                                                                                           use serial gc                                                                                           |
+|       `-XX:+UseParallelGC`        |                                                                                          use parallel gc                                                                                          |
+|     `-XX:+UseConcMarkSweepGC`     |                                                                                         use concurrent gc                                                                                         |
+|          `-XX:+UseG1GC`           |                                                                                         use concurrent gc                                                                                         |
+|   `-XX:UseStringDeDuplication`    |                                          available in g1gc only. if non string pool strings are having same value and useful in a memory constrained env                                          |
 ### Memory Leaks
 #### JVisualVM
 Can be used to see memory growth

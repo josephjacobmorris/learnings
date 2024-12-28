@@ -103,11 +103,17 @@ It is executed when object is destroyed during gc. It had a lot of inherent issu
 |          `-XX:+UseG1GC`           |                                                                                         use concurrent gc                                                                                         |
 | ` -XX:+UseZGC -XX:+ZGenerational` |                                                                                  use concurrent generational zgc                                                                                  |
 |   `-XX:UseStringDeDuplication`    |                                          available in g1gc only. if non string pool strings are having same value and useful in a memory constrained env                                          |
+|  `-XX:StartFlightRecording=...`   |                                                                          to configure start of flight recording in java                                                                           |
+
 ### Memory Leaks
 #### JVisualVM
 Can be used to see memory growth
 #### Heap Dump
 
+### Performance Analysis
+#### JMC - Java Mission Control
+
+#### JFR - Java Flight Recorder
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
 * LLMs
@@ -118,3 +124,5 @@ Can be used to see memory growth
 * https://www.baeldung.com/jvm-series
 * https://www.baeldung.com/jvm-garbage-collectors
 * https://www.baeldung.com/java-21-generational-z-garbage-collector
+* https://stackoverflow.com/questions/71674060/java-flight-recorder-continuous-rolling-recording
+* https://www.baeldung.com/java-flight-recorder-monitoring

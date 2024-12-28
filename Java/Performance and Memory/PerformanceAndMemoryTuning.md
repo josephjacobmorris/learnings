@@ -65,6 +65,7 @@ called a minor gc . Usually gc happens in old space only if the heap is almost c
 
 The new gc is further divided into eden,s0 & s1. All the new objects are created in eden space after a gc if it survives it is moved to s0 and in further rounds all objects are moved to s1.
 This means that at any given point s0 or s1 is not used simultaneously.
+> Note: Usually a soft leak can be seen as a steep curve in old gen
 
 #### finalise()
 > Note: Depreciated since java 9
@@ -91,6 +92,11 @@ It is executed when object is destroyed during gc. It had a lot of inherent issu
 |             `-client`             |                                                         Runs the jvm in client mode which is more memory efficient. Has less startup time                                                         |
 |              `-Xms`               |                                                           Initial heap size. Give sufficient initial heap size can speedup startup time                                                           |
 |              `-Xmx`               |                                                                                        Maximum heap size.                                                                                         |
+|           `-verbose:gc`           |                                                                                          prints gc info                                                                                           |
+|   `-XX:-UseAdaptiveSizePolicy`    |                                                                      turn off dynamic sizing of different components of heap                                                                      |
+|         `-XX:NewRatio=2`          |                                                                        keeps the ratio of size between new and old gen 1:2                                                                        |
+|       `-XX:SurvivorRatio=2`       |                                                                    keeps the ratio of size between survivor and eden space 1:2                                                                    |
+|   `-XX:MaxTenuringThreshold=15`   |                                                              number of times it must survives b4 it is moved to old gen . Max is 15                                                               |
 ### Memory Leaks
 #### JVisualVM
 Can be used to see memory growth

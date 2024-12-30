@@ -114,6 +114,9 @@ Can be used to see memory growth
 #### JMC - Java Mission Control
 
 #### JFR - Java Flight Recorder
+
+#### JMH - Java Micro benchmarking Harness
+
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
 * LLMs
@@ -126,3 +129,6 @@ Can be used to see memory growth
 * https://www.baeldung.com/java-21-generational-z-garbage-collector
 * https://stackoverflow.com/questions/71674060/java-flight-recorder-continuous-rolling-recording
 * https://www.baeldung.com/java-flight-recorder-monitoring
+* https://www.baeldung.com/java-microbenchmark-harness
+* https://github.com/openjdk/jmh
+* https://medium.com/@truongbui95/jmh-java-microbenchmark-harness-tests-in-java-applications-f607f00f536d

@@ -134,7 +134,9 @@ Child of ArrayList. Used for managing role objects
 #### RoleUnresolvedList
 Child of ArrayList. Used for managing role objects
 #### Stack
+Child object of vector
 #### Vector
+Thread safe alternative to arraylist. Been there before arraylist.
 
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications

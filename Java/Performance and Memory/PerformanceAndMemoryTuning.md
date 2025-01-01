@@ -139,6 +139,12 @@ Child object of vector. Recommended to use LinkedList instead
 #### Vector
 Thread safe alternative to arraylist. Been there before arraylist.
 
+### Map
+
+#### HashMap
+`hashCode()` method is used to convert non-integer values to int. HashMap works having an array and each element in the array is a linked list.
+When the hashmap is about 3/4th (default actually depends on factor) full it is resized.High factor means less resizing.  
+
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
 * LLMs

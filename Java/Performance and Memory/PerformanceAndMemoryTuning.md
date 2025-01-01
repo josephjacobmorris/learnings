@@ -127,6 +127,7 @@ Use when:
 * Multi-threaded application with many threads accessing the sam list
 * Lots of read and very few writes
 #### LinkedList
+Sorting is slightly slower in linkedlist than in ArrayList
 #### AttributeList
 Child of ArrayList. Used for mbean
 #### RoleList
@@ -134,7 +135,7 @@ Child of ArrayList. Used for managing role objects
 #### RoleUnresolvedList
 Child of ArrayList. Used for managing role objects
 #### Stack
-Child object of vector
+Child object of vector. Recommended to use LinkedList instead
 #### Vector
 Thread safe alternative to arraylist. Been there before arraylist.
 

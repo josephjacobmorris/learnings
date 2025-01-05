@@ -165,6 +165,8 @@ Sorted keys
 ### StringBuilder vs Concatenating Strings
 - Use StringBuilder when there is lot of concatenation involved
 ### Loops vs Streams
+- Loops are faster in most cases than Streams. Though streams provide easier access to parallel processing in which case it may be faster than traditional loop.
+
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
 * LLMs
@@ -182,3 +184,4 @@ Sorted keys
 * https://medium.com/@truongbui95/jmh-java-microbenchmark-harness-tests-in-java-applications-f607f00f536d
 * https://www.baeldung.com/java-primitives-vs-objects
 * https://stackoverflow.com/questions/5199359/why-do-people-still-use-primitive-types-in-java
+* https://www.baeldung.com/java-streams-vs-loops

@@ -155,7 +155,14 @@ Threadsafe version
 
 ### TreeMap
 Sorted keys
-.
+
+## Other Coding Choices
+### Primitives vs Object.
+- Primitives are faster for most operations including accessing, mathematical operations since they live on stack.
+- Primitives occupy  less memory compared to their wrapper counterparts
+### BigDecimal vs Double
+### StringBuilder vs Concatenating Strings
+### Loops vs Streams
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
 * LLMs
@@ -171,3 +178,5 @@ Sorted keys
 * https://www.baeldung.com/java-microbenchmark-harness
 * https://github.com/openjdk/jmh
 * https://medium.com/@truongbui95/jmh-java-microbenchmark-harness-tests-in-java-applications-f607f00f536d
+* https://www.baeldung.com/java-primitives-vs-objects
+* https://stackoverflow.com/questions/5199359/why-do-people-still-use-primitive-types-in-java

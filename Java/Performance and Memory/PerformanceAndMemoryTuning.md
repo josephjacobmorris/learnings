@@ -145,6 +145,17 @@ Thread safe alternative to arraylist. Been there before arraylist.
 `hashCode()` method is used to convert non-integer values to int. HashMap works having an array and each element in the array is a linked list.
 When the hashmap is about 3/4th (default actually depends on factor) full it is resized.High factor means less resizing.  
 
+### LinkedHashMap
+> note : no performance difference between hashmap and linked hashmap 
+
+Items can be retrieved in the their defined order. Requires more memory than hashmap.
+
+### Hashtable
+Threadsafe version
+
+### TreeMap
+Sorted keys
+.
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications
 * LLMs

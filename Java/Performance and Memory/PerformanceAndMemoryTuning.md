@@ -161,7 +161,9 @@ Sorted keys
 - Primitives are faster for most operations including accessing, mathematical operations since they live on stack.
 - Primitives occupy  less memory compared to their wrapper counterparts
 ### BigDecimal vs Double
+- BigDecimal is slower than double
 ### StringBuilder vs Concatenating Strings
+- Use StringBuilder when there is lot of concatenation involved
 ### Loops vs Streams
 ## References
 * Udemy - Discover how coding choices, benchmarking, performance tuning and memory management can optimize your Java applications

@@ -20,7 +20,32 @@ Splunk Observability is a suite of tools designed to provide real-time visibilit
 * Indexing (for faster searching and querying)
 * Searching (Where the actual data is used to build reports etc.)
 
+## Search Query Performance
+* Search for specific interval
+* use index,sourcetype and host
+* inclusivity over exclusion
+* use in ,or over wildcard
+* reduce the results in the first steps for best performance
+
+## Splunk Access Level
+### Splunk Enterprise
+* User
+* Power User
+* Admin
+
+### Splunk Cloud
+* sc_admin
+* power
+* user
+## Syntax
+
+### `iplocation`
+### `geostats`
+### `stats`
+
+
 ## References
 * Udemy : The Complete Splunk Beginner Course
 * https://community.splunk.com/
 * https://docs.splunk.com/Documentation
+* 

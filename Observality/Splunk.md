@@ -20,7 +20,18 @@ Splunk Observability is a suite of tools designed to provide real-time visibilit
 * Indexing (for faster searching and querying)
 * Searching (Where the actual data is used to build reports etc.)
 
-## Search Query Performance
+## Search Query
+### Basics
+* `*` will work as wildcard
+* search terms are not case sensitive
+* `AND`,`OR` ,`NOT` boolean operations are supported
+* Order of evaluation of boolean operations is NOT, OR , AND
+* If no operation is specified `AND` is implied.
+* exact phrases can be searched using double quotes and use \ to espace " in search terms 
+### Validity
+* Search Job - needs to run every 10 mins 
+* Shared Job executions - will store results for 7 days
+### Performance
 * Search for specific interval
 * use index,sourcetype and host
 * inclusivity over exclusion
@@ -42,6 +53,11 @@ Splunk Observability is a suite of tools designed to provide real-time visibilit
 ### `iplocation`
 ### `geostats`
 ### `stats`
+### `rename`
+### `fields`
+### `erex`
+### `rex`
+### `eval`
 
 
 ## References

@@ -48,20 +48,33 @@ Splunk Observability is a suite of tools designed to provide real-time visibilit
 * sc_admin
 * power
 * user
-## Syntax
+## Commands
 
 ### `iplocation`
 ### `geostats`
-### `stats`
+### `geom`
+
+### `dedup`
+
+### `top`
+### `rare`
+
+### `sort`
+
 ### `rename`
+### `addcoltotals`
 ### `fields`
 ### `erex`
 ### `rex`
 ### `eval`
+### `table`
+### `stats`
+### `chart`
+### `timechart`
 
 
 ## References
 * Udemy : The Complete Splunk Beginner Course
 * https://community.splunk.com/
 * https://docs.splunk.com/Documentation
-* 
+* https://www.splunk.com/en_us/blog/learn/splunk-cheat-sheet-query-spl-regex-commands.html

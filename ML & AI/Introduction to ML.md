@@ -29,6 +29,78 @@ Machine learning has far-reaching implications across various industries:
 * **Finance:** Analyzing market trends, predicting stock prices, and detecting financial anomalies.
 * **Online Shopping:** Personalized product recommendations, optimizing search results, and improving customer experience.
 
+## Steps in a workflow of ML
+### Data Pre-processing
+#### Split Data into training and test
+Splitting data into a training set and a test (or validation) set is a fundamental step in machine learning, and it's essential for several reasons:
+
+**Why split data?**
+
+1. **Evaluate model performance**: By splitting data into two sets, you can evaluate the model's performance on unseen data, which helps to:
+* Assess generalizability
+* Identify biases or overfitting
+* Refine the model architecture or hyperparameters
+2. **Monitor overfitting**: If a model is too complex and fits the training data too well, it may not generalize well to new data. Splitting data allows you to monitor overfitting during training.
+3. **Compare performance metrics**: By evaluating the model on both the training and test sets, you can compare its performance on unseen data, which helps to:
+* Validate model robustness
+* Identify areas for improvement
+4. **Fine-tune hyperparameters**: Splitting data enables you to tune hyperparameters (e.g., learning rate, batch size) on the test set, which helps to optimize the model's performance.
+5. **Backtesting and model selection**: You can use the training set to train a model and then evaluate its performance on the test set before deploying it in production.
+
+**Types of split techniques:**
+
+1. **Random Split**: divides the data into two equal halves randomly
+2. **Stratified Split**: maintains the same proportion of classes (or bins) in both the training and test sets as in the original dataset
+3. **K-Fold Cross-Validation**: divides the data into k subsets, trains models on k-1 subsets, and evaluates their performance on the remaining subset
+
+**When to split data:**
+
+1. **Model selection**: Splitting data helps you evaluate the model's performance on unseen data, which is essential for selecting the best algorithm.
+2. **Hyperparameter tuning**: Fine-tuning hyperparameters during training using a test set helps to optimize the model's performance.
+3. **Model validation**: Evaluating the model on both the training and test sets after each iteration allows you to monitor its performance and refine it accordingly.
+
+**Best practices:**
+
+1. **Keep the split size reasonable**: Avoid splitting data into too few or too many subsets, as this can lead to suboptimal evaluations.
+2. **Choose a suitable split technique**: Select a method that balances evaluation of overfitting and generalizability.
+3. **Use a consistent split approach**: Apply the same split technique across different stages of the machine learning workflow.
+
+By following these guidelines, you'll be able to effectively split your data into training and test sets, enabling you to evaluate and refine your machine learning model's performance more accurately.
+#### Feature Scaling
+Feature scaling is a process that helps reduce or normalize large or extreme features in machine learning models, especially when dealing with high-dimensional data. Let's break it down in simple terms:
+
+**What are features?**
+In machine learning, features are the characteristics or attributes of data, such as text, images, numbers, or categorical variables.
+
+**Why scale features?**
+When working with large datasets, some features might be much larger than others (e.g., a image of a person is much more massive than a text description). This can lead to several problems:
+
+1. **Insufficient representation**: A feature that's too large might not provide enough information for the model to learn.
+2. **Overfitting**: Models might overfit to the training data, failing to generalize well to new, unseen data.
+3. **Computational challenges**: Training models on very large features can be computationally expensive.
+
+**Scaling approaches:**
+
+1. **Standardization (Z-score scaling)**:
+   This involves subtracting the mean and dividing by the standard deviation of each feature to create a new value between 0 and 1. For example, if you have a feature with values like `10`, `-5`, and `20`, the standardized version would be `(0 - (-5)) / sqrt(1 + (10^2) + (20^2))`.
+2. **Normalization**:
+   This method scales features to a common range, usually between 0 and 1, by subtracting the minimum value and dividing by the range of values.
+
+**Why choose one approach?**
+The choice of scaling method depends on:
+
+* The nature of the data (e.g., categorical vs. continuous features)
+* The model architecture and its requirements
+* The specific problem you're trying to solve
+
+> Note: Visualising the data help to draw inferences about the data also identify outliers etc
+
+#### Data Pre-processing using python libraries
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+```
 ##  Types of Machine Learning
 ### Supervised Machine Learning: Task Driven (Preduct next value)
 **Supervised Learning Algorithms**
@@ -121,3 +193,4 @@ To illustrate this concept, think of teaching a dog to fetch a ball. At first, t
 ## References
 * LLMs
 * https://www.thenerdnook.io/p/machine-learning-explained?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
+* https://udemy.com/course/machinelearning/learn/lecture/19019942#learning-tools 

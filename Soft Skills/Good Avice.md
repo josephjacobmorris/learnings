@@ -12,5 +12,11 @@
 
 - Speak, but don't hurt.
 
+## On Learning
+
+- Learn daily
+- Learn Basics first
+
 ## References
 * https://substack.com/@mindfulnews/note/c-75686729?r=40ln3j
+* https://substack.com/@systemdesignone/note/c-89746243?r=40ln3j

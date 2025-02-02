@@ -23,6 +23,11 @@ Display a tree view of processes
 It  is similar to top, but allows you to scroll vertically and horizon‐
 tally, and interact using a pointing device (mouse)
 
+## File and Directory Management
+### `lsof`
+List open  files and processes which opened them
+
+
 ## System Information
 ### `uname`
 
@@ -78,6 +83,7 @@ Used to show "Socket Statistics" .
 
 ## References
 * https://substack.com/@rockybhatia/note/c-79923887?r=40ln3j
+* https://substack.com/@javinpaul/note/c-82066112?r=40ln3j
 * Linux man pages
 * https://www.geeksforgeeks.org/ss-command-in-linux/
 * https://www.cyberciti.biz/faq/unix-linux-killall-command-examples-usage-syntax/

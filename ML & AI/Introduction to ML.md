@@ -37,13 +37,13 @@ Splitting data into a training set and a test (or validation) set is a fundament
 **Why split data?**
 
 1. **Evaluate model performance**: By splitting data into two sets, you can evaluate the model's performance on unseen data, which helps to:
-* Assess generalizability
-* Identify biases or overfitting
-* Refine the model architecture or hyperparameters
+   * Assess generalizability
+   * Identify biases or overfitting
+   * Refine the model architecture or hyperparameters
 2. **Monitor overfitting**: If a model is too complex and fits the training data too well, it may not generalize well to new data. Splitting data allows you to monitor overfitting during training.
 3. **Compare performance metrics**: By evaluating the model on both the training and test sets, you can compare its performance on unseen data, which helps to:
-* Validate model robustness
-* Identify areas for improvement
+   * Validate model robustness
+   * Identify areas for improvement
 4. **Fine-tune hyperparameters**: Splitting data enables you to tune hyperparameters (e.g., learning rate, batch size) on the test set, which helps to optimize the model's performance.
 5. **Backtesting and model selection**: You can use the training set to train a model and then evaluate its performance on the test set before deploying it in production.
 
@@ -101,6 +101,24 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 ```
+Read
+```Python
+dataset=pd.read_csv('Data.csv')
+// ensure that dep col is last before using below code
+feature_cols = dataset.iloc[:,:-1].values
+dep_col = dataset.iloc[:,-1].values
+```
+> Note: In the context of Machine Learning (ML), features refer to input variables that are used as an input to your model during training or prediction phase - they're characteristics from which we learn how something else changes with certain inputs.
+#### Taking care of missing data
+* Delete it , if you are a large dataset and the missing data constitute very less %
+* Replace it by mean, median or mode of that particular column
+```Python
+from sklearn.impute import SimpleImputer
+imputer=SimpleImputer(missing_values=np.nan,startegy='mean)
+// better include all numerical columns
+imputer.fit(X[:,1:3])
+X[:,1:3] = imputer.transform(X[:,1:3] )
+ ```
 ##  Types of Machine Learning
 ### Supervised Machine Learning: Task Driven (Preduct next value)
 **Supervised Learning Algorithms**
@@ -193,4 +211,5 @@ To illustrate this concept, think of teaching a dog to fetch a ball. At first, t
 ## References
 * LLMs
 * https://www.thenerdnook.io/p/machine-learning-explained?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
+* https://www.thenerdnook.io/p/create-a-foolproof-ml-workflow?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
 * https://udemy.com/course/machinelearning/learn/lecture/19019942#learning-tools 

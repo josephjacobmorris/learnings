@@ -114,11 +114,69 @@ dep_col = dataset.iloc[:,-1].values
 * Replace it by mean, median or mode of that particular column
 ```Python
 from sklearn.impute import SimpleImputer
-imputer=SimpleImputer(missing_values=np.nan,startegy='mean)
+imputer=SimpleImputer(missing_values=np.nan,startegy='mean')
 // better include all numerical columns
 imputer.fit(X[:,1:3])
 X[:,1:3] = imputer.transform(X[:,1:3] )
  ```
+
+> Note: To identify sum of missing data we can use `missing_data = df.isnull().sum()`
+
+#### Encoding Data
+**One Hot Encoding**
+One-Hot Encoding (OHE) is a popular technique used in Machine Learning (ML) for categorical data. In the context of ML, OHE is used to represent a target variable as a binary vector where each dimension corresponds to a specific category or label.
+
+**Problem it solves:**
+
+In many real-world applications, such as classification and regression problems, you often encounter categorical variables that have multiple possible values (e.g., "yes" or "no", "male" or "female"). One-Hot Encoding helps in solving this problem by transforming these categorical variables into a numerical representation that can be easily processed by ML algorithms.
+
+**How it works:**
+
+One-Hot Encoding involves the following steps:
+
+1.  **Select relevant categories:** Identify the categories that need to be encoded.
+2.  **Create binary vectors:** For each category, create a binary vector where:
+   *   A 1 indicates that the corresponding category is present.
+   *   A 0 indicates that the category is not present.
+3.  **Transform data:** Convert categorical variables into numerical representations by replacing missing values with zeros in a specific way (e.g., mean or mode).
+
+**Types of One-Hot Encoding:**
+
+There are two main types:
+
+1.  **Binary One-Hot Encoding (B-One-HOT):** Used for binary classification problems where the target variable has only two possible outcomes.
+2.  **Multivariate One-Hot Encoding:** Used for multi-class classification or regression problems where more than two classes exist.
+
+**Advantages:**
+
+One-Hot Encoding offers several benefits:
+
+*   Simplifies data representation and processing
+*   Can handle large datasets with many categories
+*   Allows for easier feature engineering and selection
+
+However, it may not be suitable for all scenarios, especially when working with high-dimensional data or categorical variables that have multiple related concepts.
+
+**Common use cases:**
+
+One-Hot Encoding is commonly used in:
+
+*   Classification problems (e.g., spam vs. non-spam emails)
+*   Regression problems (e.g., predicting continuous outcomes)
+*   Clustering and dimensionality reduction
+*   Data preprocessing for ML algorithms
+```Python
+# Import necessary libraries
+import pandas as pd
+import numpy as np
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
+# Perform One-Hot Encoding on the target variable with multiple categories
+ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(),[0])], remainder='passthrough')
+x = np.array(ct.fit_transform(x))
+```
+
 ##  Types of Machine Learning
 ### Supervised Machine Learning: Task Driven (Preduct next value)
 **Supervised Learning Algorithms**

@@ -22,5 +22,20 @@ Latency in software design refers to the time it takes for a computer or network
 * Database Indexing
 * Pre-warming caches
 
+## Latency Reference for calculation approximation for interviews
+| Communication Type                   | Latency |
+|--------------------------------------|---------|
+| L1 Cache                             | 1ns     |
+| L2 Cache                             | 10ns    |
+| RAM Reference                        | 100ns   |
+| SSD Random Read                      | 100us   |
+| Packet round trip same region        | 1ms     |
+| HDD Disk Seek                        | 10ms    |
+| Packet round trip between continents | 100ms   |
+
+
+
+
 ## References
 * https://blog.bytebytego.com/p/top-strategies-to-reduce-latency?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
+* https://substack.com/@sidm0/note/c-81156846

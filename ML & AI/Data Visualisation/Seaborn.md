@@ -21,57 +21,6 @@ For Python environment:
 ```bash
 pip install seaborn
 ```
-
-## Example Plots using Seaborn
-
-**Basic Plots using Seaborn**
-
-Here are some basic plots that can be used with Seaborn:
-
-### Histogram
-```python
-import numpy as np
-import seaborn as sns
-sns.set(style="white")
-rs = np.random.RandomState(10)
-d = rs.normal(size=100)
-sns.histplot(d, kde=True, bins=10, rug=True, hist_kws={"alpha": 0.3, "color": "m"})
-```
-### Distribution plot
-```python
-import numpy as np
-import seaborn as sns
-sns.set(style="white")
-rs = np.random.RandomState(10)
-d = rs.normal(size=100)
-sns.distplot(d, kde=True, hist_kws={"alpha": 0.3, "color": "m"})
-```
-### Line plot
-```python
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-sns.set(style="dark")
-fmri = sns.load_dataset("fmri")
-plt.plot(fmri.timepoint, fmri.signal)
-plt.title("Response for different events and regions")
-plt.xlabel("Timepoint")
-plt.ylabel("Signal")
-```
-### Linear regression plot
-```python
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-sns.set(style="ticks")
-df = sns.load_dataset("anscombe")
-plt.scatter(df.x, df.y)
-plt.plot(df.x, df.y, "r--")
-plt.title("Linear Regression Model")
-plt.xlabel("X")
-plt.ylabel("Y")
-```
-
 ## References
 * https://seaborn.pydata.org/tutorial/function_overview.html
 * https://www.thenerdnook.io/p/stop-struggling-with-charts?utm_source=share&utm_medium=android&r=40ln3j

@@ -176,6 +176,40 @@ from sklearn.preprocessing import OneHotEncoder
 ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(),[0])], remainder='passthrough')
 x = np.array(ct.fit_transform(x))
 ```
+**Label encoding**
+
+```Python
+# Importing the necessary libraries
+import pandas as pd
+import numpy as np 
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
+from sklearn.compose import ColumnTransformer
+
+# Load the dataset
+df = pd.read_csv('titanic.csv')
+
+# Identify the categorical data
+
+
+# Implement an instance of the ColumnTransformer class
+ct = ColumnTransformer([('one_hot_encoder', OneHotEncoder(), ['Sex','Embarked','Pclass'])], remainder='passthrough')
+
+# Apply the fit_transform method on the instance of ColumnTransformer
+
+
+# Convert the output into a NumPy array
+X=np.array(ct.fit_transform(df))
+
+# Use LabelEncoder to encode binary categorical data
+le= LabelEncoder()
+y=le.fit_transform(df['Survived'])
+# Print the updated matrix of features and the dependent variable vector
+print(X)
+print(y)
+
+
+```
 
 ##  Types of Machine Learning
 ### Supervised Machine Learning: Task Driven (Preduct next value)

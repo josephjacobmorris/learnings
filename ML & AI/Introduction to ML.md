@@ -308,6 +308,52 @@ To illustrate this concept, think of teaching a dog to fetch a ball. At first, t
 3. The agent updates its value function using the rewards received and the current policy.
 4. The process is repeated iteratively until convergence or termination.
 
+## Regression
+
+### Simple Linear Regression
+```Python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+dataset=pd.read_csv('salary.csv')
+X=dataset.iloc[:,:-1].values
+y=dataset.iloc[:,-1].values
+
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=1)
+lr= LinearRegression()
+lr.fit(X_train,y_train)
+
+y_pred=lr.predict(X_test)
+
+plt.scatter(X_train,y_train, color = 'red')
+plt.plot(X_train,r.predict(X_train),color ='blue')
+plt.title('Salary vs Exp')
+plt.xlabel('YOE')
+plt.ylabel('Salary')
+plt.show()
+
+plt.scatter(X_test,y_test, color = 'red')
+plt.plot(X_train,r.predict(X_train),color ='blue')
+plt.title('Salary vs Exp')
+plt.xlabel('YOE')
+plt.ylabel('Salary')
+plt.show()
+```
+
+
+### Multiple Linear Regression 
+
+### Polynomial Regression
+
+### Support Vector Regression (SVR)
+
+### Decision Tree Regression
+
+### Random Forest Regression
+
 ## References
 * LLMs
 * https://www.thenerdnook.io/p/machine-learning-explained?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true

@@ -1,5 +1,8 @@
 # Hacking
 
+## Websites to learn hacking
+* Hacksplaining: https://www.hacksplaining.com/lessons
+
 ## Websites to pratice hacking
 * Hack the box
 * CyberSeclab

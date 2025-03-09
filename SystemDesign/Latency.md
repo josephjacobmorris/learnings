@@ -18,6 +18,9 @@ Latency in software design refers to the time it takes for a computer or network
 * Caching
 * Content Delivery Network
 * Load Balancers
+* Batching requests to reduce n/w overhead and round trips
+* Connection pooling for database and n/w to avoid connection creation overhead
+* Use binary serialization formats such as protobuf
 * Async Task Processing
 * Database Indexing
 * Pre-warming caches
@@ -39,3 +42,4 @@ Latency in software design refers to the time it takes for a computer or network
 ## References
 * https://blog.bytebytego.com/p/top-strategies-to-reduce-latency?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
 * https://substack.com/@sidm0/note/c-81156846
+* https://substack.com/@systemdesignone/note/c-97644362?r=40ln3j

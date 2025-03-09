@@ -1,5 +1,5 @@
-# Remote Job Portals
-## Info
+# Job Portals
+## Remote Job Info
 1. [Toptal](https://toptal.com)
 2. [AngelList](https://angel.co)
 3. [NoDesk](https://nodesk.co)
@@ -25,6 +25,20 @@
 23. [Remote OK Europe](https://remoteok.io/europe)
 24. [We Work Remotely](https://weworkremotely.com)
 25. [Stack Overflow Jobs](https://stackoverflow.com/jobs)
+26. Remote Co
+
+## Jobs in Startups
+1. AngelList
+
+## Freelance
+1. Upwork
+
+## Worldwide
+* Indeed
+* Gla
+
+## Domestic
 
 ## References
 * https://www.instagram.com/reel/DFOyQupo9-l/?igsh=MW45ZmNqNHZyN3QxYw==
+* https://www.instagram.com/reel/DGZzeMXvrui/?igsh=YXhwbGZrOWRtNXVm

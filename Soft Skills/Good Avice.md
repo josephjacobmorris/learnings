@@ -16,6 +16,8 @@
 
 - Be brave enough to take risks
 
+- Start implementing ideas instead of just dreaming
+
 ## On Learning
 
 - Learn daily
@@ -44,3 +46,4 @@
 * https://adlerhsieh.com/p/7-signs-youre-underperformer?utm_source=share&utm_medium=android&r=40ln3j
 * https://substack.com/@pathsofstoicism/note/c-90941527?r=40ln3j
 * https://timesofindia.indiatimes.com/life-style/relationships/web-stories/8-brutal-life-lessons-one-should-learn-early/photostory/118519090.cms
+* https://mindsetjournal.substack.com/p/99-of-people-only-talk-about-their?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true

@@ -346,7 +346,54 @@ plt.show()
 
 ### Multiple Linear Regression 
 
+#### Assumptions of Linear Regression
+
+* Linearity
+* Homoscedasticity - Equal variance
+* Multivariate Normality
+* Independence
+* Lack of multicollinearity
+* Outlier check
+
+> Note: Lookout for the dummy variable trap and collinear variance
+#### Sample Code
+Same as Simple Linear Regression
 ### Polynomial Regression
+### Sample Code
+```python
+import pandas as pd
+import matplotlib.pylot as plt
+import numpy as np
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+df=pd.read_csv('salary.csv')
+X = df.iloc[:,1:2].values
+y = df.iloc[:, -1].values
+
+poly = PolynomialFeatures(degree=4)
+X_poly = poly.fit_transform(X)
+poly_lin_reg = LinearRegression()
+poly_lin_reg.fit(X_poly, y)
+
+ # Plotting Results
+ plt.scatter(X, y, color='blue')
+ 
+plt.plot(X, lin2.predict(poly_lin_reg.fit_transform(X)),
+         color='red')
+plt.title('Polynomial Regression')
+plt.xlabel('XLabel')
+plt.ylabel('YLabel')
+ 
+plt.show()
+```
+> Note: Beware of overfitting when choosing polynomial degree as it may lead to overfitting
+#### Advantages
+* Higher approxination between features and dependant variable
+#### Disadvantages
+* Very sensitive to outliers
+#### Real World use cases
+* growth rate of tissues
+* disease epidemics progression
 
 ### Support Vector Regression (SVR)
 
@@ -359,3 +406,5 @@ plt.show()
 * https://www.thenerdnook.io/p/machine-learning-explained?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
 * https://www.thenerdnook.io/p/create-a-foolproof-ml-workflow?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
 * https://udemy.com/course/machinelearning/learn/lecture/19019942#learning-tools 
+* https://www.geeksforgeeks.org/assumptions-of-linear-regression
+* https://www.geeksforgeeks.org/python-implementation-of-polynomial-regression/

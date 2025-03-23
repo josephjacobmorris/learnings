@@ -396,6 +396,33 @@ plt.show()
 * disease epidemics progression
 
 ### Support Vector Regression (SVR)
+> Note: Feature scaling should be applied since there are no coefficient
+
+#### Sample Code
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+
+df = pd.read_csv('Position_Salaries.csv')
+X=df.iloc[:,1:2].values
+y=df.iloc[:,-1].values
+
+# Feature Scaling on features and dependant variables
+y=y.reshape(len(y),1)
+scy = StandardScaler()
+scX = StandardScaler()
+y=scy.fit_transform(y)
+X=scX.fit_transform(X)
+
+
+# SCVR
+from sklearn.svm import SVR
+regressor = SVR(kernel = 'rbf')
+regressor.fit(X,y)
+scy.inverse_transform(regressor.predict(scX.transform([[6.5]])).reshape(-1,1))
+```
 
 ### Decision Tree Regression
 
@@ -408,3 +435,4 @@ plt.show()
 * https://udemy.com/course/machinelearning/learn/lecture/19019942#learning-tools 
 * https://www.geeksforgeeks.org/assumptions-of-linear-regression
 * https://www.geeksforgeeks.org/python-implementation-of-polynomial-regression/
+* https://www.geeksforgeeks.org/support-vector-regression-svr-using-linear-and-non-linear-kernels-in-scikit-learn/

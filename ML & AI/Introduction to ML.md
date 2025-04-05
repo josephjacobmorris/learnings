@@ -428,6 +428,41 @@ scy.inverse_transform(regressor.predict(scX.transform([[6.5]])).reshape(-1,1))
 
 ### Random Forest Regression
 
+## Classification
+### Logisistic Regression
+
+### KNN
+
+### Support Vector Machine
+
+### Kernel SVM
+
+For non-linearly separable dataset mapping them to higher dimension where they are linearly separable
+Good explaination at : https://medium.com/@abhishekjainindore24/svm-kernels-and-its-type-dfc3d5f2dcd8
+Types of kernel function:
+#### Rbf (Radial Basis Function)
+**Advantages**
+* can handle very comples and non -linear relationships
+
+**Disadvantages**
+* computational intensitive
+* requires careful tuning of the `σ` parameter
+
+#### Sigmaoid
+
+**Advantages**
+* can be used to model relationships simalar to found in neaural networks
+* simple to implement
+**Disadvantages**
+
+
+#### Polynomial
+**Advantages**
+* can model feature interaction
+**Disadvantages**
+* risk of over-fitting
+* computationally expensive
+
 ## References
 * LLMs
 * https://www.thenerdnook.io/p/machine-learning-explained?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
@@ -436,3 +471,4 @@ scy.inverse_transform(regressor.predict(scX.transform([[6.5]])).reshape(-1,1))
 * https://www.geeksforgeeks.org/assumptions-of-linear-regression
 * https://www.geeksforgeeks.org/python-implementation-of-polynomial-regression/
 * https://www.geeksforgeeks.org/support-vector-regression-svr-using-linear-and-non-linear-kernels-in-scikit-learn/
+* https://medium.com/@abhishekjainindore24/svm-kernels-and-its-type-dfc3d5f2dcd8

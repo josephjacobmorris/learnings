@@ -429,7 +429,7 @@ scy.inverse_transform(regressor.predict(scX.transform([[6.5]])).reshape(-1,1))
 ### Random Forest Regression
 
 ## Classification
-### Logisistic Regression
+### Logistic Regression
 
 ### KNN
 
@@ -439,6 +439,35 @@ scy.inverse_transform(regressor.predict(scX.transform([[6.5]])).reshape(-1,1))
 
 For non-linearly separable dataset mapping them to higher dimension where they are linearly separable
 Good explaination at : https://medium.com/@abhishekjainindore24/svm-kernels-and-its-type-dfc3d5f2dcd8
+
+#### Sample Code
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('Social_Network_Ads.csv')
+X = df.iloc[:,:-1].values
+y = df.iloc[:,-1].values
+
+
+from sklearn.model_selection import train_test_split
+
+# Do feature scaling if required
+
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2)
+from sklearn.svm import SVC
+md = SVC(kernel='rbf')
+md.fit(X_train,y_train)
+
+y_pred = md.predict(X_test)
+
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(y_test,y_pred)
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, y_pred_test) 
+```
+
 Types of kernel function:
 #### Rbf (Radial Basis Function)
 **Advantages**
@@ -472,3 +501,4 @@ Types of kernel function:
 * https://www.geeksforgeeks.org/python-implementation-of-polynomial-regression/
 * https://www.geeksforgeeks.org/support-vector-regression-svr-using-linear-and-non-linear-kernels-in-scikit-learn/
 * https://medium.com/@abhishekjainindore24/svm-kernels-and-its-type-dfc3d5f2dcd8
+* https://www.kaggle.com/code/prashant111/svm-classifier-tutorial

@@ -492,6 +492,15 @@ Types of kernel function:
 * risk of over-fitting
 * computationally expensive
 
+### Naive Bayes
+
+### Decision Tree Classification
+
+## Clustering
+
+### K Means Clustering
+
+### Hierarchical Clustering
 ## References
 * LLMs
 * https://www.thenerdnook.io/p/machine-learning-explained?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true

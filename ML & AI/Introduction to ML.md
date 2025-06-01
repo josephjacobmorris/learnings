@@ -503,6 +503,42 @@ Types of kernel function:
 ### Hierarchical Clustering
 
 ## Association Learning
+📘 What is **Association Rule Learning**?
+
+**Association Rule Learning** is a **rule-based machine learning technique** for discovering interesting relationships, patterns, or associations among variables in large datasets.
+
+It is most commonly used in:
+
+* **Market basket analysis**
+* **Recommendation engines**
+* **Web usage mining**
+* **Medical diagnosis**
+
+**Common Algorithms in Association Rule Learning**
+
+Here are the most well-known algorithms:
+
+| Algorithm                               | Description                                                                                                             |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Apriori**                             | Generates frequent itemsets by iteratively expanding them and pruning non-frequent subsets. Uses the Apriori property.  |
+| **Eclat**                               | Uses a vertical data format and intersection-based approach for better efficiency on dense datasets.                    |
+| **FP-Growth (Frequent Pattern Growth)** | Builds a compact **prefix tree (FP-tree)** and avoids candidate generation. Much faster than Apriori on large datasets. |
+| **AIS**                                 | Early algorithm that generated candidate itemsets during the scan. Less efficient than Apriori.                         |
+| **SETM (Set-Oriented Mining)**          | Generates itemsets using SQL-like set operations. Focuses on performance in relational databases.                       |
+| **CHARM**                               | Used for mining **closed frequent itemsets** (i.e., maximal sets with no supersets of same support).                    |
+| **SPADE / PrefixSpan**                  | Algorithms used for **sequential pattern mining**, a related field where order of itemsets matters.                     |
+
+---
+
+**⚖️ Comparison (Apriori vs FP-Growth vs Eclat)**
+
+| Feature                    | Apriori                           | FP-Growth            | Eclat                           |
+| -------------------------- | --------------------------------- | -------------------- | ------------------------------- |
+| Uses candidate generation? | ✅ Yes                             | ❌ No                 | ❌ No                            |
+| Memory usage               | Medium                            | Low                  | High (on dense data)            |
+| Speed                      | Slower (due to multiple DB scans) | Faster (fewer scans) | Faster (if data fits in memory) |
+| Suitable for               | Small to medium datasets          | Large datasets       | Dense datasets                  |
+
 ### Apriori
 The **Apriori algorithm** is a classic algorithm used in **association rule mining** and **frequent itemset mining**. It is particularly popular in **market basket analysis**, where the goal is to find relationships between items purchased together.
 

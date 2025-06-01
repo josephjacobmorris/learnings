@@ -501,6 +501,124 @@ Types of kernel function:
 ### K Means Clustering
 
 ### Hierarchical Clustering
+
+## Association Learning
+### Apriori
+The **Apriori algorithm** is a classic algorithm used in **association rule mining** and **frequent itemset mining**. It is particularly popular in **market basket analysis**, where the goal is to find relationships between items purchased together.
+
+---
+
+#### 🔍 What is the Apriori Algorithm?
+
+The **Apriori algorithm** is used to identify **frequent itemsets** (sets of items that appear together frequently in a dataset) and derive **association rules**. It operates on the principle that:
+
+> **"If an itemset is frequent, then all of its subsets must also be frequent."**
+> This is known as the **Apriori property** (or anti-monotonicity property).
+
+---
+
+#### ⚙️ Working of the Apriori Algorithm
+
+1. **Set a minimum support threshold**.
+2. **Generate frequent itemsets**:
+
+   * Start with individual items (1-itemsets).
+   * Calculate their **support** (frequency in transactions).
+   * Prune items that do not meet the minimum support.
+   * Join remaining items to form 2-itemsets, then 3-itemsets, etc.
+   * Repeat until no more itemsets can be formed.
+3. **Generate association rules**:
+
+   * For each frequent itemset `L`, generate rules of the form `A → B`, where `A ⊂ L` and `B = L − A`.
+   * Calculate metrics like **confidence**, **lift**, etc.
+   * Retain rules that meet the **minimum confidence**.
+
+---
+
+#### 📘 Key Terms
+
+| Term                 | Description                                                                                                                               |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Itemset**          | A collection of one or more items.                                                                                                        |
+| **Support**          | The proportion of transactions in the dataset that contain the itemset.                                                                   |
+| **Confidence**       | Measures how often items in `B` appear in transactions that contain `A`. `conf(A → B) = support(A ∪ B) / support(A)`                      |
+| **Lift**             | Measures how much more likely `B` is given `A` compared to the baseline likelihood of `B`. `lift(A → B) = confidence(A → B) / support(B)` |
+| **Frequent Itemset** | Itemsets that meet or exceed the minimum support threshold.                                                                               |
+
+---
+
+#### 🐍 Sample Python Implementation (Using `mlxtend`)
+
+```python
+from mlxtend.frequent_patterns import apriori, association_rules
+import pandas as pd
+
+# Sample transaction data
+dataset = [
+    ['milk', 'bread', 'nuts', 'apple'],
+    ['milk', 'bread', 'nuts'],
+    ['milk', 'bread'],
+    ['milk', 'bread', 'apple'],
+    ['milk', 'bread', 'apple']
+]
+
+# Convert to one-hot encoding DataFrame
+from mlxtend.preprocessing import TransactionEncoder
+te = TransactionEncoder()
+te_ary = te.fit(dataset).transform(dataset)
+df = pd.DataFrame(te_ary, columns=te.columns_)
+
+# Step 1: Get frequent itemsets
+frequent_itemsets = apriori(df, min_support=0.6, use_colnames=True)
+
+# Step 2: Generate rules
+rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.7)
+
+print("Frequent Itemsets:")
+print(frequent_itemsets)
+print("\nAssociation Rules:")
+print(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
+```
+
+
+#### 💡 Popular Use Cases
+
+1. **Market Basket Analysis**:
+
+   * Discover which items are frequently bought together.
+   * Optimize product placement in stores.
+
+2. **Recommendation Systems**:
+
+   * Suggest products that are frequently purchased together.
+
+3. **Inventory Management**:
+
+   * Group items that are often co-purchased to improve stock efficiency.
+
+4. **Web Usage Mining**:
+
+   * Discover common navigation patterns on websites.
+
+5. **Medical Diagnosis**:
+
+   * Find relationships between symptoms and diseases.
+
+---
+
+#### ⚠️ Limitations
+
+* **Computational Complexity**: Can be slow on large datasets due to repeated scanning of the database.
+* **Large Rule Sets**: May generate many rules, requiring further filtering.
+
+### Eclat
+
+## Reinforcement Learning
+
+### Upper Confidence Bound (UCB)
+
+### Thompson Sampling
+
 ## References
 * LLMs
 * https://www.thenerdnook.io/p/machine-learning-explained?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
@@ -511,3 +629,5 @@ Types of kernel function:
 * https://www.geeksforgeeks.org/support-vector-regression-svr-using-linear-and-non-linear-kernels-in-scikit-learn/
 * https://medium.com/@abhishekjainindore24/svm-kernels-and-its-type-dfc3d5f2dcd8
 * https://www.kaggle.com/code/prashant111/svm-classifier-tutorial
+* [Apriori Algorithm](https://www.geeksforgeeks.org/apriori-algorithm/)
+* [Implementing Apriori Algorithm In Python](https://www.geeksforgeeks.org/implementing-apriori-algorithm-in-python/)

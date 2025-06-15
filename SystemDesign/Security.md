@@ -29,6 +29,15 @@
 ### JWT
 JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed.
 
+#### Advantages of JWT
+* **Stateless Authentication**: All user data is stored within the token, eliminating the need for server-side sessions.
+* **High Scalability**: Easily supports distributed systems and microservices without sharing session state.
+* **Built-in Security**: Tokens are cryptographically signed (and optionally encrypted), ensuring integrity and authenticity.
+* **Flexible Structure**: Supports custom claims to include roles, permissions, tenant IDs, etc.
+* **Efficient Performance**: Token verification (e.g., HMAC) is often faster than database lookups.
+* **Cross-Domain Compatibility**: Works well with CORS when sent via HTTP headers, unlike cookies with domain restrictions.
+
+
 #### Key Concepts of JWT
 
 1. **Structure**: A JWT is composed of three parts:
@@ -104,6 +113,19 @@ Here’s how the JWT authentication process works, illustrated with a simple dia
 4. **User makes requests**: The user includes the JWT in the header of subsequent requests.
 5. **API validates**: The API validates the JWT (signature, expiration, etc.) and processes the request accordingly.
 
+> Note:
+> **How Client Stores JWT**
+> * **Web Apps**:
+>
+>    * *Options*: `localStorage`, `sessionStorage`, or **HttpOnly cookies**.
+>    * *Recommendation*: Prefer **HttpOnly cookies** to mitigate XSS risks.
+> * **Mobile Apps**:
+>
+>    * Use platform-specific **secure storage** like:
+>
+>        * **Keychain** (iOS)
+>        * **Keystore** (Android)
+
 #### JWT Conventions
 
 - **Header Algorithms**: Common algorithms include:
@@ -123,6 +145,9 @@ Here’s how the JWT authentication process works, illustrated with a simple dia
 - **Secret Management**: Keep signing secrets secure and never expose them.
 - **Token Expiration**: Regularly refresh tokens to limit the impact of a stolen token.
 - **HTTPS**: Always use HTTPS to protect JWTs in transit.
+- **Keep Private Keys Secure**
+- **Choose Strong Signing Algos**
+- **Dont send sensitive Data in payload** : Payload is only base64 encoded and not encrypted
 
 JWTs provide a scalable and efficient way to handle authentication and data sharing between systems, making them a popular choice in modern web applications.
 ## References
@@ -131,4 +156,6 @@ JWTs provide a scalable and efficient way to handle authentication and data shar
 * https://chatgpt.com/share/6704262b-7028-800c-a39a-2d2fe43628f0
 * https://newsletter.systemdesign.one/p/how-to-store-passwords-in-database?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
 * <https://www.youtube.com/watch?v=zt8Cocdy15c&list=PLCRMIe5FDPseEIW687mH-LZ-DMNbzAQLF&ab_channel=ByteByteGo>
+* https://blog.algomaster.io/p/json-web-tokens?utm_source=share&utm_medium=android&r=40ln3j&triedRedirect=true
+* https://jwt.io/
 

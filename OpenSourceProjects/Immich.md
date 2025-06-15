@@ -18,6 +18,10 @@ We could then expose the endpoint over internet , making it possible for efficie
 Further we could consider running the system on raspberry pi with sufficient specs to save on electricity bills.
 Also we try powering the entire setup via a solar panel.
 
+## Community Projects
+* ImmichFrame
+* Immich TikTok Remover
 ## References
 * https://immich.app/docs/overview/introduction/
 * https://github.com/immich-app/immich
+* https://www.xda-developers.com/immich-community-projects-couldnt-live-without/

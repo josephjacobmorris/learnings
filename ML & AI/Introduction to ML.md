@@ -648,6 +648,117 @@ print(rules[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
 * **Large Rule Sets**: May generate many rules, requiring further filtering.
 
 ### Eclat
+📘 What is the **ECLAT Algorithm**?
+
+**ECLAT** (Equivalence Class Clustering and bottom-up Lattice Traversal) is an efficient algorithm used in **association rule learning** to find **frequent itemsets**.
+
+Unlike Apriori (which uses a horizontal data format and generates candidates), ECLAT:
+
+* Uses a **vertical data format** (item → transaction IDs or TIDs)
+* Mines frequent itemsets using **TID-set intersections**
+* Is typically faster for **dense datasets** and **when memory is not a constraint**
+
+---
+
+#### 🧠 Key Idea Behind ECLAT
+
+ECLAT represents the dataset in a **vertical layout**, such as:
+
+| Item | Transactions |
+| ---- | ------------ |
+| A    | {1, 2, 3, 5} |
+| B    | {2, 3, 4}    |
+| C    | {2, 3}       |
+
+To compute support of `{A, B}`, ECLAT intersects TID-lists:
+
+```text
+TID(A ∩ B) = {2, 3} ⇒ support = 2
+```
+
+---
+
+#### 🔁 Steps in the ECLAT Algorithm
+
+1. **Convert dataset to vertical format**: Each item maps to the list of transaction IDs it appears in.
+2. **Compute support**: Using TID-set intersections.
+3. **Recursive join**: Combine itemsets with common prefixes to build larger itemsets.
+4. **Prune**: Eliminate itemsets not meeting the **min support** threshold.
+
+---
+
+#### 🐍 Python Implementation of ECLAT (Simple Version)
+
+```python
+from collections import defaultdict
+from itertools import combinations
+
+# Sample dataset
+transactions = [
+    ['A', 'B', 'D'],
+    ['B', 'C', 'E'],
+    ['A', 'B', 'C', 'E'],
+    ['B', 'E'],
+    ['A', 'B', 'C', 'E']
+]
+
+# Step 1: Convert to vertical format (item -> TID list)
+vertical_data = defaultdict(set)
+for tid, transaction in enumerate(transactions):
+    for item in transaction:
+        vertical_data[item].add(tid)
+
+# Step 2: ECLAT algorithm
+def eclat(prefix, items, min_support, freq_itemsets):
+    for i in range(len(items)):
+        item1, tidset1 = items[i]
+        new_prefix = prefix + [item1]
+        support = len(tidset1)
+        if support >= min_support:
+            freq_itemsets.append((new_prefix, support))
+            # Recursive step: intersect with remaining items
+            suffix = []
+            for j in range(i+1, len(items)):
+                item2, tidset2 = items[j]
+                intersection = tidset1 & tidset2
+                if len(intersection) >= min_support:
+                    suffix.append((item2, intersection))
+            eclat(new_prefix, suffix, min_support, freq_itemsets)
+
+# Set minimum support
+min_support = 2
+# Run ECLAT
+freq_itemsets = []
+eclat([], list(vertical_data.items()), min_support, freq_itemsets)
+
+# Display frequent itemsets
+for items, support in freq_itemsets:
+    print(f"Itemset: {items}, Support: {support}")
+```
+
+---
+
+#### 📌 Advantages of ECLAT
+
+* Fast on **dense datasets**.
+* Uses efficient **set intersection** for support computation.
+* Memory-efficient with vertical representation.
+
+---
+
+#### ⚠️ Limitations
+
+* **Memory-intensive** if transaction IDs are very large.
+* Not ideal for **sparse datasets**.
+
+---
+
+#### 🔍 Use Cases
+
+* **Market basket analysis**
+* **Intrusion detection systems**
+* **Genomic data analysis**
+* **Behavioral pattern mining**
 
 ## Reinforcement Learning
 

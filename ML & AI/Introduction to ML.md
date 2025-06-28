@@ -905,6 +905,126 @@ print("Estimated Means:", np.round(rewards / np.maximum(counts, 1), 2))
 ```
 
 ### Thompson Sampling
+**Thompson Sampling** (also known as **Bayesian Bandits**) is a **probabilistic approach** to the **Multi-Armed Bandit problem**. It chooses actions based on **posterior probabilities** that each action is the best one, using **Bayesian inference**.
+
+---
+
+### 💡 Intuition Behind Thompson Sampling
+
+The key idea is:
+
+* **Keep a probability distribution (belief)** over the possible reward rates of each arm.
+* Use **Bayesian updating** to revise these beliefs as more data is observed.
+* At each round, **sample** from these distributions and choose the arm with the **highest sampled value**.
+
+This way:
+
+* Arms that are **uncertain** are still tried (exploration).
+* Arms that are **likely good** are played more (exploitation).
+
+It’s like saying: *“What if each arm is the best one? Let me try to simulate that belief.”*
+
+---
+
+### 📈 Typical Use Case: Bernoulli Rewards
+
+When rewards are binary (success/failure), we model each arm’s success probability with a **Beta distribution**:
+
+$$
+\theta_i \sim \text{Beta}(\alpha_i, \beta_i)
+$$
+
+Where:
+
+* $\alpha_i$: number of successes + 1
+* $\beta_i$: number of failures + 1
+
+Each round:
+
+1. Sample $\theta_i \sim \text{Beta}(\alpha_i, \beta_i)$
+2. Choose arm with highest $\theta_i$
+3. Observe reward (1 or 0)
+4. Update $\alpha_i$ or $\beta_i$ based on result
+
+### 🧠 Thompson Sampling for n-Armed Bandit (Ads)
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Problem setup
+n_ads = 10                    # Number of ads (arms)
+n_rounds = 10000              # Total number of user visits
+
+# Simulated true click-through rates (unknown to the agent)
+true_ctrs = np.random.rand(n_ads)
+
+# Initialize alpha and beta for each ad
+alpha = np.ones(n_ads)  # Number of successes + 1
+beta = np.ones(n_ads)   # Number of failures + 1
+
+# Tracking performance
+total_rewards = []
+ad_selection_counts = np.zeros(n_ads)
+
+# Thompson Sampling
+for t in range(n_rounds):
+    sampled_theta = np.random.beta(alpha, beta)
+    chosen_ad = np.argmax(sampled_theta)
+    
+    # Simulate user click: Bernoulli reward based on true CTR
+    reward = np.random.rand() < true_ctrs[chosen_ad]
+    
+    # Update Beta distribution for the chosen ad
+    if reward == 1:
+        alpha[chosen_ad] += 1
+    else:
+        beta[chosen_ad] += 1
+
+    ad_selection_counts[chosen_ad] += 1
+    total_rewards.append(reward)
+
+# Results
+print("True CTRs:           ", np.round(true_ctrs, 2))
+print("Estimated CTRs:      ", np.round(alpha / (alpha + beta), 2))
+print("Ad Selections Count: ", ad_selection_counts.astype(int))
+print("Total Clicks (Reward):", int(np.sum(total_rewards)))
+
+# Plot ad selection distribution
+plt.bar(range(n_ads), ad_selection_counts, color='skyblue')
+plt.title("Number of Selections per Ad (Thompson Sampling)")
+plt.xlabel("Ad Index")
+plt.ylabel("Number of Selections")
+plt.xticks(range(n_ads))
+plt.show()
+
+# Plot cumulative reward
+plt.plot(np.cumsum(total_rewards))
+plt.title("Cumulative Reward Over Time (Thompson Sampling)")
+plt.xlabel("Round")
+plt.ylabel("Total Clicks")
+plt.show()
+```
+
+---
+
+### 🔍 Output Overview
+
+* **True CTRs**: Actual success probability for each ad (hidden from the agent).
+* **Estimated CTRs**: Learned average reward probability from the Beta distribution.
+* **Ad Selections**: How many times each ad was shown.
+* **Plots**:
+
+   * Histogram of ad selections.
+   * Line plot of cumulative reward over time.
+
+---
+
+### ✅ Benefits of Thompson Sampling in Ads:
+
+* Efficient A/B/n testing.
+* Fast convergence to optimal ad.
+* No need to manually tune exploration rate.
 
 ## References
 * LLMs
@@ -919,3 +1039,5 @@ print("Estimated Means:", np.round(rewards / np.maximum(counts, 1), 2))
 * [Apriori Algorithm](https://www.geeksforgeeks.org/apriori-algorithm/)
 * [Implementing Apriori Algorithm In Python](https://www.geeksforgeeks.org/implementing-apriori-algorithm-in-python/)
 * https://www.geeksforgeeks.org/machine-learning/upper-confidence-bound-algorithm-in-reinforcement-learning/
+* https://www.geeksforgeeks.org/machine-learning/introduction-to-thompson-sampling-reinforcement-learning/
+* https://chatgpt.com/share/685fe698-1440-800c-b7c6-d1aeb09d8275

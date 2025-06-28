@@ -761,8 +761,148 @@ for items, support in freq_itemsets:
 * **Behavioral pattern mining**
 
 ## Reinforcement Learning
+**Reinforcement Learning** is a type of machine learning where an **agent** learns to make decisions by interacting with an **environment**. Instead of being explicitly told what to do (as in supervised learning), the agent must **learn through trial and error** by receiving **rewards or penalties** based on its actions.
+
+**Key Concepts in Reinforcement Learning:**
+
+* **Agent**: The decision-maker or learner.
+* **Environment**: The external system the agent interacts with.
+* **State**: The current situation of the agent within the environment.
+* **Action**: Choices the agent can make.
+* **Reward**: Feedback signal from the environment after taking an action.
+* **Policy**: Strategy used by the agent to determine the next action based on the current state.
+* **Value Function**: Estimate of future rewards that an agent expects to receive from a given state or state-action pair.
+* **Episode**: A complete sequence of actions from the start to the end state (in episodic tasks).
+
+---
+
+**Multi-Armed Bandit Problem (MAB)**
+
+The **Multi-Armed Bandit Problem** is a foundational concept in reinforcement learning that models decision-making under uncertainty.
+
+* Imagine a gambler facing a row of **k slot machines** (bandits), each with an unknown and possibly different probability distribution of rewards.
+* At each timestep, the gambler must choose one machine to play and receives a reward based on the chosen machine’s payout probability.
+* The goal is to **maximize the total reward over time** by balancing:
+
+   * **Exploration**: Trying out different actions to gather information.
+   * **Exploitation**: Choosing the action known to yield the highest reward.
+
+**Why Bandits in RL?**
+
+The Multi-Armed Bandit problem captures the essence of **learning through interaction** and forms the basis for more complex reinforcement learning scenarios.
+
+---
+
+**Reinforcement Learning vs Other ML Paradigms**
+
+| Feature          | Supervised Learning        | Unsupervised Learning      | Reinforcement Learning                   |
+| ---------------- | -------------------------- | -------------------------- | ---------------------------------------- |
+| Data             | Labeled data               | Unlabeled data             | Interaction-based data                   |
+| Goal             | Learn from correct answers | Discover structure in data | Learn optimal actions to maximize reward |
+| Feedback Type    | Direct (labels)            | Indirect                   | Scalar reward (positive or negative)     |
+| Learning Process | One-time training          | One-time training          | Continuous interaction                   |
+
+**Applications of Reinforcement Learning**
+
+* **Robotics** (navigation, manipulation)
+* **Game Playing** (e.g., AlphaGo, Chess)
+* **Recommendation Systems**
+* **Finance and Portfolio Management**
+* **Autonomous Vehicles**
+* **Industrial Control Systems**
 
 ### Upper Confidence Bound (UCB)
+
+The **Upper Confidence Bound (UCB)** algorithm is a strategy for solving the **Multi-Armed Bandit problem**. It addresses the **exploration-exploitation trade-off** by using a **confidence interval** to guide decision-making.
+
+---
+
+### 💡 Intuition Behind UCB
+
+When deciding which action (or arm) to choose, UCB tries to **balance**:
+
+* ✅ **Exploitation**: Picking the arm with the **highest average reward** so far.
+* 🔍 **Exploration**: Trying arms that haven’t been tried much, as they might have high rewards that haven’t been discovered yet.
+
+UCB assumes that **less tried arms have more uncertainty**, and adds an **exploration bonus** to their current average reward. So, even if they haven't performed well yet, they still get a chance to be tried.
+
+---
+
+### 🧪 UCB Formula
+
+For each arm $i$, the UCB score at timestep $t$ is:
+
+$$
+UCB_i = \bar{x}_i + \sqrt{\frac{2 \ln t}{n_i}}
+$$
+
+Where:
+
+* $\bar{x}_i$: Average reward of arm $i$ (exploitation)
+* $n_i$: Number of times arm $i$ has been pulled
+* $t$: Total number of rounds so far
+* $\sqrt{\frac{2 \ln t}{n_i}}$: Exploration term – large if $n_i$ is small
+
+---
+
+### 📊 Exploration vs Exploitation in UCB
+
+| Component                    | Purpose      | Description                                         |
+| ---------------------------- | ------------ | --------------------------------------------------- |
+| $\bar{x}_i$                  | Exploitation | Trust what we know – use the arm that performs well |
+| $\sqrt{\frac{2 \ln t}{n_i}}$ | Exploration  | Give a bonus to rarely tried arms                   |
+
+---
+
+### 🐍 Sample Python Code – UCB Algorithm
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Simulation Parameters
+n_arms = 5
+n_rounds = 1000
+true_means = np.random.rand(n_arms)  # Unknown true reward probabilities
+
+# UCB Initialization
+counts = np.zeros(n_arms)            # Times each arm was selected
+rewards = np.zeros(n_arms)           # Sum of rewards for each arm
+total_rewards = []
+
+for t in range(1, n_rounds + 1):
+    ucb_values = np.zeros(n_arms)
+    
+    for i in range(n_arms):
+        if counts[i] == 0:
+            ucb_values[i] = float('inf')  # Force exploration of each arm once
+        else:
+            avg_reward = rewards[i] / counts[i]
+            confidence = np.sqrt(2 * np.log(t) / counts[i])
+            ucb_values[i] = avg_reward + confidence
+
+    # Select the arm with the highest UCB
+    chosen_arm = np.argmax(ucb_values)
+    
+    # Simulate pulling the arm (Bernoulli reward)
+    reward = np.random.rand() < true_means[chosen_arm]
+    
+    # Update stats
+    counts[chosen_arm] += 1
+    rewards[chosen_arm] += reward
+    total_rewards.append(reward)
+
+# Plot total cumulative reward
+plt.plot(np.cumsum(total_rewards))
+plt.title("Total Reward Over Time (UCB)")
+plt.xlabel("Round")
+plt.ylabel("Cumulative Reward")
+plt.show()
+
+# Show true means and estimated means
+print("True Means:     ", np.round(true_means, 2))
+print("Estimated Means:", np.round(rewards / np.maximum(counts, 1), 2))
+```
 
 ### Thompson Sampling
 
@@ -778,3 +918,4 @@ for items, support in freq_itemsets:
 * https://www.kaggle.com/code/prashant111/svm-classifier-tutorial
 * [Apriori Algorithm](https://www.geeksforgeeks.org/apriori-algorithm/)
 * [Implementing Apriori Algorithm In Python](https://www.geeksforgeeks.org/implementing-apriori-algorithm-in-python/)
+* https://www.geeksforgeeks.org/machine-learning/upper-confidence-bound-algorithm-in-reinforcement-learning/

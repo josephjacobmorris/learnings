@@ -126,6 +126,104 @@ Instead of trying every possible weight, gradient descent follows the **slope (g
 * Sensitive to feature scaling.
 * Non-convex landscapes (like in deep learning) → no guarantee of global optimum.
 
+### Types of Gradient Descent
+
+ **1. Batch Gradient Descent**
+
+* Uses the **entire dataset** to compute the gradient before every weight update.
+
+$$
+w_{new} = w_{old} - \eta \cdot \frac{1}{N}\sum_{i=1}^N \nabla_w L(x_i, y_i)
+$$
+
+ Pros
+
+* Stable convergence (smooth updates).
+* Moves directly toward the optimum for convex problems.
+* Good for small datasets (can fit into memory).
+
+ Cons
+
+* Very **slow** for large datasets (must process all before each update).
+* Memory heavy.
+* Not suitable for online learning (when new data arrives continuously).
+
+ When to use
+
+* Small datasets.
+* When you need very stable convergence and can afford computational cost.
+
+
+ **2. Stochastic Gradient Descent (SGD)**
+
+* Updates weights **after each training example** (one sample at a time).
+
+$$
+w_{new} = w_{old} - \eta \cdot \nabla_w L(x_i, y_i)
+$$
+
+ Pros
+
+* Very fast updates (good for very large datasets).
+* Works well with streaming/online learning.
+* Helps escape local minima due to noise (the "jitter" acts as random exploration).
+
+ Cons
+
+* Very noisy updates (loss curve jumps around instead of smoothly decreasing).
+* Harder to converge to exact minima (may keep oscillating).
+
+ When to use
+
+* Very large datasets.
+* Online/real-time learning scenarios.
+* When exploration (escaping local minima) is desired.
+
+---
+
+ **3. Mini-Batch Gradient Descent**
+
+* Compromise: Split dataset into **small batches** (like 32, 64, 128 samples).
+* Compute gradient for each batch and update.
+
+$$
+w_{new} = w_{old} - \eta \cdot \frac{1}{m}\sum_{i=1}^m \nabla_w L(x_i, y_i)
+$$
+ 
+Pros
+
+* **Best of both worlds**: efficient like SGD, stable like batch GD.
+* Works well with GPUs (vectorized matrix ops).
+* Reduces noise while keeping updates fast.
+* Allows use of optimizers (Adam, RMSProp).
+
+ Cons
+
+* Still some noise (less than SGD).
+* Choosing batch size affects performance (too small = noisy, too large = slow).
+
+ When to use
+
+* **Almost always** → this is the standard in deep learning.
+* Large datasets that cannot fit into memory.
+* Training with GPUs/TPUs.
+
+
+ ✅ Quick Comparison Table
+
+| Method                             | Update Frequency        | Pros                                                 | Cons                     | Best Use                      |
+| ---------------------------------- | ----------------------- | ---------------------------------------------------- | ------------------------ | ----------------------------- |
+| **Batch GD**                       | Once per dataset        | Stable, exact gradient                               | Very slow, memory heavy  | Small datasets                |
+| **SGD**                            | Once per sample         | Fast, good for online learning, escapes local minima | Noisy, oscillations      | Huge datasets, streaming data |
+| **Mini-Batch GD**                  | Once per batch (32–512) | Efficient, stable, GPU-friendly                      | Batch size tuning needed | Default for deep learning     |
+
+
+👉 In practice:
+
+* **Batch GD** → rarely used (too slow).
+* **SGD** → research/online learning.
+* **Mini-batch GD with Adam** → almost always used in deep learning frameworks (TensorFlow, PyTorch).
+
 
 ## References
 * Chatgpt

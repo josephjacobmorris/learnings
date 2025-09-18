@@ -225,6 +225,131 @@ Pros
 * **Mini-batch GD with Adam** → almost always used in deep learning frameworks (TensorFlow, PyTorch).
 
 
+## Sample Artifical Neural Network python code
+Got it 👍
+I’ll walk you through **a full Python example** of building an **Artificial Neural Network (ANN)** using TensorFlow/Keras. I’ll include **data preprocessing**, model building, training, and explanations of the important arguments.
+
+---
+
+### 🧠 Steps:
+
+1. **Import libraries**
+2. **Load and preprocess data** (Scaling, train-test split)
+3. **Build ANN model** (using `tf.keras.Sequential`)
+4. **Compile the model** (optimizer, loss, metrics)
+5. **Train the model** (`fit`)
+6. **Evaluate and predict**
+
+---
+
+```python
+# Step 1: Import necessary libraries
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
+```
+
+```python
+# Step 2: Load & preprocess data
+# Example: Using sklearn's breast cancer dataset
+from sklearn.datasets import load_breast_cancer
+data = load_breast_cancer()
+
+X = data.data        # Features
+y = data.target      # Labels (0 = malignant, 1 = benign)
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, 
+                                                    test_size=0.2, 
+                                                    random_state=42)
+
+# Standardization (important for neural networks to converge faster)
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+```
+
+```python
+# Step 3: Build ANN model
+model = Sequential([
+    # Input layer: input_dim = number of features in dataset
+    Dense(units=16, activation='relu', input_dim=X_train.shape[1]),
+    
+    # Hidden layer with Dropout (to prevent overfitting)
+    Dense(units=8, activation='relu'),
+    Dropout(0.2),
+    
+    # Output layer (1 neuron, sigmoid for binary classification)
+    Dense(units=1, activation='sigmoid')
+])
+```
+
+```python
+# Step 4: Compile the model
+model.compile(optimizer='adam', 
+              loss='binary_crossentropy', 
+              metrics=['accuracy'])
+```
+
+```python
+# Step 5: Train the model
+history = model.fit(X_train, y_train, 
+                    validation_split=0.2,  # 20% of training data for validation
+                    epochs=50,             # number of iterations over dataset
+                    batch_size=32,         # samples processed before weight update
+                    verbose=1)             # 1 = show progress bar
+```
+
+```python
+# Step 6: Evaluate the model
+loss, acc = model.evaluate(X_test, y_test, verbose=0)
+print(f"Test Accuracy: {acc:.4f}")
+
+# Make predictions
+y_pred = (model.predict(X_test) > 0.5).astype("int32")
+print("Sample Predictions:", y_pred[:10].ravel())
+```
+
+---
+
+### 🔑 Explanation of Important TensorFlow/Keras Arguments
+
+#### `Dense(units, activation, input_dim)`
+
+* **units** → Number of neurons in the layer.
+* **activation** → Non-linear function applied (`relu`, `sigmoid`, `softmax`).
+* **input\_dim** → Size of input features (only for first layer).
+
+#### `model.compile(optimizer, loss, metrics)`
+
+* **optimizer** → How weights update. Common:
+
+    * `"adam"` → Adaptive optimizer (fast, good default).
+    * `"sgd"` → Stochastic gradient descent.
+* **loss** → What the model tries to minimize.
+
+    * `"binary_crossentropy"` for binary classification.
+    * `"categorical_crossentropy"` for multi-class.
+    * `"mse"` for regression.
+* **metrics** → How to evaluate model (e.g., `"accuracy"`, `"mae"`).
+
+#### `model.fit(X_train, y_train, validation_split, epochs, batch_size, verbose)`
+
+* **validation\_split** → Fraction of training data used as validation set.
+* **epochs** → How many times the model sees the entire dataset.
+* **batch\_size** → How many samples per gradient update.
+* **verbose** → 0 = silent, 1 = progress bar, 2 = one line per epoch.
+
+#### `Dropout(rate)`
+
+* **rate** → Fraction of neurons to randomly drop during training (e.g., `0.2 = 20%`).
+* Helps prevent overfitting.
+
+
 ## References
 * Chatgpt
 * 
